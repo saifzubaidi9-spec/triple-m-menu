@@ -103,6 +103,13 @@ exports.handler = async (event) => {
       return await createOrder(store, payload);
     }
 
+    if (event.httpMethod === 'DELETE') {
+      const id = clip((event.queryStringParameters || {}).id, MAX_TEXT);
+      if (!id) return json(400, { error: 'Order id is required.' });
+      await store.delete(id);
+      return json(200, { ok: true });
+    }
+
     if (event.httpMethod === 'PATCH') {
       const payload = JSON.parse(event.body || '{}');
       return await updateStatus(store, payload);
