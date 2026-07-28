@@ -1,29 +1,6 @@
 {
   "categories": [
     {
-      "id": "coffee",
-      "label": {
-        "en": "Coffee",
-        "ar": "قهوة"
-      },
-      "note": {
-        "en": "Brewed 07:30–16:00",
-        "ar": "التحضير من 07:30 حتى 16:00"
-      },
-      "hidden": true
-    },
-    {
-      "id": "snacks",
-      "label": {
-        "en": "Snacks",
-        "ar": "وجبات خفيفة"
-      },
-      "note": {
-        "en": "Fresh from the 7am bake · while they last",
-        "ar": "طازجة من فرن الساعة 7 صباحاً · حتى نفاد الكمية"
-      }
-    },
-    {
       "id": "food",
       "label": {
         "en": "Food",
@@ -80,6 +57,29 @@
         "en": "Bottled, canned, fridge drinks",
         "ar": "معلبات ومياه وعصائر"
       }
+    },
+    {
+      "id": "snacks",
+      "label": {
+        "en": "Snacks",
+        "ar": "وجبات خفيفة"
+      },
+      "note": {
+        "en": "Fresh from the 7am bake · while they last",
+        "ar": "طازجة من فرن الساعة 7 صباحاً · حتى نفاد الكمية"
+      }
+    },
+    {
+      "id": "coffee",
+      "label": {
+        "en": "Coffee",
+        "ar": "قهوة"
+      },
+      "note": {
+        "en": "Brewed 07:30–16:00",
+        "ar": "التحضير من 07:30 حتى 16:00"
+      },
+      "hidden": true
     }
   ],
   "orderingEnabled": false,
