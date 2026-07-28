@@ -22,7 +22,7 @@
       "category": "coffee",
       "name": "Espresso",
       "description": "Single origin, pulled tight.",
-      "price": 2.0,
+      "price": 3,
       "emoji": "☕",
       "image": null,
       "tint": [
@@ -36,7 +36,7 @@
       "category": "coffee",
       "name": "Double Espresso",
       "description": "Twice the kick for 8am lectures.",
-      "price": 2.6,
+      "price": 3.5,
       "emoji": "⚡",
       "image": null,
       "tint": [
@@ -232,7 +232,7 @@
       "category": "snacks",
       "name": "Fruit Cup",
       "description": "Whatever the market had at 6am.",
-      "price": 3.0,
+      "price": 3,
       "emoji": "🍓",
       "image": null,
       "tint": [
@@ -260,7 +260,7 @@
       "category": "food",
       "name": "Falafel Bowl",
       "description": "Herby, crisp-shelled, tahini drizzle.",
-      "price": 6.0,
+      "price": 6,
       "emoji": "🥙",
       "image": null,
       "tint": [
