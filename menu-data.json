@@ -47,7 +47,7 @@
         "en": "Single origin, pulled tight.",
         "ar": "بن أحادي المصدر، مستخلص بإحكام."
       },
-      "price": 3,
+      "price": 1,
       "emoji": "☕",
       "image": null,
       "tint": [
@@ -68,7 +68,7 @@
         "en": "Twice the kick for 8am lectures.",
         "ar": "جرعة مضاعفة لمحاضرات الساعة الثامنة صباحاً."
       },
-      "price": 3.5,
+      "price": 2.5,
       "emoji": "⚡",
       "image": null,
       "tint": [
@@ -76,7 +76,7 @@
         "#2B190C"
       ],
       "badge": null,
-      "hidden": false
+      "hidden": true
     },
     {
       "id": "cappuccino",
