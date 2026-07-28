@@ -125,14 +125,14 @@
       "category": "coffee",
       "name": {
         "en": "Double Espresso ",
-        "ar": ""
+        "ar": "دبل اسبريسو"
       },
       "description": {
-        "en": "Stronger ratio, silkier micro-foam.",
-        "ar": "تركيز أقوى ورغوة حريرية ناعمة."
+        "en": "",
+        "ar": ""
       },
-      "price": 3.4,
-      "emoji": "🤍",
+      "price": 1.5,
+      "emoji": "☕☕",
       "image": null,
       "tint": [
         "#45362A",
@@ -145,7 +145,7 @@
       "id": "iced-latte",
       "category": "coffee",
       "name": {
-        "en": "Iced Latte",
+        "en": "Cappuccino",
         "ar": "لاتيه مثلج"
       },
       "description": {
