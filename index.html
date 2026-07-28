@@ -785,7 +785,7 @@
         var list = document.createElement('div');
         list.className = 'list';
         menuData.items
-          .filter(function (it) { return it.category === cat.id; })
+          .filter(function (it) { return it.category === cat.id && !it.hidden; })
           .forEach(function (it, i) { list.appendChild(renderItem(it, i)); });
         panel.appendChild(list);
 

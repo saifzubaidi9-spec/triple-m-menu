@@ -101,6 +101,7 @@
       padding: 14px;
       margin-bottom: 12px;
     }
+    .item-card.is-hidden { opacity: 0.5; }
     .thumb {
       flex-shrink: 0;
       width: 76px;
@@ -495,7 +496,7 @@
       var itemKey = item._tempId || item.id;
 
       var card = document.createElement('div');
-      card.className = 'item-card';
+      card.className = 'item-card' + (item.hidden ? ' is-hidden' : '');
 
       // thumbnail / photo upload
       var thumb = document.createElement('div');
@@ -612,6 +613,19 @@
       badgeSelect.addEventListener('change', function () { item.badge = badgeSelect.value || null; });
       metaRow.appendChild(badgeSelect);
 
+      var visibilityBtn = document.createElement('button');
+      visibilityBtn.type = 'button';
+      visibilityBtn.className = 'btn btn-ghost btn-sm';
+      visibilityBtn.textContent = item.hidden ? 'Hidden' : 'Visible';
+      visibilityBtn.title = item.hidden
+        ? 'Hidden from the menu — click to show it again'
+        : 'Visible on the menu — click to hide it';
+      visibilityBtn.addEventListener('click', function () {
+        item.hidden = !item.hidden;
+        renderEditor();
+      });
+      metaRow.appendChild(visibilityBtn);
+
       var removeBtn = document.createElement('button');
       removeBtn.type = 'button';
       removeBtn.className = 'btn btn-danger btn-sm';
@@ -651,7 +665,8 @@
         emoji: '🍽️',
         image: null,
         tint: ['#4A2E1B', '#26160C'],
-        badge: null
+        badge: null,
+        hidden: false
       });
       renderEditor();
     }
@@ -723,7 +738,8 @@
                 emoji: it.emoji || '🍽️',
                 image: it.image || null,
                 tint: it.tint || ['#4A2E1B', '#26160C'],
-                badge: it.badge || null
+                badge: it.badge || null,
+                hidden: !!it.hidden
               };
             })
           };

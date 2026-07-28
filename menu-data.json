@@ -53,7 +53,8 @@
         "#4A2E1B",
         "#26160C"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "double-espresso",
@@ -73,7 +74,8 @@
         "#54331A",
         "#2B190C"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "cappuccino",
@@ -93,7 +95,8 @@
         "#4E3421",
         "#281A10"
       ],
-      "badge": "bestseller"
+      "badge": "bestseller",
+      "hidden": false
     },
     {
       "id": "latte",
@@ -113,7 +116,8 @@
         "#4A3A28",
         "#251D14"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "flat-white",
@@ -133,7 +137,8 @@
         "#45362A",
         "#231B15"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "iced-latte",
@@ -153,7 +158,8 @@
         "#2C4653",
         "#16242C"
       ],
-      "badge": "new"
+      "badge": "new",
+      "hidden": false
     },
     {
       "id": "mocha",
@@ -173,7 +179,8 @@
         "#43261A",
         "#22120C"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "matcha-latte",
@@ -193,7 +200,8 @@
         "#3A4D2C",
         "#1D2816"
       ],
-      "badge": "new"
+      "badge": "new",
+      "hidden": false
     },
     {
       "id": "butter-croissant",
@@ -213,7 +221,8 @@
         "#5A3F1E",
         "#2E200F"
       ],
-      "badge": "bestseller"
+      "badge": "bestseller",
+      "hidden": false
     },
     {
       "id": "pain-au-chocolat",
@@ -233,7 +242,8 @@
         "#40281C",
         "#20140E"
       ],
-      "badge": "new"
+      "badge": "new",
+      "hidden": false
     },
     {
       "id": "halloumi-toastie",
@@ -253,7 +263,8 @@
         "#52401C",
         "#29200E"
       ],
-      "badge": "veggie"
+      "badge": "veggie",
+      "hidden": false
     },
     {
       "id": "turkey-baguette",
@@ -273,7 +284,8 @@
         "#4C3520",
         "#261B10"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "kettle-chips",
@@ -293,7 +305,8 @@
         "#4A4020",
         "#252010"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "choc-chip-cookie",
@@ -313,7 +326,8 @@
         "#4A331B",
         "#261A0E"
       ],
-      "badge": "bestseller"
+      "badge": "bestseller",
+      "hidden": false
     },
     {
       "id": "blueberry-muffin",
@@ -333,7 +347,8 @@
         "#37304F",
         "#1C1828"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "fruit-cup",
@@ -353,7 +368,8 @@
         "#542832",
         "#2A141A"
       ],
-      "badge": "veggie"
+      "badge": "veggie",
+      "hidden": false
     },
     {
       "id": "shawarma-wrap",
@@ -373,7 +389,8 @@
         "#5A3620",
         "#2D1B10"
       ],
-      "badge": "bestseller"
+      "badge": "bestseller",
+      "hidden": false
     },
     {
       "id": "falafel-bowl",
@@ -393,7 +410,8 @@
         "#4B4A22",
         "#252512"
       ],
-      "badge": "veggie"
+      "badge": "veggie",
+      "hidden": false
     },
     {
       "id": "chicken-panini",
@@ -413,7 +431,8 @@
         "#4E3B22",
         "#271E11"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "margherita-flatbread",
@@ -433,7 +452,8 @@
         "#5A2E22",
         "#2D1711"
       ],
-      "badge": "veggie"
+      "badge": "veggie",
+      "hidden": false
     },
     {
       "id": "beef-burrito",
@@ -453,7 +473,8 @@
         "#4F3B1E",
         "#281E0F"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "veggie-rice-bowl",
@@ -473,7 +494,8 @@
         "#3E4A28",
         "#1F2514"
       ],
-      "badge": "new"
+      "badge": "new",
+      "hidden": false
     },
     {
       "id": "mac-and-cheese",
@@ -493,7 +515,8 @@
         "#5C4419",
         "#2E220C"
       ],
-      "badge": null
+      "badge": null,
+      "hidden": false
     },
     {
       "id": "soup-of-the-day",
@@ -513,7 +536,8 @@
         "#4A2E1E",
         "#25170F"
       ],
-      "badge": "new"
+      "badge": "new",
+      "hidden": false
     }
   ]
 }
