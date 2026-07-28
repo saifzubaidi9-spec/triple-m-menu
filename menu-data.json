@@ -823,14 +823,14 @@
       "id": "hot-americano",
       "category": "hot-drinks",
       "name": {
-        "en": "Americano",
-        "ar": "امريكن"
+        "en": "American",
+        "ar": "امريكان"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "☕",
       "image": null,
       "tint": [
@@ -844,14 +844,14 @@
       "id": "hot-americano-alt",
       "category": "hot-drinks",
       "name": {
-        "en": "Americano (Alt)",
-        "ar": "امريكاتو"
+        "en": "Americano",
+        "ar": "امريكانو"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "☕",
       "image": null,
       "tint": [
@@ -872,7 +872,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "☕",
       "image": null,
       "tint": [
@@ -887,7 +887,7 @@
       "category": "hot-drinks",
       "name": {
         "en": "Cappuccino",
-        "ar": "كبتشينو"
+        "ar": "كابتشينو"
       },
       "description": {
         "en": "",
@@ -949,7 +949,7 @@
       "id": "hot-red-eye",
       "category": "hot-drinks",
       "name": {
-        "en": "Red Eye",
+        "en": "Red Eye ",
         "ar": "ريد اي"
       },
       "description": {
@@ -992,13 +992,13 @@
       "category": "hot-drinks",
       "name": {
         "en": "Vanilla Latte",
-        "ar": "لاتي فانيلا"
+        "ar": "لاتيه فانيلا"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -1013,13 +1013,13 @@
       "category": "hot-drinks",
       "name": {
         "en": "Caramel Latte",
-        "ar": "كرمل لاتي"
+        "ar": "كراميل لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -1034,13 +1034,13 @@
       "category": "hot-drinks",
       "name": {
         "en": "Hazelnut Latte",
-        "ar": "هيزلنت لاتي"
+        "ar": "هيزلنت لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -1055,13 +1055,13 @@
       "category": "hot-drinks",
       "name": {
         "en": "Toffee Latte",
-        "ar": "توفيتك لاتي"
+        "ar": "توفيه لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -1076,13 +1076,13 @@
       "category": "hot-drinks",
       "name": {
         "en": "Caramel Macchiato Latte",
-        "ar": "كرمل مكياتو لاتي"
+        "ar": "كراميل مكياتو لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -1097,39 +1097,18 @@
       "category": "hot-drinks",
       "name": {
         "en": "Pistachio Latte",
-        "ar": "بستاشيو لاتي"
+        "ar": "بستاشيو لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥛",
       "image": null,
       "tint": [
         "#3E4A28",
         "#1F2514"
-      ],
-      "badge": null,
-      "hidden": false
-    },
-    {
-      "id": "hot-latte-cinnamon",
-      "category": "hot-drinks",
-      "name": {
-        "en": "Cinnamon Latte",
-        "ar": "سينتي لاتي"
-      },
-      "description": {
-        "en": "",
-        "ar": ""
-      },
-      "price": 2.0,
-      "emoji": "🥛",
-      "image": null,
-      "tint": [
-        "#5A331E",
-        "#2D1A0F"
       ],
       "badge": null,
       "hidden": false
@@ -1145,7 +1124,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🍫",
       "image": null,
       "tint": [
@@ -1166,7 +1145,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🍫",
       "image": null,
       "tint": [
@@ -1349,13 +1328,13 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Caramel Latte",
-        "ar": "ايس كرمل لاتي"
+        "ar": "ايس كرمل لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1370,13 +1349,13 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Vanilla Latte",
-        "ar": "ايس فانيلا لاتي"
+        "ar": "ايس فانيلا لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1391,13 +1370,13 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Hazelnut Latte",
-        "ar": "ايس هيزلنت لاتي"
+        "ar": "ايس هيزلنت لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1418,7 +1397,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1433,13 +1412,13 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Toffee Latte",
-        "ar": "ايس توفيت لاتي"
+        "ar": "ايس توفيه لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1453,14 +1432,14 @@
       "id": "iced-latte-cinnamon",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Cinnamon Latte",
-        "ar": "ايس سينتش لاتي"
+        "en": "Iced Spanish Latte",
+        "ar": "ايس سبنش لاتيه"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1481,7 +1460,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1502,7 +1481,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1523,7 +1502,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1534,59 +1513,17 @@
       "hidden": false
     },
     {
-      "id": "iced-americano",
+      "id": "iced-americano-alt",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Americano",
+        "en": "Iced Americano ",
         "ar": "ايس امريكانو"
       },
       "description": {
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
-      "emoji": "🧊",
-      "image": null,
-      "tint": [
-        "#2C4653",
-        "#16242C"
-      ],
-      "badge": null,
-      "hidden": false
-    },
-    {
-      "id": "iced-americano-alt",
-      "category": "iced-drinks",
-      "name": {
-        "en": "Iced Americano (Alt)",
-        "ar": "ايس امريكاتو"
-      },
-      "description": {
-        "en": "",
-        "ar": ""
-      },
-      "price": 1.0,
-      "emoji": "🧊",
-      "image": null,
-      "tint": [
-        "#2C4653",
-        "#16242C"
-      ],
-      "badge": null,
-      "hidden": false
-    },
-    {
-      "id": "iced-american",
-      "category": "iced-drinks",
-      "name": {
-        "en": "Iced American",
-        "ar": "ايس امريكين"
-      },
-      "description": {
-        "en": "",
-        "ar": ""
-      },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1601,7 +1538,7 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Espresso Shaken",
-        "ar": "ايس سيرسو شيكن"
+        "ar": "ايس سبريسو مخفوق"
       },
       "description": {
         "en": "",
@@ -1628,7 +1565,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🧊",
       "image": null,
       "tint": [
@@ -1643,7 +1580,7 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Strawberry",
-        "ar": "ايس سعودي فرولة"
+        "ar": "ايس سموذي فرولة"
       },
       "description": {
         "en": "",
@@ -1664,7 +1601,7 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Berry",
-        "ar": "ايس سعودي توت"
+        "ar": "ايس سموذي توت"
       },
       "description": {
         "en": "",
@@ -1685,7 +1622,7 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Peach",
-        "ar": "ايس سعودي خوخ"
+        "ar": "ايس سموذي خوخ"
       },
       "description": {
         "en": "",
@@ -1706,7 +1643,7 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Passion Fruit",
-        "ar": "ايس سعودي باشن"
+        "ar": "ايس سموذي باشن"
       },
       "description": {
         "en": "",
@@ -1727,7 +1664,7 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Mango",
-        "ar": "ايس سعودي مانجو"
+        "ar": "ايس سموذي مانجو"
       },
       "description": {
         "en": "",
@@ -1748,7 +1685,7 @@
       "category": "iced-drinks",
       "name": {
         "en": "Iced Mint",
-        "ar": "سعودي نعناع"
+        "ar": "سموذي نعناع"
       },
       "description": {
         "en": "",
@@ -1817,7 +1754,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 3.0,
+      "price": 3,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -1838,7 +1775,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -1880,7 +1817,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -2006,7 +1943,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -2027,7 +1964,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.0,
+      "price": 2,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -2069,7 +2006,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -2111,7 +2048,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -2132,7 +2069,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -2153,7 +2090,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥛",
       "image": null,
       "tint": [
@@ -2174,7 +2111,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -2237,7 +2174,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -2279,7 +2216,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1.0,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
