@@ -391,7 +391,7 @@
         "#2D1710"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "zinger-sweet",
@@ -412,7 +412,7 @@
         "#2D1D10"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "zinger-creamy",
@@ -433,7 +433,7 @@
         "#251D15"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "zinger-platter",
@@ -454,7 +454,7 @@
         "#281A10"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "beef-burger-classic",
@@ -475,7 +475,7 @@
         "#2D1410"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "chicken-burger",
@@ -496,7 +496,7 @@
         "#2A1A0F"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "saj-shawarma",
@@ -517,7 +517,7 @@
         "#2D1B10"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "saj-shawarma-creamy",
@@ -538,7 +538,7 @@
         "#271E11"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "chicken-fajita",
@@ -559,7 +559,7 @@
         "#2D1711"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "potato-wedges",
@@ -580,7 +580,7 @@
         "#2E220C"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "regular-fries",
@@ -601,7 +601,7 @@
         "#2A210E"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "sauce-peri-peri",
@@ -622,7 +622,7 @@
         "#2D120C"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "sauce-ranch",
@@ -643,7 +643,7 @@
         "#252018"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "sauce-mayo",
@@ -664,7 +664,7 @@
         "#27251D"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "sauce-bbq",
@@ -685,7 +685,7 @@
         "#25150B"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "sauce-mexican-spicy",
@@ -706,7 +706,7 @@
         "#2D140C"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "sauce-mexican-sweet",
@@ -727,7 +727,7 @@
         "#2D1C0C"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "sauce-mustard",
@@ -748,7 +748,7 @@
         "#2E250A"
       ],
       "badge": "new",
-      "hidden": true
+      "hidden": false
     }
   ]
 }
