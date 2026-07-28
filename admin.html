@@ -150,7 +150,8 @@
 
     .status-bar {
       position: sticky;
-      bottom: 0;
+      top: 0;
+      z-index: 20;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -158,8 +159,8 @@
       border: 1px solid var(--line);
       border-radius: 16px;
       padding: 14px 16px;
-      margin-top: 20px;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
     .status-text { flex: 1; font-size: 0.8125rem; color: var(--cream-dim); }
     .status-text.error { color: var(--danger); }
@@ -179,6 +180,12 @@
   <div class="page">
     <h1 class="wordmark">Menu admin</h1>
     <p class="tagline">Edit items, then <strong>Save changes</strong> — the live menu updates in about a minute. Don't share this link.</p>
+
+    <div class="status-bar" id="status-bar">
+      <span class="status-text" id="status-text"></span>
+      <button class="btn btn-ghost btn-sm" id="reload-btn" type="button">Reload</button>
+      <button class="btn btn-primary" id="save-btn" type="button">Save changes</button>
+    </div>
 
     <div class="panel" id="token-panel">
       <h2>Connect to GitHub</h2>
@@ -200,12 +207,6 @@
     <div id="menu-editor">
       <p class="tagline">Loading menu…</p>
     </div>
-  </div>
-
-  <div class="status-bar" id="status-bar">
-    <span class="status-text" id="status-text"></span>
-    <button class="btn btn-ghost btn-sm" id="reload-btn">Reload</button>
-    <button class="btn btn-primary" id="save-btn">Save changes</button>
   </div>
 
   <script>
@@ -493,11 +494,9 @@
     }
 
     function setStatus(text, kind) {
-      var bar = document.getElementById('status-bar');
       var txt = document.getElementById('status-text');
-      txt.textContent = text;
+      txt.textContent = text || 'Ready.';
       txt.className = 'status-text' + (kind ? ' ' + kind : '');
-      bar.classList.toggle('hidden', !text);
     }
 
     function uploadPendingImage(item) {
@@ -574,7 +573,6 @@
     document.getElementById('reload-btn').addEventListener('click', loadMenu);
 
     refreshTokenUi();
-    document.getElementById('status-bar').classList.remove('hidden');
     setStatus('');
     loadMenu();
   </script>
