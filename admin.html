@@ -85,12 +85,20 @@
     .grow { flex: 1; }
 
     .category-block { margin-bottom: 28px; }
+    .category-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
     .category-title {
       font-family: var(--font-display);
       font-size: 1.3rem;
-      margin: 0 0 4px;
+      margin: 0;
     }
     .category-note { font-size: 0.75rem; color: var(--cream-faint); margin: 0 0 14px; }
+    .category-block.is-hidden { opacity: 0.55; }
 
     .item-card {
       display: flex;
@@ -542,12 +550,28 @@
         if (isGroup) return;
 
         var block = document.createElement('div');
-        block.className = 'category-block';
+        block.className = 'category-block' + (cat.hidden ? ' is-hidden' : '');
 
+        var titleRow = document.createElement('div');
+        titleRow.className = 'category-title-row';
         var title = document.createElement('h2');
         title.className = 'category-title';
         title.textContent = cat.label.en;
-        block.appendChild(title);
+        titleRow.appendChild(title);
+
+        var catVisBtn = document.createElement('button');
+        catVisBtn.type = 'button';
+        catVisBtn.className = 'btn btn-ghost btn-sm';
+        catVisBtn.textContent = cat.hidden ? 'Tab Hidden' : 'Tab Visible';
+        catVisBtn.title = cat.hidden
+          ? 'This whole tab is hidden from customers — click to show it'
+          : 'This tab is visible to customers — click to hide it';
+        catVisBtn.addEventListener('click', function () {
+          cat.hidden = !cat.hidden;
+          renderEditor();
+        });
+        titleRow.appendChild(catVisBtn);
+        block.appendChild(titleRow);
 
         var note = document.createElement('p');
         note.className = 'category-note';

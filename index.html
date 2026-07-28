@@ -796,16 +796,17 @@
     }
 
     function topLevelCategories() {
-      return menuData.categories.filter(function (c) { return !c.parent; });
+      return menuData.categories.filter(function (c) { return !c.parent && !c.hidden; });
     }
     function childCategories(parentId) {
-      return menuData.categories.filter(function (c) { return c.parent === parentId; });
+      return menuData.categories.filter(function (c) { return c.parent === parentId && !c.hidden; });
     }
 
     function render() {
       if (!menuData) return;
       var topCats = topLevelCategories();
-      if (!activeCategory) activeCategory = topCats[0].id;
+      var activeIsValid = activeCategory === ORDER_TAB_ID || topCats.some(function (c) { return c.id === activeCategory; });
+      if (!activeCategory || !activeIsValid) activeCategory = topCats[0].id;
       if (activeCategory === ORDER_TAB_ID && !orderingEnabled()) {
         activeCategory = topCats[0].id;
       }
