@@ -373,172 +373,382 @@
       "hidden": false
     },
     {
-      "id": "shawarma-wrap",
+      "id": "zinger-spicy",
       "category": "food",
       "name": {
-        "en": "Chicken Shawarma Wrap",
-        "ar": "راب شاورما دجاج"
+        "en": "Spicy Zinger",
+        "ar": "زنجر حار"
       },
       "description": {
-        "en": "Marinated overnight, grilled to order.",
-        "ar": "متبّل طوال الليل، يُشوى عند الطلب."
+        "en": "Lettuce, sauces, turkey, cheese.",
+        "ar": "خس، صوصات، تيركي، جبنه."
       },
-      "price": 6.5,
+      "price": 0,
+      "emoji": "🍗",
+      "image": null,
+      "tint": [
+        "#5A2E1E",
+        "#2D1710"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "zinger-sweet",
+      "category": "food",
+      "name": {
+        "en": "Sweet Zinger",
+        "ar": "زنجر حلو"
+      },
+      "description": {
+        "en": "Lettuce, sauces, turkey, cheese.",
+        "ar": "خس، صوصات، تيركي، جبنه."
+      },
+      "price": 0,
+      "emoji": "🍗",
+      "image": null,
+      "tint": [
+        "#5A3A1E",
+        "#2D1D10"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "zinger-creamy",
+      "category": "food",
+      "name": {
+        "en": "Creamy Zinger",
+        "ar": "زنجر بالكريمه"
+      },
+      "description": {
+        "en": "Cream, mushroom, mozzarella cheese.",
+        "ar": "كريمه، ماشروم، جبنه ماتزوريلا."
+      },
+      "price": 0,
+      "emoji": "🍗",
+      "image": null,
+      "tint": [
+        "#4A3A2A",
+        "#251D15"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "zinger-platter",
+      "category": "food",
+      "name": {
+        "en": "Zinger Platter",
+        "ar": "بلاتر زنجر"
+      },
+      "description": {
+        "en": "Lettuce, sauces, cheese, fries.",
+        "ar": "خس، صوصات، جبنه، بطاطا."
+      },
+      "price": 0,
+      "emoji": "🍽️",
+      "image": null,
+      "tint": [
+        "#4F3320",
+        "#281A10"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "beef-burger-classic",
+      "category": "food",
+      "name": {
+        "en": "Classic Beef Burger",
+        "ar": "برجر كلاسك بيف"
+      },
+      "description": {
+        "en": "Lettuce, tomato, pickles, sauces, cheese.",
+        "ar": "خس، طماطم، مخلل، صوصات، جبنه."
+      },
+      "price": 0,
+      "emoji": "🍔",
+      "image": null,
+      "tint": [
+        "#5A2820",
+        "#2D1410"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "chicken-burger",
+      "category": "food",
+      "name": {
+        "en": "Chicken Burger",
+        "ar": "تشكن برجر"
+      },
+      "description": {
+        "en": "Lettuce, ranch, tomato (optional).",
+        "ar": "خس، رانش، طماطم اختياري."
+      },
+      "price": 0,
+      "emoji": "🍔",
+      "image": null,
+      "tint": [
+        "#54341E",
+        "#2A1A0F"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "saj-shawarma",
+      "category": "food",
+      "name": {
+        "en": "Saj Shawarma",
+        "ar": "شاورما صاج"
+      },
+      "description": {
+        "en": "Tortilla bread, ranch.",
+        "ar": "خبز تورتيلا، رانش."
+      },
+      "price": 0,
       "emoji": "🌯",
       "image": null,
       "tint": [
         "#5A3620",
         "#2D1B10"
       ],
-      "badge": "bestseller",
-      "hidden": false
+      "badge": "new",
+      "hidden": true
     },
     {
-      "id": "falafel-bowl",
+      "id": "saj-shawarma-creamy",
       "category": "food",
       "name": {
-        "en": "Falafel Bowl",
-        "ar": "طبق فلافل"
+        "en": "Creamy Saj Shawarma",
+        "ar": "شاورما صاج بالكريما"
       },
       "description": {
-        "en": "Herby, crisp-shelled, tahini drizzle.",
-        "ar": "بالأعشاب، مقرمش، مع صلصة الطحينة."
+        "en": "Mozzarella cheese, cream, mushroom.",
+        "ar": "جبنه ماتزوريلا، كريمه، ماشروم."
       },
-      "price": 6,
-      "emoji": "🥙",
-      "image": null,
-      "tint": [
-        "#4B4A22",
-        "#252512"
-      ],
-      "badge": "veggie",
-      "hidden": false
-    },
-    {
-      "id": "chicken-panini",
-      "category": "food",
-      "name": {
-        "en": "Grilled Chicken Panini",
-        "ar": "بانيني دجاج مشوي"
-      },
-      "description": {
-        "en": "Pressed hot, melted provolone.",
-        "ar": "يُحضّر ساخناً مع جبن بروفولون ذائب."
-      },
-      "price": 6.8,
-      "emoji": "🥪",
+      "price": 0,
+      "emoji": "🌯",
       "image": null,
       "tint": [
         "#4E3B22",
         "#271E11"
       ],
-      "badge": null,
-      "hidden": false
+      "badge": "new",
+      "hidden": true
     },
     {
-      "id": "margherita-flatbread",
+      "id": "chicken-fajita",
       "category": "food",
       "name": {
-        "en": "Margherita Flatbread",
-        "ar": "فطيرة مارغريتا"
+        "en": "Chicken Fajita",
+        "ar": "فاهيتا دجاج"
       },
       "description": {
-        "en": "Stone-baked between lectures.",
-        "ar": "تُخبز على حجر بين المحاضرات."
+        "en": "Soy sauce, vegetables, ketchup.",
+        "ar": "صويا صوص، خضار، كاتشب."
       },
-      "price": 5.9,
-      "emoji": "🍕",
+      "price": 0,
+      "emoji": "🫓",
       "image": null,
       "tint": [
         "#5A2E22",
         "#2D1711"
       ],
-      "badge": "veggie",
-      "hidden": false
-    },
-    {
-      "id": "beef-burrito",
-      "category": "food",
-      "name": {
-        "en": "Beef Burrito",
-        "ar": "بوريتو لحم بقري"
-      },
-      "description": {
-        "en": "Rice, black beans, salsa, no fuss.",
-        "ar": "أرز، فاصولياء سوداء، صلصة، ببساطة."
-      },
-      "price": 6.9,
-      "emoji": "🌯",
-      "image": null,
-      "tint": [
-        "#4F3B1E",
-        "#281E0F"
-      ],
-      "badge": null,
-      "hidden": false
-    },
-    {
-      "id": "veggie-rice-bowl",
-      "category": "food",
-      "name": {
-        "en": "Veggie Rice Bowl",
-        "ar": "طبق أرز نباتي"
-      },
-      "description": {
-        "en": "Roasted veg over turmeric rice.",
-        "ar": "خضار مشوية فوق أرز الكركم."
-      },
-      "price": 5.8,
-      "emoji": "🥗",
-      "image": null,
-      "tint": [
-        "#3E4A28",
-        "#1F2514"
-      ],
       "badge": "new",
-      "hidden": false
+      "hidden": true
     },
     {
-      "id": "mac-and-cheese",
+      "id": "potato-wedges",
       "category": "food",
       "name": {
-        "en": "Mac & Cheese Cup",
-        "ar": "كوب مكرونة بالجبن"
+        "en": "Potato Wedges",
+        "ar": "بطاطا واتشز"
       },
       "description": {
-        "en": "Comfort food, ready in a minute.",
-        "ar": "أكلة مريحة، جاهزة خلال دقيقة."
+        "en": "Thick-cut, crispy wedges.",
+        "ar": "قطع بطاطا سميكة ومقرمشة."
       },
-      "price": 4.9,
-      "emoji": "🧀",
+      "price": 0,
+      "emoji": "🥔",
       "image": null,
       "tint": [
         "#5C4419",
         "#2E220C"
       ],
-      "badge": null,
-      "hidden": false
+      "badge": "new",
+      "hidden": true
     },
     {
-      "id": "soup-of-the-day",
+      "id": "regular-fries",
       "category": "food",
       "name": {
-        "en": "Soup of the Day",
-        "ar": "شوربة اليوم"
+        "en": "Regular Fries",
+        "ar": "بطاطا عادي"
       },
       "description": {
-        "en": "Ask at the counter — changes daily.",
-        "ar": "اسأل عند الكاونتر — تتغير يومياً."
+        "en": "Classic crispy fries.",
+        "ar": "بطاطا مقرمشة كلاسيكية."
       },
-      "price": 4.2,
-      "emoji": "🍲",
+      "price": 0,
+      "emoji": "🍟",
       "image": null,
       "tint": [
-        "#4A2E1E",
-        "#25170F"
+        "#54431C",
+        "#2A210E"
       ],
       "badge": "new",
-      "hidden": false
+      "hidden": true
+    },
+    {
+      "id": "sauce-peri-peri",
+      "category": "food",
+      "name": {
+        "en": "Peri Peri",
+        "ar": "بيري بيري"
+      },
+      "description": {
+        "en": "Peri-peri heat, on the side.",
+        "ar": "صوص إضافي على الجانب."
+      },
+      "price": 0,
+      "emoji": "🌶️",
+      "image": null,
+      "tint": [
+        "#5A2418",
+        "#2D120C"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "sauce-ranch",
+      "category": "food",
+      "name": {
+        "en": "Ranch",
+        "ar": "رانش"
+      },
+      "description": {
+        "en": "Creamy ranch, on the side.",
+        "ar": "صوص رانش كريمي، على الجانب."
+      },
+      "price": 0,
+      "emoji": "🥣",
+      "image": null,
+      "tint": [
+        "#4A4030",
+        "#252018"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "sauce-mayo",
+      "category": "food",
+      "name": {
+        "en": "Mayonnaise",
+        "ar": "مايونيز"
+      },
+      "description": {
+        "en": "Classic mayo, on the side.",
+        "ar": "مايونيز كلاسيكي، على الجانب."
+      },
+      "price": 0,
+      "emoji": "🥣",
+      "image": null,
+      "tint": [
+        "#4E4A3A",
+        "#27251D"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "sauce-bbq",
+      "category": "food",
+      "name": {
+        "en": "Barbecue",
+        "ar": "باربكيو"
+      },
+      "description": {
+        "en": "Smoky BBQ, on the side.",
+        "ar": "صوص باربكيو مدخّن، على الجانب."
+      },
+      "price": 0,
+      "emoji": "🥫",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "sauce-mexican-spicy",
+      "category": "food",
+      "name": {
+        "en": "Mexican Sauce — Spicy",
+        "ar": "مكسكي حار"
+      },
+      "description": {
+        "en": "Mexican-style, hot.",
+        "ar": "نكهة مكسيكية حارة."
+      },
+      "price": 0,
+      "emoji": "🌶️",
+      "image": null,
+      "tint": [
+        "#5A2818",
+        "#2D140C"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "sauce-mexican-sweet",
+      "category": "food",
+      "name": {
+        "en": "Mexican Sauce — Sweet",
+        "ar": "مكسكي حلو"
+      },
+      "description": {
+        "en": "Mexican-style, sweet.",
+        "ar": "نكهة مكسيكية حلوة."
+      },
+      "price": 0,
+      "emoji": "🍯",
+      "image": null,
+      "tint": [
+        "#5A3818",
+        "#2D1C0C"
+      ],
+      "badge": "new",
+      "hidden": true
+    },
+    {
+      "id": "sauce-mustard",
+      "category": "food",
+      "name": {
+        "en": "Mustard",
+        "ar": "خردل"
+      },
+      "description": {
+        "en": "Tangy mustard, on the side.",
+        "ar": "خردل لاذع، على الجانب."
+      },
+      "price": 0,
+      "emoji": "🥣",
+      "image": null,
+      "tint": [
+        "#5C4A14",
+        "#2E250A"
+      ],
+      "badge": "new",
+      "hidden": true
     }
   ]
 }
