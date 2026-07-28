@@ -94,6 +94,25 @@
       background: var(--amber);
       color: var(--on-amber);
     }
+    .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      margin-inline-start: 5px;
+      border-radius: 999px;
+      font-size: 0.625rem;
+      font-weight: 700;
+      vertical-align: middle;
+      background: var(--amber);
+      color: var(--on-amber);
+    }
+    .tab[aria-selected="true"] .tab-badge {
+      background: var(--on-amber);
+      color: var(--amber);
+    }
     .panel-note {
       font-size: 0.75rem;
       color: var(--cream-faint);
@@ -107,7 +126,7 @@
     .item {
       display: flex;
       align-items: center;
-      gap: 13px;
+      gap: 12px;
       padding: 12px;
       background: var(--surface);
       border: 1px solid var(--line);
@@ -172,6 +191,24 @@
       font-variant-numeric: tabular-nums;
       direction: ltr;
     }
+    .add-btn {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: var(--amber);
+      color: var(--on-amber);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
+    }
+    .add-btn:active { transform: scale(0.92); }
     footer {
       margin-top: 30px;
       text-align: center;
@@ -186,8 +223,126 @@
       font-size: 0.875rem;
       padding: 40px 0;
     }
+
+    /* ── Order tab ─────────────────────────────────────────────── */
+    .cart-line {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .cart-line-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .cart-line-name {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .cart-remove-btn {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--surface-hi);
+      border: 1px solid var(--line);
+      color: var(--cream-dim);
+      font-size: 15px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .cart-note-input {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      color: var(--cream);
+      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 11px;
+    }
+    .order-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 4px 6px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .order-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .order-form input[type="text"] {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--cream);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 13px 14px;
+    }
+    .order-error {
+      color: var(--danger);
+      font-size: 0.8rem;
+      margin: 0;
+    }
+    .order-submit-btn {
+      appearance: none;
+      border: none;
+      background: var(--amber);
+      color: var(--on-amber);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 15px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .order-submit-btn:disabled { opacity: 0.6; cursor: default; }
+    .confirmation {
+      text-align: center;
+      padding: 34px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .confirmation-heading {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin: 6px 0 0;
+    }
+    .confirmation-id {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--amber);
+      letter-spacing: 0.05em;
+      margin: 0;
+      direction: ltr;
+    }
+    .confirmation-body {
+      font-size: 0.875rem;
+      color: var(--cream-dim);
+      max-width: 32ch;
+      margin: 0 0 14px;
+    }
+
     @media (prefers-reduced-motion: no-preference) {
-      .item {
+      .item, .cart-line {
         animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
         animation-delay: calc(var(--i, 0) * 45ms + 80ms);
       }
@@ -223,6 +378,8 @@
   </div>
 
   <script>
+    var ORDER_TAB_ID = '__order__';
+
     var STRINGS = {
       en: {
         eyebrow: 'Triple M · Campus Kiosk',
@@ -232,7 +389,22 @@
         unavailable: 'Menu unavailable right now — please ask at the counter.',
         footer1: 'Triple M · Building C, university campus',
         footer2: 'Menu updates weekly',
-        toggleLabel: 'العربية'
+        toggleLabel: 'العربية',
+        orderTab: 'Order',
+        emptyCart: 'Your order is empty. Add items from the menu to get started.',
+        notePlaceholder: 'Add a note — e.g. no onion',
+        remove: 'Remove',
+        total: 'Total',
+        namePlaceholder: 'Your name',
+        numberPlaceholder: 'Student number',
+        placeOrder: 'Place order',
+        sending: 'Sending…',
+        missingFields: 'Please enter your name and student number.',
+        submitFailed: 'Couldn’t send your order — please try again.',
+        orderSent: 'Order sent!',
+        orderSentBody: 'We’ll have it ready soon — show this number at the counter.',
+        newOrder: 'Start a new order',
+        addToOrder: 'Add to order'
       },
       ar: {
         eyebrow: 'تريبل إم · كشك الحرم الجامعي',
@@ -242,7 +414,22 @@
         unavailable: 'القائمة غير متاحة حالياً — يرجى السؤال عند الكاونتر.',
         footer1: 'تريبل إم · مبنى C، الحرم الجامعي',
         footer2: 'تُحدَّث القائمة أسبوعياً',
-        toggleLabel: 'English'
+        toggleLabel: 'English',
+        orderTab: 'طلبي',
+        emptyCart: 'طلبك فارغ. أضف أصنافاً من القائمة للبدء.',
+        notePlaceholder: 'أضف ملاحظة — مثال: بدون بصل',
+        remove: 'إزالة',
+        total: 'الإجمالي',
+        namePlaceholder: 'الاسم',
+        numberPlaceholder: 'الرقم الجامعي',
+        placeOrder: 'إرسال الطلب',
+        sending: 'جارٍ الإرسال…',
+        missingFields: 'يرجى إدخال الاسم والرقم الجامعي.',
+        submitFailed: 'تعذر إرسال الطلب — حاول مرة أخرى.',
+        orderSent: 'تم إرسال الطلب!',
+        orderSentBody: 'سيكون جاهزاً قريباً — أظهر هذا الرقم عند الكاونتر.',
+        newOrder: 'بدء طلب جديد',
+        addToOrder: 'أضف إلى الطلب'
       }
     };
     var BADGE_LABELS = {
@@ -253,6 +440,28 @@
     var menuData = null;
     var activeCategory = null;
     var currentLang = localStorage.getItem('tm_lang') === 'ar' ? 'ar' : 'en';
+
+    // ── Order state ──────────────────────────────────────────────────
+    var nextCartId = 1;
+    var cart = loadCart();
+    var studentName = '';
+    var studentNumber = '';
+    var submitting = false;
+    var submitError = '';
+    var lastOrder = null;
+
+    function loadCart() {
+      try {
+        var parsed = JSON.parse(localStorage.getItem('tm_cart') || '[]');
+        parsed.forEach(function (l) { if (l.cartId >= nextCartId) nextCartId = l.cartId + 1; });
+        return parsed;
+      } catch (e) {
+        return [];
+      }
+    }
+    function saveCart() {
+      localStorage.setItem('tm_cart', JSON.stringify(cart));
+    }
 
     function renderItem(item, index) {
       var art = document.createElement('article');
@@ -298,9 +507,240 @@
       price.textContent = 'JD ' + Number(item.price).toFixed(2);
       art.appendChild(price);
 
+      var addBtn = document.createElement('button');
+      addBtn.type = 'button';
+      addBtn.className = 'add-btn';
+      addBtn.setAttribute('aria-label', STRINGS[currentLang].addToOrder);
+      addBtn.textContent = '+';
+      addBtn.addEventListener('click', function () {
+        cart.push({ cartId: nextCartId++, itemId: item.id, notes: '' });
+        saveCart();
+        var badgeEl = document.getElementById('order-badge');
+        if (badgeEl) {
+          badgeEl.hidden = false;
+          badgeEl.textContent = cart.length;
+        }
+      });
+      art.appendChild(addBtn);
+
       return art;
     }
 
+    // ── Order tab rendering ─────────────────────────────────────────
+    function resolveCartLine(line) {
+      var item = menuData.items.find(function (it) { return it.id === line.itemId; });
+      if (!item) return null;
+      return {
+        cartId: line.cartId,
+        itemId: line.itemId,
+        notes: line.notes,
+        name: item.name[currentLang] || item.name.en,
+        price: item.price
+      };
+    }
+
+    function renderCartLine(line) {
+      var row = document.createElement('div');
+      row.className = 'cart-line';
+
+      var top = document.createElement('div');
+      top.className = 'cart-line-top';
+      var name = document.createElement('span');
+      name.className = 'cart-line-name';
+      name.textContent = line.name;
+      var price = document.createElement('span');
+      price.className = 'price';
+      price.textContent = 'JD ' + line.price.toFixed(2);
+      var removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'cart-remove-btn';
+      removeBtn.setAttribute('aria-label', STRINGS[currentLang].remove);
+      removeBtn.textContent = '×';
+      removeBtn.addEventListener('click', function () {
+        cart = cart.filter(function (l) { return l.cartId !== line.cartId; });
+        saveCart();
+        render();
+      });
+      top.appendChild(name);
+      top.appendChild(price);
+      top.appendChild(removeBtn);
+      row.appendChild(top);
+
+      var noteInput = document.createElement('input');
+      noteInput.type = 'text';
+      noteInput.className = 'cart-note-input';
+      noteInput.placeholder = STRINGS[currentLang].notePlaceholder;
+      noteInput.value = line.notes || '';
+      noteInput.addEventListener('input', function () {
+        var target = cart.find(function (l) { return l.cartId === line.cartId; });
+        if (target) { target.notes = noteInput.value; saveCart(); }
+      });
+      row.appendChild(noteInput);
+
+      return row;
+    }
+
+    function renderOrderForm() {
+      var form = document.createElement('div');
+      form.className = 'order-form';
+
+      var nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.dir = 'auto';
+      nameInput.placeholder = STRINGS[currentLang].namePlaceholder;
+      nameInput.value = studentName;
+      nameInput.addEventListener('input', function () { studentName = nameInput.value; });
+      form.appendChild(nameInput);
+
+      var numberInput = document.createElement('input');
+      numberInput.type = 'text';
+      numberInput.placeholder = STRINGS[currentLang].numberPlaceholder;
+      numberInput.value = studentNumber;
+      numberInput.addEventListener('input', function () { studentNumber = numberInput.value; });
+      form.appendChild(numberInput);
+
+      if (submitError) {
+        var err = document.createElement('p');
+        err.className = 'order-error';
+        err.textContent = submitError;
+        form.appendChild(err);
+      }
+
+      var submitBtn = document.createElement('button');
+      submitBtn.type = 'button';
+      submitBtn.className = 'order-submit-btn';
+      submitBtn.disabled = submitting;
+      submitBtn.textContent = submitting ? STRINGS[currentLang].sending : STRINGS[currentLang].placeOrder;
+      submitBtn.addEventListener('click', submitOrder);
+      form.appendChild(submitBtn);
+
+      return form;
+    }
+
+    function renderConfirmation() {
+      var wrap = document.createElement('div');
+      wrap.className = 'confirmation';
+
+      var heading = document.createElement('h2');
+      heading.className = 'confirmation-heading';
+      heading.textContent = STRINGS[currentLang].orderSent;
+      wrap.appendChild(heading);
+
+      var idLine = document.createElement('p');
+      idLine.className = 'confirmation-id';
+      idLine.textContent = '#' + lastOrder.id;
+      wrap.appendChild(idLine);
+
+      var body = document.createElement('p');
+      body.className = 'confirmation-body';
+      body.textContent = STRINGS[currentLang].orderSentBody;
+      wrap.appendChild(body);
+
+      var newOrderBtn = document.createElement('button');
+      newOrderBtn.type = 'button';
+      newOrderBtn.className = 'order-submit-btn';
+      newOrderBtn.textContent = STRINGS[currentLang].newOrder;
+      newOrderBtn.addEventListener('click', function () {
+        lastOrder = null;
+        render();
+      });
+      wrap.appendChild(newOrderBtn);
+
+      return wrap;
+    }
+
+    function renderOrderPanel() {
+      var wrap = document.createElement('div');
+
+      if (lastOrder) {
+        wrap.appendChild(renderConfirmation());
+        return wrap;
+      }
+
+      var resolvedLines = cart.map(resolveCartLine).filter(Boolean);
+
+      if (resolvedLines.length === 0) {
+        var empty = document.createElement('p');
+        empty.className = 'loading';
+        empty.textContent = STRINGS[currentLang].emptyCart;
+        wrap.appendChild(empty);
+        return wrap;
+      }
+
+      var list = document.createElement('div');
+      list.className = 'list';
+      resolvedLines.forEach(function (line, i) {
+        var row = renderCartLine(line);
+        row.style.setProperty('--i', i);
+        list.appendChild(row);
+      });
+      wrap.appendChild(list);
+
+      var totalRow = document.createElement('div');
+      totalRow.className = 'order-total-row';
+      var totalLabel = document.createElement('span');
+      totalLabel.textContent = STRINGS[currentLang].total;
+      var totalValue = document.createElement('span');
+      totalValue.className = 'price';
+      var total = resolvedLines.reduce(function (sum, l) { return sum + l.price; }, 0);
+      totalValue.textContent = 'JD ' + total.toFixed(2);
+      totalRow.appendChild(totalLabel);
+      totalRow.appendChild(totalValue);
+      wrap.appendChild(totalRow);
+
+      wrap.appendChild(renderOrderForm());
+
+      return wrap;
+    }
+
+    function submitOrder() {
+      var name = studentName.trim();
+      var number = studentNumber.trim();
+      if (!name || !number) {
+        submitError = STRINGS[currentLang].missingFields;
+        render();
+        return;
+      }
+
+      var resolvedLines = cart.map(resolveCartLine).filter(Boolean);
+      var payload = {
+        studentName: name,
+        studentNumber: number,
+        items: resolvedLines.map(function (l) {
+          return { itemId: l.itemId, name: l.name, price: l.price, notes: l.notes };
+        })
+      };
+
+      submitting = true;
+      submitError = '';
+      render();
+
+      fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
+          if (!res.ok) return res.json().then(function (e) { throw new Error(e.error || 'Failed'); });
+          return res.json();
+        })
+        .then(function (data) {
+          lastOrder = { id: data.id, total: data.total };
+          cart = [];
+          saveCart();
+          studentName = '';
+          studentNumber = '';
+          submitting = false;
+          render();
+        })
+        .catch(function () {
+          submitting = false;
+          submitError = STRINGS[currentLang].submitFailed;
+          render();
+        });
+    }
+
+    // ── Main render ──────────────────────────────────────────────────
     function render() {
       if (!menuData) return;
       if (!activeCategory) activeCategory = menuData.categories[0].id;
@@ -350,6 +790,40 @@
 
         panelsWrap.appendChild(panel);
       });
+
+      // Order tab — a cart view, not a menu category
+      var isOrderActive = activeCategory === ORDER_TAB_ID;
+      var orderTab = document.createElement('button');
+      orderTab.className = 'tab';
+      orderTab.type = 'button';
+      orderTab.setAttribute('role', 'tab');
+      orderTab.id = 'tab-order';
+      orderTab.setAttribute('aria-selected', isOrderActive ? 'true' : 'false');
+      orderTab.setAttribute('aria-controls', 'panel-order');
+      orderTab.tabIndex = isOrderActive ? 0 : -1;
+      orderTab.addEventListener('click', function () {
+        activeCategory = ORDER_TAB_ID;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      var orderTabLabel = document.createElement('span');
+      orderTabLabel.textContent = STRINGS[currentLang].orderTab;
+      orderTab.appendChild(orderTabLabel);
+      var badge = document.createElement('span');
+      badge.className = 'tab-badge';
+      badge.id = 'order-badge';
+      badge.textContent = cart.length;
+      badge.hidden = cart.length === 0;
+      orderTab.appendChild(badge);
+      switcher.appendChild(orderTab);
+
+      var orderPanel = document.createElement('section');
+      orderPanel.id = 'panel-order';
+      orderPanel.setAttribute('role', 'tabpanel');
+      orderPanel.setAttribute('aria-labelledby', 'tab-order');
+      if (!isOrderActive) orderPanel.hidden = true;
+      orderPanel.appendChild(renderOrderPanel());
+      panelsWrap.appendChild(orderPanel);
     }
 
     function applyLanguage(lang) {
