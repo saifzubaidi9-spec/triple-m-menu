@@ -224,6 +224,33 @@
     }
     .admin-tab-badge[hidden] { display: none; }
 
+    .ordering-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .ordering-toggle-label {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--cream);
+    }
+    .ordering-toggle-hint {
+      font-size: 0.75rem;
+      color: var(--cream-faint);
+      margin-top: 2px;
+      max-width: 46ch;
+    }
+    .ordering-toggle.is-off {
+      border-color: rgba(217, 105, 90, 0.35);
+      background: rgba(217, 105, 90, 0.08);
+    }
+
     .order-card {
       background: var(--surface);
       border: 1px solid var(--line);
@@ -321,6 +348,16 @@
       </button>
     </div>
 
+    <div class="ordering-toggle" id="ordering-toggle-row">
+      <div>
+        <div class="ordering-toggle-label">Ordering</div>
+        <div class="ordering-toggle-hint" id="ordering-toggle-hint">
+          On — the Order tab and every "+" button are visible to customers.
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm" id="ordering-toggle-btn" type="button">On</button>
+    </div>
+
     <div id="view-menu">
       <p class="tagline">Edit items, then <strong>Save changes</strong> — the live menu updates in about a minute.</p>
 
@@ -366,7 +403,7 @@
     var BADGES = ['', 'new', 'bestseller', 'veggie'];
     var BADGE_LABELS = { '': 'No badge', new: 'New', bestseller: 'Bestseller', veggie: 'Veggie' };
 
-    var state = { categories: [], items: [], dataSha: null };
+    var state = { categories: [], items: [], dataSha: null, orderingEnabled: true };
     var pendingImages = {}; // itemId -> { file, dataUrl }
     var nextTempId = 1;
 
@@ -437,6 +474,26 @@
       });
     }
 
+    // ── Ordering on/off ─────────────────────────────────────────────────
+    function renderOrderingToggle() {
+      var row = document.getElementById('ordering-toggle-row');
+      var hint = document.getElementById('ordering-toggle-hint');
+      var btn = document.getElementById('ordering-toggle-btn');
+      var on = state.orderingEnabled;
+
+      row.classList.toggle('is-off', !on);
+      btn.textContent = on ? 'On' : 'Off';
+      btn.className = 'btn btn-sm ' + (on ? 'btn-primary' : 'btn-danger');
+      hint.textContent = on
+        ? 'On — the Order tab and every "+" button are visible to customers.'
+        : 'Off — the Order tab and every "+" button are hidden. The menu itself still shows normally.';
+    }
+
+    document.getElementById('ordering-toggle-btn').addEventListener('click', function () {
+      state.orderingEnabled = !state.orderingEnabled;
+      renderOrderingToggle();
+    });
+
     // ── Load ──────────────────────────────────────────────────────────
     function loadMenu() {
       setStatus('');
@@ -446,9 +503,11 @@
         var json = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
         state.categories = json.categories;
         state.items = json.items.map(function (it) { return Object.assign({}, it); });
+        state.orderingEnabled = json.orderingEnabled !== false;
         state.dataSha = file.sha;
         pendingImages = {};
         renderEditor();
+        renderOrderingToggle();
       }).catch(function (e) {
         document.getElementById('menu-editor').innerHTML =
           '<p class="tagline" style="color:var(--danger)">Couldn\'t load menu: ' + e.message + '</p>';
@@ -728,6 +787,7 @@
           setStatus('Saving menu…');
           var payload = {
             categories: state.categories,
+            orderingEnabled: !!state.orderingEnabled,
             items: state.items.map(function (it) {
               return {
                 id: it.id,

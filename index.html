@@ -519,21 +519,23 @@
       price.textContent = 'JD ' + Number(item.price).toFixed(2);
       art.appendChild(price);
 
-      var addBtn = document.createElement('button');
-      addBtn.type = 'button';
-      addBtn.className = 'add-btn';
-      addBtn.setAttribute('aria-label', STRINGS[currentLang].addToOrder);
-      addBtn.textContent = '+';
-      addBtn.addEventListener('click', function () {
-        cart.push({ cartId: nextCartId++, itemId: item.id, notes: '' });
-        saveCart();
-        var badgeEl = document.getElementById('order-badge');
-        if (badgeEl) {
-          badgeEl.hidden = false;
-          badgeEl.textContent = cart.length;
-        }
-      });
-      art.appendChild(addBtn);
+      if (orderingEnabled()) {
+        var addBtn = document.createElement('button');
+        addBtn.type = 'button';
+        addBtn.className = 'add-btn';
+        addBtn.setAttribute('aria-label', STRINGS[currentLang].addToOrder);
+        addBtn.textContent = '+';
+        addBtn.addEventListener('click', function () {
+          cart.push({ cartId: nextCartId++, itemId: item.id, notes: '' });
+          saveCart();
+          var badgeEl = document.getElementById('order-badge');
+          if (badgeEl) {
+            badgeEl.hidden = false;
+            badgeEl.textContent = cart.length;
+          }
+        });
+        art.appendChild(addBtn);
+      }
 
       return art;
     }
@@ -753,9 +755,16 @@
     }
 
     // ── Main render ──────────────────────────────────────────────────
+    function orderingEnabled() {
+      return !!menuData && menuData.orderingEnabled !== false;
+    }
+
     function render() {
       if (!menuData) return;
       if (!activeCategory) activeCategory = menuData.categories[0].id;
+      if (activeCategory === ORDER_TAB_ID && !orderingEnabled()) {
+        activeCategory = menuData.categories[0].id;
+      }
 
       var switcher = document.getElementById('switcher');
       var panelsWrap = document.getElementById('panels');
@@ -803,39 +812,42 @@
         panelsWrap.appendChild(panel);
       });
 
-      // Order tab — a cart view, not a menu category
-      var isOrderActive = activeCategory === ORDER_TAB_ID;
-      var orderTab = document.createElement('button');
-      orderTab.className = 'tab';
-      orderTab.type = 'button';
-      orderTab.setAttribute('role', 'tab');
-      orderTab.id = 'tab-order';
-      orderTab.setAttribute('aria-selected', isOrderActive ? 'true' : 'false');
-      orderTab.setAttribute('aria-controls', 'panel-order');
-      orderTab.tabIndex = isOrderActive ? 0 : -1;
-      orderTab.addEventListener('click', function () {
-        activeCategory = ORDER_TAB_ID;
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      var orderTabLabel = document.createElement('span');
-      orderTabLabel.textContent = STRINGS[currentLang].orderTab;
-      orderTab.appendChild(orderTabLabel);
-      var badge = document.createElement('span');
-      badge.className = 'tab-badge';
-      badge.id = 'order-badge';
-      badge.textContent = cart.length;
-      badge.hidden = cart.length === 0;
-      orderTab.appendChild(badge);
-      switcher.appendChild(orderTab);
+      // Order tab — a cart view, not a menu category. Admin can switch
+      // ordering off entirely (e.g. kitchen too busy to take more).
+      if (orderingEnabled()) {
+        var isOrderActive = activeCategory === ORDER_TAB_ID;
+        var orderTab = document.createElement('button');
+        orderTab.className = 'tab';
+        orderTab.type = 'button';
+        orderTab.setAttribute('role', 'tab');
+        orderTab.id = 'tab-order';
+        orderTab.setAttribute('aria-selected', isOrderActive ? 'true' : 'false');
+        orderTab.setAttribute('aria-controls', 'panel-order');
+        orderTab.tabIndex = isOrderActive ? 0 : -1;
+        orderTab.addEventListener('click', function () {
+          activeCategory = ORDER_TAB_ID;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        var orderTabLabel = document.createElement('span');
+        orderTabLabel.textContent = STRINGS[currentLang].orderTab;
+        orderTab.appendChild(orderTabLabel);
+        var badge = document.createElement('span');
+        badge.className = 'tab-badge';
+        badge.id = 'order-badge';
+        badge.textContent = cart.length;
+        badge.hidden = cart.length === 0;
+        orderTab.appendChild(badge);
+        switcher.appendChild(orderTab);
 
-      var orderPanel = document.createElement('section');
-      orderPanel.id = 'panel-order';
-      orderPanel.setAttribute('role', 'tabpanel');
-      orderPanel.setAttribute('aria-labelledby', 'tab-order');
-      if (!isOrderActive) orderPanel.hidden = true;
-      orderPanel.appendChild(renderOrderPanel());
-      panelsWrap.appendChild(orderPanel);
+        var orderPanel = document.createElement('section');
+        orderPanel.id = 'panel-order';
+        orderPanel.setAttribute('role', 'tabpanel');
+        orderPanel.setAttribute('aria-labelledby', 'tab-order');
+        if (!isOrderActive) orderPanel.hidden = true;
+        orderPanel.appendChild(renderOrderPanel());
+        panelsWrap.appendChild(orderPanel);
+      }
     }
 
     function applyLanguage(lang) {
