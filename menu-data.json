@@ -526,6 +526,27 @@
       "hidden": false
     },
     {
+      "id": "barbeque-burger",
+      "category": "food",
+      "name": {
+        "en": "Barbeque  Burger",
+        "ar": "برجر باربكيو "
+      },
+      "description": {
+        "en": "Lettuce, tomato, pickles, sauces, cheese.",
+        "ar": "خس، طماطم، مخلل، صوصات، جبنه."
+      },
+      "price": 0,
+      "emoji": "🍽️",
+      "image": "./images/barbeque-burger.jpg",
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
       "id": "chicken-burger",
       "category": "food",
       "name": {
