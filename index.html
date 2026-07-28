@@ -438,6 +438,17 @@
       ar: { new: 'جديد', bestseller: 'الأكثر مبيعاً', veggie: 'نباتي' }
     };
 
+    var RAW_BASE = 'https://raw.githubusercontent.com/saifzubaidi9-spec/triple-m-menu/master/';
+
+    // Uploaded photos are stored as relative paths ("images/x.jpg") in
+    // menu-data.json; resolve them against GitHub raw content so a new
+    // photo shows up without needing a Netlify deploy.
+    function resolveImageUrl(path) {
+      if (!path) return path;
+      if (/^https?:\/\//.test(path)) return path;
+      return RAW_BASE + path.replace(/^\.\//, '');
+    }
+
     var menuData = null;
     var activeCategory = null;
     var currentLang = localStorage.getItem('tm_lang') === 'ar' ? 'ar' : 'en';
@@ -473,7 +484,7 @@
       tile.className = 'tile';
       if (item.image) {
         var img = document.createElement('img');
-        img.src = item.image;
+        img.src = resolveImageUrl(item.image);
         img.alt = '';
         img.loading = 'lazy';
         tile.appendChild(img);
@@ -852,8 +863,18 @@
 
     applyLanguage(currentLang);
 
-    fetch('./menu-data.json', { cache: 'no-store' })
-      .then(function (res) { return res.json(); })
+    // Fetched straight from GitHub, not the Netlify-deployed copy: admin
+    // saves are then live immediately with no Netlify deploy (and no
+    // deploy credit) needed for ordinary menu edits. Falls back to the
+    // deployed copy if GitHub is unreachable.
+    var RAW_MENU_URL =
+      'https://raw.githubusercontent.com/saifzubaidi9-spec/triple-m-menu/master/menu-data.json?t=' + Date.now();
+
+    fetch(RAW_MENU_URL, { cache: 'no-store' })
+      .then(function (res) { if (!res.ok) throw new Error('raw fetch failed'); return res.json(); })
+      .catch(function () {
+        return fetch('./menu-data.json', { cache: 'no-store' }).then(function (res) { return res.json(); });
+      })
       .then(function (data) {
         menuData = data;
         render();

@@ -3,6 +3,14 @@ name: Deploy to Netlify
 on:
   push:
     branches: [master]
+    # Menu edits (data + photos) are fetched straight from GitHub raw
+    # content at runtime and don't need a rebuild — only redeploy for
+    # actual site-code changes. Netlify's Free plan charges 15 credits
+    # per production deploy, so this matters: admin saves used to burn
+    # a deploy every time for no real reason.
+    paths-ignore:
+      - 'menu-data.json'
+      - 'images/**'
 
 jobs:
   deploy:
