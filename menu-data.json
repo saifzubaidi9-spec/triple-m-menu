@@ -34,7 +34,7 @@
       }
     }
   ],
-  "orderingEnabled": true,
+  "orderingEnabled": false,
   "items": [
     {
       "id": "espresso",
