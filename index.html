@@ -365,7 +365,8 @@
       document.getElementById('lang-toggle').textContent = s.toggleLabel;
       document.getElementById('footer-line1').textContent = s.footer1;
       document.getElementById('footer-line2').textContent = s.footer2;
-      document.getElementById('loading-text').textContent = s.loading;
+      var loadingEl = document.getElementById('loading-text');
+      if (loadingEl) loadingEl.textContent = s.loading;
 
       render();
     }
