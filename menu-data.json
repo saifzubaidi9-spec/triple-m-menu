@@ -46,7 +46,7 @@
         "en": "Single origin, pulled tight.",
         "ar": "بن أحادي المصدر، مستخلص بإحكام."
       },
-      "price": 3.33,
+      "price": 3.3,
       "emoji": "☕",
       "image": null,
       "tint": [
@@ -54,7 +54,7 @@
         "#26160C"
       ],
       "badge": null,
-      "hidden": true
+      "hidden": false
     },
     {
       "id": "double-espresso",
@@ -75,7 +75,7 @@
         "#2B190C"
       ],
       "badge": null,
-      "hidden": false
+      "hidden": true
     },
     {
       "id": "cappuccino",
