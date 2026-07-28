@@ -168,6 +168,25 @@
 
     .add-item-btn { margin-top: 4px; }
 
+    .insert-item-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 0;
+      margin: 2px 0;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--cream-faint);
+      background: transparent;
+      border: 1px dashed transparent;
+      border-radius: 8px;
+      opacity: 0.35;
+      transition: opacity 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+    .insert-item-btn:hover { opacity: 1; border-color: var(--line); background: var(--surface); }
+
     .status-bar {
       position: sticky;
       top: 0;
@@ -579,7 +598,22 @@
         block.appendChild(note);
 
         var items = state.items.filter(function (it) { return it.category === cat.id; });
-        items.forEach(function (item) { block.appendChild(renderItemCard(item)); });
+
+        function insertHereBtn(beforeKey) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'btn insert-item-btn';
+          btn.textContent = '+ Insert item here';
+          btn.addEventListener('click', function () { addItem(cat.id, beforeKey); });
+          return btn;
+        }
+
+        if (items.length > 0) block.appendChild(insertHereBtn(items[0]._tempId || items[0].id));
+        items.forEach(function (item, idx) {
+          block.appendChild(renderItemCard(item));
+          var nextItem = items[idx + 1];
+          if (nextItem) block.appendChild(insertHereBtn(nextItem._tempId || nextItem.id));
+        });
 
         var addBtn = document.createElement('button');
         addBtn.type = 'button';
@@ -757,9 +791,9 @@
       return card;
     }
 
-    function addItem(categoryId) {
+    function addItem(categoryId, beforeItemKey) {
       var tempId = 'new-' + (nextTempId++);
-      state.items.push({
+      var newItem = {
         _tempId: tempId,
         id: null,
         category: categoryId,
@@ -771,7 +805,15 @@
         tint: ['#4A2E1B', '#26160C'],
         badge: null,
         hidden: false
-      });
+      };
+      var idx = beforeItemKey
+        ? state.items.findIndex(function (it) { return (it._tempId || it.id) === beforeItemKey; })
+        : -1;
+      if (idx !== -1) {
+        state.items.splice(idx, 0, newItem);
+      } else {
+        state.items.push(newItem);
+      }
       renderEditor();
     }
 
