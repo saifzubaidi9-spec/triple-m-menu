@@ -32,6 +32,53 @@
         "en": "Made to order · ~6 min",
         "ar": "تُحضّر عند الطلب · حوالي 6 دقائق"
       }
+    },
+    {
+      "id": "drinks",
+      "label": {
+        "en": "Drinks",
+        "ar": "مشروبات"
+      },
+      "note": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
+      "id": "hot-drinks",
+      "parent": "drinks",
+      "label": {
+        "en": "Hot Drinks",
+        "ar": "مشروبات ساخنة"
+      },
+      "note": {
+        "en": "From the POS — check prices/names as you go",
+        "ar": "من نظام الكاشير — راجع الأسماء والأسعار"
+      }
+    },
+    {
+      "id": "iced-drinks",
+      "parent": "drinks",
+      "label": {
+        "en": "Iced Drinks",
+        "ar": "مشروبات مثلجة"
+      },
+      "note": {
+        "en": "From the POS — check prices/names as you go",
+        "ar": "من نظام الكاشير — راجع الأسماء والأسعار"
+      }
+    },
+    {
+      "id": "soft-drinks",
+      "parent": "drinks",
+      "label": {
+        "en": "Soft Drinks",
+        "ar": "مشروبات باردة"
+      },
+      "note": {
+        "en": "Bottled, canned, fridge drinks",
+        "ar": "معلبات ومياه وعصائر"
+      }
     }
   ],
   "orderingEnabled": false,
@@ -748,6 +795,1497 @@
         "#2E250A"
       ],
       "badge": "new",
+      "hidden": false
+    },
+    {
+      "id": "hot-turkish-coffee",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Turkish Coffee",
+        "ar": "قهوة تركية"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.75,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-americano",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Americano",
+        "ar": "امريكن"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4A3A28",
+        "#251D14"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-americano-alt",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Americano (Alt)",
+        "ar": "امريكاتو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4A3A28",
+        "#251D14"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-espresso",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Espresso",
+        "ar": "اسبريسو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-cappuccino",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Cappuccino",
+        "ar": "كبتشينو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🫧",
+      "image": null,
+      "tint": [
+        "#4E3421",
+        "#281A10"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-cortado",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Cortado",
+        "ar": "كرتادو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4E3421",
+        "#281A10"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-flat-white",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Flat White",
+        "ar": "فلات وايت"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🤍",
+      "image": null,
+      "tint": [
+        "#45362A",
+        "#231B15"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-red-eye",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Red Eye",
+        "ar": "ريد اي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#54331A",
+        "#2B190C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Latte",
+        "ar": "لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#4A3A28",
+        "#251D14"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte-vanilla",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Vanilla Latte",
+        "ar": "لاتي فانيلا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#4A4028",
+        "#252014"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte-caramel",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Caramel Latte",
+        "ar": "كرمل لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#5A3E1E",
+        "#2D1F10"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte-hazelnut",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Hazelnut Latte",
+        "ar": "هيزلنت لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#4E3A26",
+        "#271D13"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte-toffee",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Toffee Latte",
+        "ar": "توفيتك لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#54401E",
+        "#2A2010"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte-caramel-macchiato",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Caramel Macchiato Latte",
+        "ar": "كرمل مكياتو لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#5A3E1E",
+        "#2D1F10"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte-pistachio",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Pistachio Latte",
+        "ar": "بستاشيو لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#3E4A28",
+        "#1F2514"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-latte-cinnamon",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Cinnamon Latte",
+        "ar": "سينتي لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#5A331E",
+        "#2D1A0F"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-mocha",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Mocha",
+        "ar": "موكا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🍫",
+      "image": null,
+      "tint": [
+        "#43261A",
+        "#22120C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-mocha-white",
+      "category": "hot-drinks",
+      "name": {
+        "en": "White Mocha",
+        "ar": "وايت موكا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🍫",
+      "image": null,
+      "tint": [
+        "#4A4030",
+        "#252018"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-chocolate",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Hot Chocolate",
+        "ar": "هوت تشوكليت"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🍫",
+      "image": null,
+      "tint": [
+        "#43261A",
+        "#22120C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-chocolate-white",
+      "category": "hot-drinks",
+      "name": {
+        "en": "White Hot Chocolate",
+        "ar": "هوت وايت تشوكليت"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🍫",
+      "image": null,
+      "tint": [
+        "#4A4030",
+        "#252018"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-tea",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Tea",
+        "ar": "شاي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "🍵",
+      "image": null,
+      "tint": [
+        "#3A4D2C",
+        "#1D2816"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-2in1",
+      "category": "hot-drinks",
+      "name": {
+        "en": "2 in 1",
+        "ar": "2in1"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4A3A28",
+        "#251D14"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-3in1",
+      "category": "hot-drinks",
+      "name": {
+        "en": "3 in 1",
+        "ar": "3in1"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4A3A28",
+        "#251D14"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-karak-tea",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Karak Tea",
+        "ar": "شاي كرك"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "🍵",
+      "image": null,
+      "tint": [
+        "#5A3620",
+        "#2D1B10"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "hot-herbal-tea",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Herbal Tea",
+        "ar": "اعشاب"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "🍵",
+      "image": null,
+      "tint": [
+        "#3A4D2C",
+        "#1D2816"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-plain",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Latte",
+        "ar": "ايس لاتيه"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-caramel",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Caramel Latte",
+        "ar": "ايس كرمل لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-vanilla",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Vanilla Latte",
+        "ar": "ايس فانيلا لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-hazelnut",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Hazelnut Latte",
+        "ar": "ايس هيزلنت لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-caramel-macchiato",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Caramel Macchiato",
+        "ar": "ايس كرمل مكياتو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-toffee",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Toffee Latte",
+        "ar": "ايس توفيت لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-cinnamon",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Cinnamon Latte",
+        "ar": "ايس سينتش لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-latte-pistachio",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Pistachio Latte",
+        "ar": "ايس بستاشيو لاتي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-mocha-white",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced White Mocha",
+        "ar": "ايس وايت موكا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#33414E",
+        "#1A2027"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-mocha-dark",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Dark Mocha",
+        "ar": "ايس دارك موكا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#33414E",
+        "#1A2027"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-americano",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Americano",
+        "ar": "ايس امريكانو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-americano-alt",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Americano (Alt)",
+        "ar": "ايس امريكاتو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-american",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced American",
+        "ar": "ايس امريكين"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-espresso-shaken",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Espresso Shaken",
+        "ar": "ايس سيرسو شيكن"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-tea",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Tea",
+        "ar": "ايس تي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🧊",
+      "image": null,
+      "tint": [
+        "#33502F",
+        "#1A2818"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-strawberry",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Strawberry",
+        "ar": "ايس سعودي فرولة"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🍓",
+      "image": null,
+      "tint": [
+        "#542832",
+        "#2A141A"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-berry",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Berry",
+        "ar": "ايس سعودي توت"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🫐",
+      "image": null,
+      "tint": [
+        "#3A2C52",
+        "#1D1629"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-peach",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Peach",
+        "ar": "ايس سعودي خوخ"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🍑",
+      "image": null,
+      "tint": [
+        "#5A3A24",
+        "#2D1D12"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-passion",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Passion Fruit",
+        "ar": "ايس سعودي باشن"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🥭",
+      "image": null,
+      "tint": [
+        "#5A4418",
+        "#2D220C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-mango",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Mango",
+        "ar": "ايس سعودي مانجو"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🥭",
+      "image": null,
+      "tint": [
+        "#5A4418",
+        "#2D220C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "iced-mint",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Mint",
+        "ar": "سعودي نعناع"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🌿",
+      "image": null,
+      "tint": [
+        "#2E4A2E",
+        "#172517"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "frappe-vanilla",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Vanilla Frappe",
+        "ar": "فانيلا فراب"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A4030",
+        "#252018"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "frappe-pistachio",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Pistachio Frappe",
+        "ar": "بستاشيو فراب"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#3E4A28",
+        "#1F2514"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "mojito-soda",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Mojito — Soda",
+        "ar": "موهيتو مياه غازية"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 3.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#2E4A3A",
+        "#17251D"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "mojito-redbull",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Mojito — Red Bull",
+        "ar": "موهيتو ريدبول"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#2E4A3A",
+        "#17251D"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "mojito-7up",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Mojito — 7up",
+        "ar": "موهيتو سفن"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#2E4A3A",
+        "#17251D"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "mojito-code-red",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Mojito — Code Red",
+        "ar": "موهيتو كود ريد"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2420",
+        "#251210"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "mojito-bm",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Mojito — BM",
+        "ar": "موهيتو bm"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#2E4A3A",
+        "#17251D"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-water-600",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Al Maya Water 600ml",
+        "ar": "مياه الميا 600ml"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "💧",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-water-330",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Al Maya Water 330ml",
+        "ar": "مياه الميا 330ml"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.25,
+      "emoji": "💧",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-water-200",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Al Maya Water 200ml",
+        "ar": "مياه الميا 200ml"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.15,
+      "emoji": "💧",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-boom-boom",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Boom Boom",
+        "ar": "بوم بوم"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-bm",
+      "category": "soft-drinks",
+      "name": {
+        "en": "BM",
+        "ar": "بي ام"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-redbull",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Red Bull",
+        "ar": "ريد بول"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2418",
+        "#25120C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-code-red",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Code Red",
+        "ar": "كود ريد"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2418",
+        "#25120C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-carolina",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Carolina",
+        "ar": "كارولينا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-ayran",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Ayran",
+        "ar": "بلنتا شنينة"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.75,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#4A4030",
+        "#252018"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-baladna-strawberry",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Baladna Strawberry Milk",
+        "ar": "لبن فروله بلدنا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#542832",
+        "#2A141A"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-baladna-coffee",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Baladna Coffee Milk",
+        "ar": "قهوة بلدنا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#4A3A28",
+        "#251D14"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-baladna-milk",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Baladna Milk",
+        "ar": "حليب بلدنا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#4A4030",
+        "#252018"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-sweyer",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Sweyer",
+        "ar": "سوير"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-kinza-water",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Kinza Sparkling Water",
+        "ar": "مياه غازيه كينزا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "💧",
+      "image": null,
+      "tint": [
+        "#2C4653",
+        "#16242C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-kinza-flavor",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Kinza (flavor)",
+        "ar": "غزيات كينزا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-g",
+      "category": "soft-drinks",
+      "name": {
+        "en": "G",
+        "ar": "جي"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-freez",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Freez",
+        "ar": "فريز"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "soft-canary",
+      "category": "soft-drinks",
+      "name": {
+        "en": "Canary",
+        "ar": "كناري"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.0,
+      "emoji": "🥤",
+      "image": null,
+      "tint": [
+        "#4A2A16",
+        "#25150B"
+      ],
+      "badge": null,
       "hidden": false
     }
   ]
