@@ -539,5 +539,6 @@
       "badge": "new",
       "hidden": false
     }
-  ]
+  ],
+  "orderingEnabled": false
 }
