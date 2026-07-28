@@ -12,6 +12,30 @@
       }
     },
     {
+      "id": "food-sandwiches",
+      "parent": "food",
+      "label": {
+        "en": "Sandwiches",
+        "ar": "سندويشات"
+      },
+      "note": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
+      "id": "food-sauces",
+      "parent": "food",
+      "label": {
+        "en": "Sauces",
+        "ar": "صوصات"
+      },
+      "note": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
       "id": "drinks",
       "label": {
         "en": "Drinks",
@@ -422,7 +446,7 @@
     },
     {
       "id": "zinger-spicy",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Spicy Zinger",
         "ar": "زنجر حار"
@@ -443,7 +467,7 @@
     },
     {
       "id": "zinger-sweet",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Sweet Zinger",
         "ar": "زنجر حلو"
@@ -464,7 +488,7 @@
     },
     {
       "id": "zinger-creamy",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Creamy Zinger",
         "ar": "زنجر بالكريمه"
@@ -485,7 +509,7 @@
     },
     {
       "id": "zinger-platter",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Zinger Platter",
         "ar": "بلاتر زنجر"
@@ -506,7 +530,7 @@
     },
     {
       "id": "beef-burger-classic",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Classic Beef Burger",
         "ar": "برجر كلاسك بيف"
@@ -527,7 +551,7 @@
     },
     {
       "id": "barbeque-burger",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Barbeque  Burger",
         "ar": "برجر باربكيو "
@@ -548,7 +572,7 @@
     },
     {
       "id": "chicken-burger",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Chicken Burger",
         "ar": "تشكن برجر"
@@ -569,7 +593,7 @@
     },
     {
       "id": "saj-shawarma",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Saj Shawarma",
         "ar": "شاورما صاج"
@@ -590,7 +614,7 @@
     },
     {
       "id": "saj-shawarma-creamy",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Creamy Saj Shawarma",
         "ar": "شاورما صاج بالكريما"
@@ -611,7 +635,7 @@
     },
     {
       "id": "chicken-fajita",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Chicken Fajita",
         "ar": "فاهيتا دجاج"
@@ -632,7 +656,7 @@
     },
     {
       "id": "potato-wedges",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Potato Wedges",
         "ar": "بطاطا واتشز"
@@ -653,7 +677,7 @@
     },
     {
       "id": "regular-fries",
-      "category": "food",
+      "category": "food-sandwiches",
       "name": {
         "en": "Regular Fries",
         "ar": "بطاطا عادي"
@@ -674,7 +698,7 @@
     },
     {
       "id": "sauce-peri-peri",
-      "category": "food",
+      "category": "food-sauces",
       "name": {
         "en": "Peri Peri",
         "ar": "بيري بيري"
@@ -695,7 +719,7 @@
     },
     {
       "id": "sauce-ranch",
-      "category": "food",
+      "category": "food-sauces",
       "name": {
         "en": "Ranch",
         "ar": "رانش"
@@ -716,7 +740,7 @@
     },
     {
       "id": "sauce-mayo",
-      "category": "food",
+      "category": "food-sauces",
       "name": {
         "en": "Mayonnaise",
         "ar": "مايونيز"
@@ -737,7 +761,7 @@
     },
     {
       "id": "sauce-bbq",
-      "category": "food",
+      "category": "food-sauces",
       "name": {
         "en": "Barbecue",
         "ar": "باربكيو"
@@ -758,7 +782,7 @@
     },
     {
       "id": "sauce-mexican-spicy",
-      "category": "food",
+      "category": "food-sauces",
       "name": {
         "en": "Mexican Sauce — Spicy",
         "ar": "مكسكي حار"
@@ -779,7 +803,7 @@
     },
     {
       "id": "sauce-mexican-sweet",
-      "category": "food",
+      "category": "food-sauces",
       "name": {
         "en": "Mexican Sauce — Sweet",
         "ar": "مكسكي حلو"
@@ -800,7 +824,7 @@
     },
     {
       "id": "sauce-mustard",
-      "category": "food",
+      "category": "food-sauces",
       "name": {
         "en": "Mustard",
         "ar": "خردل"
