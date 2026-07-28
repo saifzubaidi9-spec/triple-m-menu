@@ -536,6 +536,11 @@
       root.innerHTML = '';
 
       state.categories.forEach(function (cat) {
+        // Group categories (e.g. "Drinks") hold no items directly — their
+        // children (Hot/Iced/Soft Drinks) get their own blocks instead.
+        var isGroup = state.categories.some(function (c) { return c.parent === cat.id; });
+        if (isGroup) return;
+
         var block = document.createElement('div');
         block.className = 'category-block';
 

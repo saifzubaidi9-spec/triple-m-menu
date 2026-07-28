@@ -123,6 +123,37 @@
       color: var(--cream-faint);
       margin: -12px 0 16px;
     }
+    .sub-switcher {
+      display: flex;
+      gap: 4px;
+      padding: 3px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      margin-bottom: 14px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .sub-switcher::-webkit-scrollbar { display: none; }
+    .sub-tab {
+      flex: 0 0 auto;
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--cream-faint);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 8px 13px;
+      white-space: nowrap;
+      border-radius: 13px;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .sub-tab[aria-selected="true"] {
+      background: var(--surface-hi);
+      color: var(--cream);
+    }
     .list {
       display: flex;
       flex-direction: column;
@@ -455,6 +486,7 @@
 
     var menuData = null;
     var activeCategory = null;
+    var activeSubCategory = null;
     var currentLang = localStorage.getItem('tm_lang') === 'ar' ? 'ar' : 'en';
 
     // ── Order state ──────────────────────────────────────────────────
@@ -763,11 +795,19 @@
       return !!menuData && menuData.orderingEnabled !== false;
     }
 
+    function topLevelCategories() {
+      return menuData.categories.filter(function (c) { return !c.parent; });
+    }
+    function childCategories(parentId) {
+      return menuData.categories.filter(function (c) { return c.parent === parentId; });
+    }
+
     function render() {
       if (!menuData) return;
-      if (!activeCategory) activeCategory = menuData.categories[0].id;
+      var topCats = topLevelCategories();
+      if (!activeCategory) activeCategory = topCats[0].id;
       if (activeCategory === ORDER_TAB_ID && !orderingEnabled()) {
-        activeCategory = menuData.categories[0].id;
+        activeCategory = topCats[0].id;
       }
 
       var switcher = document.getElementById('switcher');
@@ -775,8 +815,9 @@
       switcher.innerHTML = '';
       panelsWrap.innerHTML = '';
 
-      menuData.categories.forEach(function (cat) {
+      topCats.forEach(function (cat) {
         var isActive = cat.id === activeCategory;
+        var children = childCategories(cat.id);
 
         var tab = document.createElement('button');
         tab.className = 'tab';
@@ -790,6 +831,7 @@
         tab.textContent = cat.label[currentLang] || cat.label.en;
         tab.addEventListener('click', function () {
           activeCategory = cat.id;
+          activeSubCategory = null; // reset — will default to first child below
           render();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -801,17 +843,58 @@
         panel.setAttribute('aria-labelledby', 'tab-' + cat.id);
         if (!isActive) panel.hidden = true;
 
-        var note = document.createElement('p');
-        note.className = 'panel-note';
-        note.textContent = cat.note[currentLang] || cat.note.en;
-        panel.appendChild(note);
+        if (children.length > 0) {
+          // Group tab (e.g. "Drinks") — items live under a sub-category,
+          // never directly under the group itself.
+          if (!isActive) { panelsWrap.appendChild(panel); return; }
+          if (!activeSubCategory || !children.some(function (c) { return c.id === activeSubCategory; })) {
+            activeSubCategory = children[0].id;
+          }
 
-        var list = document.createElement('div');
-        list.className = 'list';
-        menuData.items
-          .filter(function (it) { return it.category === cat.id && !it.hidden; })
-          .forEach(function (it, i) { list.appendChild(renderItem(it, i)); });
-        panel.appendChild(list);
+          var subSwitcher = document.createElement('div');
+          subSwitcher.className = 'sub-switcher';
+          subSwitcher.setAttribute('role', 'tablist');
+          children.forEach(function (sub) {
+            var subActive = sub.id === activeSubCategory;
+            var subTab = document.createElement('button');
+            subTab.className = 'sub-tab';
+            subTab.type = 'button';
+            subTab.setAttribute('role', 'tab');
+            subTab.setAttribute('aria-selected', subActive ? 'true' : 'false');
+            subTab.textContent = sub.label[currentLang] || sub.label.en;
+            subTab.addEventListener('click', function () {
+              activeSubCategory = sub.id;
+              render();
+            });
+            subSwitcher.appendChild(subTab);
+          });
+          panel.appendChild(subSwitcher);
+
+          var activeSub = children.find(function (c) { return c.id === activeSubCategory; });
+          var subNote = document.createElement('p');
+          subNote.className = 'panel-note';
+          subNote.textContent = activeSub.note[currentLang] || activeSub.note.en;
+          panel.appendChild(subNote);
+
+          var subList = document.createElement('div');
+          subList.className = 'list';
+          menuData.items
+            .filter(function (it) { return it.category === activeSubCategory && !it.hidden; })
+            .forEach(function (it, i) { subList.appendChild(renderItem(it, i)); });
+          panel.appendChild(subList);
+        } else {
+          var note = document.createElement('p');
+          note.className = 'panel-note';
+          note.textContent = cat.note[currentLang] || cat.note.en;
+          panel.appendChild(note);
+
+          var list = document.createElement('div');
+          list.className = 'list';
+          menuData.items
+            .filter(function (it) { return it.category === cat.id && !it.hidden; })
+            .forEach(function (it, i) { list.appendChild(renderItem(it, i)); });
+          panel.appendChild(list);
+        }
 
         panelsWrap.appendChild(panel);
       });
