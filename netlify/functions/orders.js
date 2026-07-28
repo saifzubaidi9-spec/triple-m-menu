@@ -80,8 +80,18 @@ async function updateStatus(store, payload) {
   return json(200, { ok: true });
 }
 
+function ordersStore() {
+  // CLI/CI-triggered deploys don't get the Blobs context auto-injected
+  // the way a native Netlify Git build does, so it's supplied explicitly.
+  return getStore({
+    name: 'orders',
+    siteID: process.env.BLOBS_SITE_ID,
+    token: process.env.BLOBS_TOKEN,
+  });
+}
+
 exports.handler = async (event) => {
-  const store = getStore('orders');
+  const store = ordersStore();
 
   try {
     if (event.httpMethod === 'GET') {
