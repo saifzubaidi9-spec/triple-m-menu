@@ -1,0 +1,35 @@
+{
+  "categories": [
+    { "id": "coffee", "label": "Coffee", "note": "Brewed 07:30–16:00" },
+    { "id": "snacks", "label": "Snacks", "note": "Fresh from the 7am bake · while they last" },
+    { "id": "food", "label": "Food", "note": "Made to order · ~6 min" }
+  ],
+  "items": [
+    { "id": "espresso", "category": "coffee", "name": "Espresso", "description": "Single origin, pulled tight.", "price": 2.00, "emoji": "☕", "image": null, "tint": ["#4A2E1B", "#26160C"], "badge": null },
+    { "id": "double-espresso", "category": "coffee", "name": "Double Espresso", "description": "Twice the kick for 8am lectures.", "price": 2.60, "emoji": "⚡", "image": null, "tint": ["#54331A", "#2B190C"], "badge": null },
+    { "id": "cappuccino", "category": "coffee", "name": "Cappuccino", "description": "Velvet foam, dusted cocoa.", "price": 3.20, "emoji": "🫧", "image": null, "tint": ["#4E3421", "#281A10"], "badge": "bestseller" },
+    { "id": "latte", "category": "coffee", "name": "Latte", "description": "Slow-steamed, extra smooth.", "price": 3.50, "emoji": "🥛", "image": null, "tint": ["#4A3A28", "#251D14"], "badge": null },
+    { "id": "flat-white", "category": "coffee", "name": "Flat White", "description": "Stronger ratio, silkier micro-foam.", "price": 3.40, "emoji": "🤍", "image": null, "tint": ["#45362A", "#231B15"], "badge": null },
+    { "id": "iced-latte", "category": "coffee", "name": "Iced Latte", "description": "Cold-shaken over campus ice.", "price": 3.80, "emoji": "🧊", "image": null, "tint": ["#2C4653", "#16242C"], "badge": "new" },
+    { "id": "mocha", "category": "coffee", "name": "Mocha", "description": "Espresso × dark chocolate.", "price": 3.90, "emoji": "🍫", "image": null, "tint": ["#43261A", "#22120C"], "badge": null },
+    { "id": "matcha-latte", "category": "coffee", "name": "Matcha Latte", "description": "Ceremonial grade, oat by default.", "price": 4.20, "emoji": "🍵", "image": null, "tint": ["#3A4D2C", "#1D2816"], "badge": "new" },
+
+    { "id": "butter-croissant", "category": "snacks", "name": "Butter Croissant", "description": "Baked 7am, flaky to a fault.", "price": 2.40, "emoji": "🥐", "image": null, "tint": ["#5A3F1E", "#2E200F"], "badge": "bestseller" },
+    { "id": "pain-au-chocolat", "category": "snacks", "name": "Pain au Chocolat", "description": "Two batons of 60% dark inside.", "price": 2.90, "emoji": "🥐", "image": null, "tint": ["#40281C", "#20140E"], "badge": "new" },
+    { "id": "halloumi-toastie", "category": "snacks", "name": "Halloumi Toastie", "description": "Grilled halloumi, honey, chili flakes.", "price": 4.50, "emoji": "🥪", "image": null, "tint": ["#52401C", "#29200E"], "badge": "veggie" },
+    { "id": "turkey-baguette", "category": "snacks", "name": "Turkey & Swiss Baguette", "description": "On yesterday-proofed sourdough.", "price": 5.20, "emoji": "🥖", "image": null, "tint": ["#4C3520", "#261B10"], "badge": null },
+    { "id": "kettle-chips", "category": "snacks", "name": "Kettle Chips · Sea Salt", "description": "Loud. Sorry, lecture halls.", "price": 1.80, "emoji": "🥔", "image": null, "tint": ["#4A4020", "#252010"], "badge": null },
+    { "id": "choc-chip-cookie", "category": "snacks", "name": "Choc-Chip Cookie", "description": "Still warm if you time it right.", "price": 2.20, "emoji": "🍪", "image": null, "tint": ["#4A331B", "#261A0E"], "badge": "bestseller" },
+    { "id": "blueberry-muffin", "category": "snacks", "name": "Blueberry Muffin", "description": "Bursting, slightly over-filled.", "price": 2.80, "emoji": "🧁", "image": null, "tint": ["#37304F", "#1C1828"], "badge": null },
+    { "id": "fruit-cup", "category": "snacks", "name": "Fruit Cup", "description": "Whatever the market had at 6am.", "price": 3.00, "emoji": "🍓", "image": null, "tint": ["#542832", "#2A141A"], "badge": "veggie" },
+
+    { "id": "shawarma-wrap", "category": "food", "name": "Chicken Shawarma Wrap", "description": "Marinated overnight, grilled to order.", "price": 6.50, "emoji": "🌯", "image": null, "tint": ["#5A3620", "#2D1B10"], "badge": "bestseller" },
+    { "id": "falafel-bowl", "category": "food", "name": "Falafel Bowl", "description": "Herby, crisp-shelled, tahini drizzle.", "price": 6.00, "emoji": "🥙", "image": null, "tint": ["#4B4A22", "#252512"], "badge": "veggie" },
+    { "id": "chicken-panini", "category": "food", "name": "Grilled Chicken Panini", "description": "Pressed hot, melted provolone.", "price": 6.80, "emoji": "🥪", "image": null, "tint": ["#4E3B22", "#271E11"], "badge": null },
+    { "id": "margherita-flatbread", "category": "food", "name": "Margherita Flatbread", "description": "Stone-baked between lectures.", "price": 5.90, "emoji": "🍕", "image": null, "tint": ["#5A2E22", "#2D1711"], "badge": "veggie" },
+    { "id": "beef-burrito", "category": "food", "name": "Beef Burrito", "description": "Rice, black beans, salsa, no fuss.", "price": 6.90, "emoji": "🌯", "image": null, "tint": ["#4F3B1E", "#281E0F"], "badge": null },
+    { "id": "veggie-rice-bowl", "category": "food", "name": "Veggie Rice Bowl", "description": "Roasted veg over turmeric rice.", "price": 5.80, "emoji": "🥗", "image": null, "tint": ["#3E4A28", "#1F2514"], "badge": "new" },
+    { "id": "mac-and-cheese", "category": "food", "name": "Mac & Cheese Cup", "description": "Comfort food, ready in a minute.", "price": 4.90, "emoji": "🧀", "image": null, "tint": ["#5C4419", "#2E220C"], "badge": null },
+    { "id": "soup-of-the-day", "category": "food", "name": "Soup of the Day", "description": "Ask at the counter — changes daily.", "price": 4.20, "emoji": "🍲", "image": null, "tint": ["#4A2E1E", "#25170F"], "badge": "new" }
+  ]
+}

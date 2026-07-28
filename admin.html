@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#120D0A" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Triple M — Admin</title>
+  <link rel="stylesheet" href="theme.css" />
+  <style>
+    .page {
+      max-width: 720px;
+      margin-inline: auto;
+      padding: 28px 20px 100px;
+    }
+    h1.wordmark {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.9rem;
+      margin: 0 0 4px;
+    }
+    .tagline {
+      font-size: 0.8125rem;
+      color: var(--cream-dim);
+      margin: 0 0 22px;
+    }
+    .tagline strong { color: var(--amber); }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    .panel h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0 0 10px;
+    }
+    .field-row { margin-bottom: 12px; }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--cream-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--cream);
+      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+    textarea { resize: vertical; min-height: 44px; }
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 11px 20px;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--amber); color: var(--on-amber); }
+    .btn-ghost { background: var(--surface-hi); color: var(--cream); border: 1px solid var(--line); }
+    .btn-danger { background: rgba(217, 105, 90, 0.15); color: var(--danger); border: 1px solid rgba(217, 105, 90, 0.3); }
+    .btn-sm { padding: 7px 13px; font-size: 0.75rem; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .row { display: flex; gap: 10px; align-items: center; }
+    .row.wrap { flex-wrap: wrap; }
+    .grow { flex: 1; }
+
+    .category-block { margin-bottom: 28px; }
+    .category-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin: 0 0 4px;
+    }
+    .category-note { font-size: 0.75rem; color: var(--cream-faint); margin: 0 0 14px; }
+
+    .item-card {
+      display: flex;
+      gap: 14px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .thumb {
+      flex-shrink: 0;
+      width: 76px;
+      height: 76px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      overflow: hidden;
+      position: relative;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .thumb input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .thumb-hint {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.55);
+      color: var(--cream);
+      font-size: 0.55rem;
+      text-align: center;
+      padding: 2px 0;
+      pointer-events: none;
+    }
+    .item-fields { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+    .item-fields .row > * { min-width: 0; }
+    .price-input { max-width: 110px; }
+    .badge-select { max-width: 150px; }
+    .remove-photo-link {
+      font-size: 0.7rem;
+      color: var(--cream-faint);
+      background: none;
+      border: none;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 2px;
+      text-align: left;
+    }
+
+    .add-item-btn { margin-top: 4px; }
+
+    .status-bar {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-top: 20px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.4);
+    }
+    .status-text { flex: 1; font-size: 0.8125rem; color: var(--cream-dim); }
+    .status-text.error { color: var(--danger); }
+    .status-text.success { color: var(--matcha); }
+
+    .hidden { display: none; }
+    a { color: var(--amber); }
+    code {
+      background: var(--bg-elevated);
+      border-radius: 5px;
+      padding: 1px 5px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1 class="wordmark">Menu admin</h1>
+    <p class="tagline">Edit items, then <strong>Save changes</strong> — the live menu updates in about a minute. Don't share this link.</p>
+
+    <div class="panel" id="token-panel">
+      <h2>Connect to GitHub</h2>
+      <p style="font-size:0.8rem; color:var(--cream-dim); margin-top:0;">
+        Saving writes directly to the <code>triple-m-menu</code> repo, so this page needs a
+        token scoped to just that repo.
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Create a fine-grained token</a>
+        → Repository access: only <code>triple-m-menu</code> → Permissions → Contents: Read and write → Generate.
+        It's saved only in this browser.
+      </p>
+      <div class="row wrap">
+        <input type="password" id="token-input" class="grow" placeholder="github_pat_..." autocomplete="off" />
+        <button class="btn btn-primary btn-sm" id="token-save">Save token</button>
+        <button class="btn btn-ghost btn-sm hidden" id="token-clear">Forget token</button>
+      </div>
+      <p id="token-status" style="font-size:0.75rem; margin-bottom:0;"></p>
+    </div>
+
+    <div id="menu-editor">
+      <p class="tagline">Loading menu…</p>
+    </div>
+  </div>
+
+  <div class="status-bar hidden" id="status-bar">
+    <span class="status-text" id="status-text"></span>
+    <button class="btn btn-ghost btn-sm" id="reload-btn">Reload</button>
+    <button class="btn btn-primary" id="save-btn">Save changes</button>
+  </div>
+
+  <script>
+    var OWNER = 'saifzubaidi9-spec';
+    var REPO = 'triple-m-menu';
+    var BRANCH = 'master';
+    var DATA_PATH = 'menu-data.json';
+    var BADGES = ['', 'new', 'bestseller', 'veggie'];
+    var BADGE_LABELS = { '': 'No badge', new: 'New', bestseller: 'Bestseller', veggie: 'Veggie' };
+
+    var state = { categories: [], items: [], dataSha: null };
+    var pendingImages = {}; // itemId -> { file, dataUrl }
+    var nextTempId = 1;
+
+    // ── Token ──────────────────────────────────────────────────────────
+    function getToken() { return localStorage.getItem('tm_admin_token') || ''; }
+    function setToken(t) { localStorage.setItem('tm_admin_token', t); }
+    function clearToken() { localStorage.removeItem('tm_admin_token'); }
+
+    function refreshTokenUi() {
+      var has = !!getToken();
+      document.getElementById('token-clear').classList.toggle('hidden', !has);
+      document.getElementById('token-status').textContent = has
+        ? 'Token saved in this browser.'
+        : 'No token saved yet — you can browse the menu below, but Save will be disabled.';
+      document.getElementById('save-btn').disabled = !has;
+    }
+
+    document.getElementById('token-save').addEventListener('click', function () {
+      var v = document.getElementById('token-input').value.trim();
+      if (!v) return;
+      setToken(v);
+      document.getElementById('token-input').value = '';
+      refreshTokenUi();
+    });
+    document.getElementById('token-clear').addEventListener('click', function () {
+      clearToken();
+      refreshTokenUi();
+    });
+
+    // ── GitHub Contents API ──────────────────────────────────────────────
+    function ghHeaders() {
+      var h = { 'Accept': 'application/vnd.github+json' };
+      var t = getToken();
+      if (t) h['Authorization'] = 'Bearer ' + t;
+      return h;
+    }
+
+    function utf8ToBase64(str) {
+      var bytes = new TextEncoder().encode(str);
+      var binary = '';
+      bytes.forEach(function (b) { binary += String.fromCharCode(b); });
+      return btoa(binary);
+    }
+
+    function ghGetFile(path) {
+      var url = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + path + '?ref=' + BRANCH + '&t=' + Date.now();
+      return fetch(url, { headers: ghHeaders() }).then(function (res) {
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error('GitHub read failed (' + res.status + ') for ' + path);
+        return res.json();
+      });
+    }
+
+    function ghPutFile(path, base64Content, message, sha) {
+      var body = { message: message, content: base64Content, branch: BRANCH };
+      if (sha) body.sha = sha;
+      return fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + path, {
+        method: 'PUT',
+        headers: Object.assign({ 'Content-Type': 'application/json' }, ghHeaders()),
+        body: JSON.stringify(body)
+      }).then(function (res) {
+        if (!res.ok) {
+          return res.json().then(function (err) {
+            throw new Error((err && err.message) || ('GitHub write failed (' + res.status + ')'));
+          });
+        }
+        return res.json();
+      });
+    }
+
+    // ── Load ──────────────────────────────────────────────────────────
+    function loadMenu() {
+      setStatus('');
+      document.getElementById('menu-editor').innerHTML = '<p class="tagline">Loading menu…</p>';
+      return ghGetFile(DATA_PATH).then(function (file) {
+        if (!file) throw new Error('menu-data.json not found in the repo');
+        var json = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
+        state.categories = json.categories;
+        state.items = json.items.map(function (it) { return Object.assign({}, it); });
+        state.dataSha = file.sha;
+        pendingImages = {};
+        renderEditor();
+      }).catch(function (e) {
+        document.getElementById('menu-editor').innerHTML =
+          '<p class="tagline" style="color:var(--danger)">Couldn\'t load menu: ' + e.message + '</p>';
+      });
+    }
+
+    // ── Render ────────────────────────────────────────────────────────
+    function renderEditor() {
+      var root = document.getElementById('menu-editor');
+      root.innerHTML = '';
+
+      state.categories.forEach(function (cat) {
+        var block = document.createElement('div');
+        block.className = 'category-block';
+
+        var title = document.createElement('h2');
+        title.className = 'category-title';
+        title.textContent = cat.label;
+        block.appendChild(title);
+
+        var note = document.createElement('p');
+        note.className = 'category-note';
+        note.textContent = cat.note;
+        block.appendChild(note);
+
+        var items = state.items.filter(function (it) { return it.category === cat.id; });
+        items.forEach(function (item) { block.appendChild(renderItemCard(item)); });
+
+        var addBtn = document.createElement('button');
+        addBtn.type = 'button';
+        addBtn.className = 'btn btn-ghost btn-sm add-item-btn';
+        addBtn.textContent = '+ Add item to ' + cat.label;
+        addBtn.addEventListener('click', function () { addItem(cat.id); });
+        block.appendChild(addBtn);
+
+        root.appendChild(block);
+      });
+    }
+
+    function findItem(id) {
+      return state.items.find(function (it) { return it._tempId === id || it.id === id; });
+    }
+
+    function renderItemCard(item) {
+      var itemKey = item._tempId || item.id;
+
+      var card = document.createElement('div');
+      card.className = 'item-card';
+
+      // thumbnail / photo upload
+      var thumb = document.createElement('div');
+      thumb.className = 'thumb';
+      var pending = pendingImages[itemKey];
+      if (pending) {
+        var pimg = document.createElement('img');
+        pimg.src = pending.dataUrl;
+        thumb.appendChild(pimg);
+      } else if (item.image) {
+        var img = document.createElement('img');
+        img.src = item.image;
+        thumb.appendChild(img);
+      } else {
+        thumb.style.background = 'linear-gradient(135deg,' + (item.tint ? item.tint[0] : '#4A2E1B') + ',' + (item.tint ? item.tint[1] : '#26160C') + ')';
+        thumb.textContent = item.emoji || '🍽️';
+      }
+      var fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          pendingImages[itemKey] = { file: file, dataUrl: reader.result };
+          renderEditor();
+        };
+        reader.readAsDataURL(file);
+      });
+      var hint = document.createElement('div');
+      hint.className = 'thumb-hint';
+      hint.textContent = 'change photo';
+      thumb.appendChild(fileInput);
+      thumb.appendChild(hint);
+      card.appendChild(thumb);
+
+      // fields
+      var fields = document.createElement('div');
+      fields.className = 'item-fields';
+
+      var nameRow = document.createElement('input');
+      nameRow.type = 'text';
+      nameRow.value = item.name;
+      nameRow.placeholder = 'Item name';
+      nameRow.addEventListener('input', function () { item.name = nameRow.value; });
+      fields.appendChild(nameRow);
+
+      var descRow = document.createElement('textarea');
+      descRow.value = item.description;
+      descRow.placeholder = 'Description';
+      descRow.rows = 1;
+      descRow.addEventListener('input', function () { item.description = descRow.value; });
+      fields.appendChild(descRow);
+
+      var metaRow = document.createElement('div');
+      metaRow.className = 'row wrap';
+
+      var priceWrap = document.createElement('div');
+      var priceInput = document.createElement('input');
+      priceInput.type = 'number';
+      priceInput.step = '0.10';
+      priceInput.min = '0';
+      priceInput.className = 'price-input';
+      priceInput.value = item.price;
+      priceInput.addEventListener('input', function () { item.price = parseFloat(priceInput.value) || 0; });
+      priceWrap.appendChild(priceInput);
+      metaRow.appendChild(priceWrap);
+
+      var emojiInput = document.createElement('input');
+      emojiInput.type = 'text';
+      emojiInput.value = item.emoji || '';
+      emojiInput.placeholder = 'Emoji';
+      emojiInput.style.maxWidth = '70px';
+      emojiInput.addEventListener('input', function () { item.emoji = emojiInput.value; });
+      metaRow.appendChild(emojiInput);
+
+      var badgeSelect = document.createElement('select');
+      badgeSelect.className = 'badge-select';
+      BADGES.forEach(function (b) {
+        var opt = document.createElement('option');
+        opt.value = b;
+        opt.textContent = BADGE_LABELS[b];
+        if ((item.badge || '') === b) opt.selected = true;
+        badgeSelect.appendChild(opt);
+      });
+      badgeSelect.addEventListener('change', function () { item.badge = badgeSelect.value || null; });
+      metaRow.appendChild(badgeSelect);
+
+      var removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'btn btn-danger btn-sm';
+      removeBtn.textContent = 'Remove';
+      removeBtn.style.marginLeft = 'auto';
+      removeBtn.addEventListener('click', function () { removeItem(itemKey); });
+      metaRow.appendChild(removeBtn);
+
+      fields.appendChild(metaRow);
+
+      if (item.image || pending) {
+        var removePhoto = document.createElement('button');
+        removePhoto.type = 'button';
+        removePhoto.className = 'remove-photo-link';
+        removePhoto.textContent = 'Remove photo (use emoji instead)';
+        removePhoto.addEventListener('click', function () {
+          item.image = null;
+          delete pendingImages[itemKey];
+          renderEditor();
+        });
+        fields.appendChild(removePhoto);
+      }
+
+      card.appendChild(fields);
+      return card;
+    }
+
+    function addItem(categoryId) {
+      var tempId = 'new-' + (nextTempId++);
+      state.items.push({
+        _tempId: tempId,
+        id: null,
+        category: categoryId,
+        name: '',
+        description: '',
+        price: 0,
+        emoji: '🍽️',
+        image: null,
+        tint: ['#4A2E1B', '#26160C'],
+        badge: null
+      });
+      renderEditor();
+    }
+
+    function removeItem(itemKey) {
+      state.items = state.items.filter(function (it) { return (it._tempId || it.id) !== itemKey; });
+      delete pendingImages[itemKey];
+      renderEditor();
+    }
+
+    // ── Save ──────────────────────────────────────────────────────────
+    function slugify(name) {
+      var s = (name || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      return s || ('item-' + Date.now());
+    }
+
+    function setStatus(text, kind) {
+      var bar = document.getElementById('status-bar');
+      var txt = document.getElementById('status-text');
+      txt.textContent = text;
+      txt.className = 'status-text' + (kind ? ' ' + kind : '');
+      bar.classList.toggle('hidden', !text);
+    }
+
+    function uploadPendingImage(item) {
+      var itemKey = item._tempId || item.id;
+      var pending = pendingImages[itemKey];
+      if (!pending) return Promise.resolve();
+
+      var ext = (pending.file.type.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
+      var path = 'images/' + item.id + '.' + ext;
+      var base64 = pending.dataUrl.split(',')[1];
+
+      return ghGetFile(path).then(function (existing) {
+        return ghPutFile(path, base64, 'Update photo for ' + item.name, existing ? existing.sha : null);
+      }).then(function () {
+        item.image = './' + path;
+        delete pendingImages[itemKey];
+      });
+    }
+
+    function saveAll() {
+      var token = getToken();
+      if (!token) { setStatus('Add a token above first.', 'error'); return; }
+
+      // assign ids to any new items
+      state.items.forEach(function (it) {
+        if (!it.id) it.id = slugify(it.name);
+      });
+
+      var missingName = state.items.find(function (it) { return !it.name.trim(); });
+      if (missingName) { setStatus('Every item needs a name before saving.', 'error'); return; }
+
+      document.getElementById('save-btn').disabled = true;
+      setStatus('Uploading photos…');
+
+      var uploads = state.items.map(uploadPendingImage);
+
+      Promise.all(uploads)
+        .then(function () {
+          setStatus('Saving menu…');
+          var payload = {
+            categories: state.categories,
+            items: state.items.map(function (it) {
+              return {
+                id: it.id,
+                category: it.category,
+                name: it.name,
+                description: it.description,
+                price: Number(it.price) || 0,
+                emoji: it.emoji || '🍽️',
+                image: it.image || null,
+                tint: it.tint || ['#4A2E1B', '#26160C'],
+                badge: it.badge || null
+              };
+            })
+          };
+          return ghGetFile(DATA_PATH).then(function (fresh) {
+            var content = utf8ToBase64(JSON.stringify(payload, null, 2));
+            return ghPutFile(DATA_PATH, content, 'Update menu via admin page', fresh ? fresh.sha : state.dataSha);
+          });
+        })
+        .then(function () {
+          setStatus('Saved! The live menu will update in about a minute.', 'success');
+          return loadMenu();
+        })
+        .catch(function (e) {
+          setStatus('Save failed: ' + e.message, 'error');
+        })
+        .finally(function () {
+          document.getElementById('save-btn').disabled = !getToken();
+        });
+    }
+
+    document.getElementById('save-btn').addEventListener('click', saveAll);
+    document.getElementById('reload-btn').addEventListener('click', loadMenu);
+
+    refreshTokenUi();
+    document.getElementById('status-bar').classList.remove('hidden');
+    setStatus('');
+    loadMenu();
+  </script>
+</body>
+</html>

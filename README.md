@@ -1,32 +1,52 @@
 # Triple M — Menu
 
-Live: **https://saifzubaidi9-spec.github.io/triple-m-menu/**
-Counter poster (QR to display/print): **https://saifzubaidi9-spec.github.io/triple-m-menu/poster.html**
+Live: **https://triple-m-menu.netlify.app/**
+Counter poster (QR to display/print): **https://triple-m-menu.netlify.app/poster.html**
+Admin (edit items — do not share): **https://triple-m-menu.netlify.app/admin.html**
 
 A scannable web menu for the Triple M campus kiosk — no app required. Scan
 the QR on the poster page and it opens the menu directly in the phone's
-browser. Coffee and Snacks tabs, 16 items, same "Midnight Espresso" brand
-as the [native app](https://github.com/saifzubaidi9-spec) prototype.
+browser. Coffee, Snacks, and Food tabs, same "Midnight Espresso" brand as
+the native app prototype.
 
-This is deliberately hosted on GitHub Pages rather than a Claude artifact
-link: `claude.ai` is registered as a universal link on the Claude mobile
-app, so scanning a `claude.ai/...` QR opens the Claude app instead of the
-page in a browser, even when the artifact is shared publicly. A plain
-domain like this one has no such interception.
+## Architecture
 
-## Files
+The menu is data-driven, not hardcoded, so the admin page can actually
+change it:
 
-- `index.html` — the menu (this is what customers see)
-- `poster.html` — counter/display page with the QR code baked in as a PNG
-- `build.py`, `build_poster.py` — regenerate the HTML from the menu data
-  and re-embed fonts/QR. These expect Fraunces/Sora `.woff2` files and a
-  QR PNG as base64 in a local temp folder — see the script source for the
-  exact paths, or re-fetch the fonts from Google Fonts and regenerate the
-  QR via any QR API before rerunning.
+- `menu-data.json` — the single source of truth (categories + items)
+- `index.html` — fetches `menu-data.json` at load and renders it
+- `admin.html` — edit name/description/price/photo/badge, add or remove
+  items, then **Save changes** — this writes straight back to
+  `menu-data.json` (and any uploaded photos into `images/`) via the
+  GitHub Contents API, committing to this repo
+- `theme.css` — shared design tokens + embedded Fraunces/Sora fonts
+- `poster.html` — counter/display page with the QR baked in as a PNG
+
+**Deploy pipeline:** admin save → commit lands on `master` →
+`.github/workflows/deploy.yml` runs `netlify deploy --prod` → live menu
+updates, usually within about a minute of hitting Save.
+
+## Why Netlify, not GitHub Pages
+
+Originally deployed on GitHub Pages (`saifzubaidi9-spec.github.io/...`),
+moved to a clean `triple-m-menu.netlify.app` so the public URL isn't tied
+to a personal GitHub username. Before that, this lived as a Claude
+artifact link — `claude.ai` is registered as a universal link on the
+Claude mobile app, so scanning a `claude.ai/...` QR opened the Claude app
+instead of a browser, even when shared publicly. A plain domain has no
+such interception.
+
+## Admin access
+
+`admin.html` needs a GitHub fine-grained personal access token (Contents:
+read/write, scoped to only this repo) pasted in once — it's saved in that
+browser's local storage only, never committed anywhere. Anyone with the
+link can view the form, but nobody can save changes without their own
+valid token. Don't share the admin link publicly.
 
 ## Verified
 
 The QR was generated via a QR-encoding API, then round-trip **decoded**
 via an independent service to confirm it reads back the exact menu URL —
-checked once against the local build, and again by pulling the QR image
-straight off the live deployed page.
+checked against the live deployed page, not just the local build.
