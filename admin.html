@@ -390,6 +390,22 @@
     </div>
 
     <div id="view-orders" hidden>
+      <div class="panel" id="orders-key-panel">
+        <h2>Orders access</h2>
+        <p style="font-size:0.8rem; color:var(--cream-dim); margin-top:0;">
+          Viewing and managing orders needs the orders admin key (separate
+          from the GitHub token above). Ask whoever set this site up if you
+          don't have it. Saved only in this browser.
+        </p>
+        <div class="row wrap">
+          <input type="password" id="orders-key-input" class="grow" placeholder="Orders admin key" autocomplete="off" />
+          <button class="btn btn-primary btn-sm" id="orders-key-save">Save key</button>
+          <button class="btn btn-ghost btn-sm hidden" id="orders-key-clear">Forget key</button>
+        </div>
+        <p id="orders-key-status" style="font-size:0.75rem; margin-bottom:0;"></p>
+      </div>
+
+      <p class="tagline" id="orders-auth-hint" hidden style="color:var(--danger)">Enter your orders admin key above to view and manage orders.</p>
       <p class="tagline" id="orders-empty-hint" hidden>No orders yet — they'll show up here as students submit them.</p>
       <div id="orders-list"></div>
     </div>
@@ -827,6 +843,37 @@
     var ORDERS_ENDPOINT = '/api/orders';
     var STATUS_LABELS = { new: 'New', preparing: 'Preparing', done: 'Paid', cancelled: 'Cancelled' };
     var orders = [];
+    var ordersUnauthorized = false;
+
+    function getOrdersKey() { return localStorage.getItem('tm_orders_key') || ''; }
+    function setOrdersKey(k) { localStorage.setItem('tm_orders_key', k); }
+    function clearOrdersKey() { localStorage.removeItem('tm_orders_key'); }
+    function ordersAuthHeaders() {
+      var k = getOrdersKey();
+      return k ? { 'Authorization': 'Bearer ' + k } : {};
+    }
+
+    function refreshOrdersKeyUi() {
+      var has = !!getOrdersKey();
+      document.getElementById('orders-key-clear').classList.toggle('hidden', !has);
+      document.getElementById('orders-key-status').textContent = has
+        ? 'Key saved in this browser.'
+        : 'No key saved yet.';
+    }
+
+    document.getElementById('orders-key-save').addEventListener('click', function () {
+      var v = document.getElementById('orders-key-input').value.trim();
+      if (!v) return;
+      setOrdersKey(v);
+      document.getElementById('orders-key-input').value = '';
+      refreshOrdersKeyUi();
+      fetchOrders();
+    });
+    document.getElementById('orders-key-clear').addEventListener('click', function () {
+      clearOrdersKey();
+      refreshOrdersKeyUi();
+      fetchOrders();
+    });
 
     function timeAgo(ts) {
       var s = Math.floor((Date.now() - ts) / 1000);
@@ -838,8 +885,12 @@
     }
 
     function fetchOrders() {
-      return fetch(ORDERS_ENDPOINT, { cache: 'no-store' })
-        .then(function (res) { return res.json(); })
+      return fetch(ORDERS_ENDPOINT, { cache: 'no-store', headers: ordersAuthHeaders() })
+        .then(function (res) {
+          ordersUnauthorized = res.status === 401;
+          if (ordersUnauthorized) return { orders: [] };
+          return res.json();
+        })
         .then(function (data) {
           orders = (data.orders || []).slice().sort(function (a, b) { return a.createdAt - b.createdAt; });
           renderOrders();
@@ -852,7 +903,7 @@
       if (o) { o.status = status; renderOrders(); } // optimistic update
       fetch(ORDERS_ENDPOINT, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: Object.assign({ 'Content-Type': 'application/json' }, ordersAuthHeaders()),
         body: JSON.stringify({ id: id, status: status })
       }).then(function () { return fetchOrders(); });
     }
@@ -860,9 +911,11 @@
     function renderOrders() {
       var root = document.getElementById('orders-list');
       var emptyHint = document.getElementById('orders-empty-hint');
+      var authHint = document.getElementById('orders-auth-hint');
       if (!root) return;
       root.innerHTML = '';
-      emptyHint.hidden = orders.length !== 0;
+      authHint.hidden = !ordersUnauthorized;
+      emptyHint.hidden = ordersUnauthorized || orders.length !== 0;
 
       orders.forEach(function (order) {
         var card = document.createElement('div');
@@ -950,6 +1003,7 @@
     document.getElementById('admin-tab-menu').addEventListener('click', function () { switchAdminTab('menu'); });
     document.getElementById('admin-tab-orders').addEventListener('click', function () { switchAdminTab('orders'); });
 
+    refreshOrdersKeyUi();
     fetchOrders();
     setInterval(fetchOrders, 10000);
 

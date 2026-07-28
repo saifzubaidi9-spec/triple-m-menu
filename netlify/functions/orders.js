@@ -1,9 +1,24 @@
 const { getStore } = require('@netlify/blobs');
+const crypto = require('crypto');
 
 const VALID_STATUSES = ['new', 'preparing', 'done', 'cancelled'];
 const MAX_ITEMS = 30;
 const MAX_TEXT = 120;
 const MAX_NOTE = 200;
+
+// Viewing/managing orders is admin-only; placing a new order (POST) stays
+// open — students never need to log in to order.
+function isAuthorized(event) {
+  const expected = process.env.ORDERS_ADMIN_KEY;
+  if (!expected) return false;
+  const header = (event.headers && (event.headers.authorization || event.headers.Authorization)) || '';
+  if (!header.startsWith('Bearer ')) return false;
+  const provided = header.slice(7);
+  const a = Buffer.from(provided);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
 
 function json(statusCode, body) {
   return {
@@ -95,6 +110,7 @@ exports.handler = async (event) => {
 
   try {
     if (event.httpMethod === 'GET') {
+      if (!isAuthorized(event)) return json(401, { error: 'Unauthorized.' });
       return await listOrders(store);
     }
 
@@ -104,6 +120,7 @@ exports.handler = async (event) => {
     }
 
     if (event.httpMethod === 'DELETE') {
+      if (!isAuthorized(event)) return json(401, { error: 'Unauthorized.' });
       const id = clip((event.queryStringParameters || {}).id, MAX_TEXT);
       if (!id) return json(400, { error: 'Order id is required.' });
       await store.delete(id);
@@ -111,6 +128,7 @@ exports.handler = async (event) => {
     }
 
     if (event.httpMethod === 'PATCH') {
+      if (!isAuthorized(event)) return json(401, { error: 'Unauthorized.' });
       const payload = JSON.parse(event.body || '{}');
       return await updateStatus(store, payload);
     }
