@@ -1852,8 +1852,8 @@
       "id": "soft-water-600",
       "category": "soft-drinks",
       "name": {
-        "en": "Al Maya Water 600ml",
-        "ar": "مياه الميا 600ml"
+        "en": "Water 600ml",
+        "ar": "مياه 600ml"
       },
       "description": {
         "en": "",
@@ -1873,8 +1873,8 @@
       "id": "soft-water-330",
       "category": "soft-drinks",
       "name": {
-        "en": "Al Maya Water 330ml",
-        "ar": "مياه الميا 330ml"
+        "en": "Water 330ml",
+        "ar": "مياه 330ml"
       },
       "description": {
         "en": "",
@@ -1895,7 +1895,7 @@
       "category": "soft-drinks",
       "name": {
         "en": "Al Maya Water 200ml",
-        "ar": "مياه الميا 200ml"
+        "ar": "مياه 200ml"
       },
       "description": {
         "en": "",
@@ -2021,7 +2021,7 @@
       "category": "soft-drinks",
       "name": {
         "en": "Ayran",
-        "ar": "بلنتا شنينة"
+        "ar": "شنينة"
       },
       "description": {
         "en": "",
@@ -2042,7 +2042,7 @@
       "category": "soft-drinks",
       "name": {
         "en": "Baladna Strawberry Milk",
-        "ar": "لبن فروله بلدنا"
+        "ar": "فروله بلدنا"
       },
       "description": {
         "en": "",
