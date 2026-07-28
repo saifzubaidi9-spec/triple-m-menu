@@ -134,6 +134,17 @@
     .item-fields .row > * { min-width: 0; }
     .price-input { max-width: 110px; }
     .badge-select { max-width: 150px; }
+    .lang-row { display: flex; align-items: center; gap: 8px; }
+    .lang-row > input, .lang-row > textarea { flex: 1; min-width: 0; }
+    .lang-tag {
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+      font-size: 0.625rem;
+      font-weight: 700;
+      color: var(--cream-faint);
+      letter-spacing: 0.03em;
+    }
     .remove-photo-link {
       font-size: 0.7rem;
       color: var(--cream-faint);
@@ -317,12 +328,12 @@
 
         var title = document.createElement('h2');
         title.className = 'category-title';
-        title.textContent = cat.label;
+        title.textContent = cat.label.en;
         block.appendChild(title);
 
         var note = document.createElement('p');
         note.className = 'category-note';
-        note.textContent = cat.note;
+        note.textContent = cat.note.en;
         block.appendChild(note);
 
         var items = state.items.filter(function (it) { return it.category === cat.id; });
@@ -331,7 +342,7 @@
         var addBtn = document.createElement('button');
         addBtn.type = 'button';
         addBtn.className = 'btn btn-ghost btn-sm add-item-btn';
-        addBtn.textContent = '+ Add item to ' + cat.label;
+        addBtn.textContent = '+ Add item to ' + cat.label.en;
         addBtn.addEventListener('click', function () { addItem(cat.id); });
         block.appendChild(addBtn);
 
@@ -389,19 +400,46 @@
       var fields = document.createElement('div');
       fields.className = 'item-fields';
 
-      var nameRow = document.createElement('input');
-      nameRow.type = 'text';
-      nameRow.value = item.name;
-      nameRow.placeholder = 'Item name';
-      nameRow.addEventListener('input', function () { item.name = nameRow.value; });
-      fields.appendChild(nameRow);
+      function langRow(tagText, el) {
+        var row = document.createElement('div');
+        row.className = 'lang-row';
+        var tag = document.createElement('span');
+        tag.className = 'lang-tag';
+        tag.textContent = tagText;
+        row.appendChild(tag);
+        row.appendChild(el);
+        return row;
+      }
 
-      var descRow = document.createElement('textarea');
-      descRow.value = item.description;
-      descRow.placeholder = 'Description';
-      descRow.rows = 1;
-      descRow.addEventListener('input', function () { item.description = descRow.value; });
-      fields.appendChild(descRow);
+      var nameEn = document.createElement('input');
+      nameEn.type = 'text';
+      nameEn.value = item.name.en;
+      nameEn.placeholder = 'Item name (English)';
+      nameEn.addEventListener('input', function () { item.name.en = nameEn.value; });
+      fields.appendChild(langRow('EN', nameEn));
+
+      var nameAr = document.createElement('input');
+      nameAr.type = 'text';
+      nameAr.dir = 'rtl';
+      nameAr.value = item.name.ar;
+      nameAr.placeholder = 'اسم الصنف (عربي)';
+      nameAr.addEventListener('input', function () { item.name.ar = nameAr.value; });
+      fields.appendChild(langRow('AR', nameAr));
+
+      var descEn = document.createElement('textarea');
+      descEn.value = item.description.en;
+      descEn.placeholder = 'Description (English)';
+      descEn.rows = 1;
+      descEn.addEventListener('input', function () { item.description.en = descEn.value; });
+      fields.appendChild(langRow('EN', descEn));
+
+      var descAr = document.createElement('textarea');
+      descAr.dir = 'rtl';
+      descAr.value = item.description.ar;
+      descAr.placeholder = 'الوصف (عربي)';
+      descAr.rows = 1;
+      descAr.addEventListener('input', function () { item.description.ar = descAr.value; });
+      fields.appendChild(langRow('AR', descAr));
 
       var metaRow = document.createElement('div');
       metaRow.className = 'row wrap';
@@ -470,8 +508,8 @@
         _tempId: tempId,
         id: null,
         category: categoryId,
-        name: '',
-        description: '',
+        name: { en: '', ar: '' },
+        description: { en: '', ar: '' },
         price: 0,
         emoji: '🍽️',
         image: null,
@@ -509,7 +547,7 @@
       var base64 = pending.dataUrl.split(',')[1];
 
       return ghGetFile(path).then(function (existing) {
-        return ghPutFile(path, base64, 'Update photo for ' + item.name, existing ? existing.sha : null);
+        return ghPutFile(path, base64, 'Update photo for ' + (item.name.en || item.name.ar), existing ? existing.sha : null);
       }).then(function () {
         item.image = './' + path;
         delete pendingImages[itemKey];
@@ -522,11 +560,11 @@
 
       // assign ids to any new items
       state.items.forEach(function (it) {
-        if (!it.id) it.id = slugify(it.name);
+        if (!it.id) it.id = slugify(it.name.en || it.name.ar);
       });
 
-      var missingName = state.items.find(function (it) { return !it.name.trim(); });
-      if (missingName) { setStatus('Every item needs a name before saving.', 'error'); return; }
+      var missingName = state.items.find(function (it) { return !it.name.en || !it.name.en.trim(); });
+      if (missingName) { setStatus('Every item needs at least an English name before saving.', 'error'); return; }
 
       document.getElementById('save-btn').disabled = true;
       setStatus('Uploading photos…');

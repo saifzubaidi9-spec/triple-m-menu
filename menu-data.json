@@ -2,26 +2,50 @@
   "categories": [
     {
       "id": "coffee",
-      "label": "Coffee",
-      "note": "Brewed 07:30–16:00"
+      "label": {
+        "en": "Coffee",
+        "ar": "قهوة"
+      },
+      "note": {
+        "en": "Brewed 07:30–16:00",
+        "ar": "التحضير من 07:30 حتى 16:00"
+      }
     },
     {
       "id": "snacks",
-      "label": "Snacks",
-      "note": "Fresh from the 7am bake · while they last"
+      "label": {
+        "en": "Snacks",
+        "ar": "وجبات خفيفة"
+      },
+      "note": {
+        "en": "Fresh from the 7am bake · while they last",
+        "ar": "طازجة من فرن الساعة 7 صباحاً · حتى نفاد الكمية"
+      }
     },
     {
       "id": "food",
-      "label": "Food",
-      "note": "Made to order · ~6 min"
+      "label": {
+        "en": "Food",
+        "ar": "طعام"
+      },
+      "note": {
+        "en": "Made to order · ~6 min",
+        "ar": "تُحضّر عند الطلب · حوالي 6 دقائق"
+      }
     }
   ],
   "items": [
     {
       "id": "espresso",
       "category": "coffee",
-      "name": "Espresso",
-      "description": "Single origin, pulled tight.",
+      "name": {
+        "en": "Espresso",
+        "ar": "إسبريسو"
+      },
+      "description": {
+        "en": "Single origin, pulled tight.",
+        "ar": "بن أحادي المصدر، مستخلص بإحكام."
+      },
       "price": 3,
       "emoji": "☕",
       "image": null,
@@ -34,8 +58,14 @@
     {
       "id": "double-espresso",
       "category": "coffee",
-      "name": "Double Espresso",
-      "description": "Twice the kick for 8am lectures.",
+      "name": {
+        "en": "Double Espresso",
+        "ar": "إسبريسو مزدوج"
+      },
+      "description": {
+        "en": "Twice the kick for 8am lectures.",
+        "ar": "جرعة مضاعفة لمحاضرات الساعة الثامنة صباحاً."
+      },
       "price": 3.5,
       "emoji": "⚡",
       "image": null,
@@ -48,8 +78,14 @@
     {
       "id": "cappuccino",
       "category": "coffee",
-      "name": "Cappuccino",
-      "description": "Velvet foam, dusted cocoa.",
+      "name": {
+        "en": "Cappuccino",
+        "ar": "كابتشينو"
+      },
+      "description": {
+        "en": "Velvet foam, dusted cocoa.",
+        "ar": "رغوة مخملية مع رشة كاكاو."
+      },
       "price": 3.2,
       "emoji": "🫧",
       "image": null,
@@ -62,8 +98,14 @@
     {
       "id": "latte",
       "category": "coffee",
-      "name": "Latte",
-      "description": "Slow-steamed, extra smooth.",
+      "name": {
+        "en": "Latte",
+        "ar": "لاتيه"
+      },
+      "description": {
+        "en": "Slow-steamed, extra smooth.",
+        "ar": "حليب مبخّر ببطء، ناعم جداً."
+      },
       "price": 3.5,
       "emoji": "🥛",
       "image": null,
@@ -76,8 +118,14 @@
     {
       "id": "flat-white",
       "category": "coffee",
-      "name": "Flat White",
-      "description": "Stronger ratio, silkier micro-foam.",
+      "name": {
+        "en": "Flat White",
+        "ar": "فلات وايت"
+      },
+      "description": {
+        "en": "Stronger ratio, silkier micro-foam.",
+        "ar": "تركيز أقوى ورغوة حريرية ناعمة."
+      },
       "price": 3.4,
       "emoji": "🤍",
       "image": null,
@@ -90,8 +138,14 @@
     {
       "id": "iced-latte",
       "category": "coffee",
-      "name": "Iced Latte",
-      "description": "Cold-shaken over campus ice.",
+      "name": {
+        "en": "Iced Latte",
+        "ar": "لاتيه مثلج"
+      },
+      "description": {
+        "en": "Cold-shaken over campus ice.",
+        "ar": "يُحضّر بارداً مع ثلج الحرم الجامعي."
+      },
       "price": 3.8,
       "emoji": "🧊",
       "image": null,
@@ -104,8 +158,14 @@
     {
       "id": "mocha",
       "category": "coffee",
-      "name": "Mocha",
-      "description": "Espresso × dark chocolate.",
+      "name": {
+        "en": "Mocha",
+        "ar": "موكا"
+      },
+      "description": {
+        "en": "Espresso × dark chocolate.",
+        "ar": "إسبريسو مع شوكولاتة داكنة."
+      },
       "price": 3.9,
       "emoji": "🍫",
       "image": null,
@@ -118,8 +178,14 @@
     {
       "id": "matcha-latte",
       "category": "coffee",
-      "name": "Matcha Latte",
-      "description": "Ceremonial grade, oat by default.",
+      "name": {
+        "en": "Matcha Latte",
+        "ar": "لاتيه ماتشا"
+      },
+      "description": {
+        "en": "Ceremonial grade, oat by default.",
+        "ar": "درجة احتفالية، بحليب الشوفان افتراضياً."
+      },
       "price": 4.2,
       "emoji": "🍵",
       "image": null,
@@ -132,8 +198,14 @@
     {
       "id": "butter-croissant",
       "category": "snacks",
-      "name": "Butter Croissant",
-      "description": "Baked 7am, flaky to a fault.",
+      "name": {
+        "en": "Butter Croissant",
+        "ar": "كرواسان بالزبدة"
+      },
+      "description": {
+        "en": "Baked 7am, flaky to a fault.",
+        "ar": "يُخبز الساعة 7 صباحاً، مقرمش جداً."
+      },
       "price": 2.4,
       "emoji": "🥐",
       "image": null,
@@ -146,8 +218,14 @@
     {
       "id": "pain-au-chocolat",
       "category": "snacks",
-      "name": "Pain au Chocolat",
-      "description": "Two batons of 60% dark inside.",
+      "name": {
+        "en": "Pain au Chocolat",
+        "ar": "بان أو شوكولا"
+      },
+      "description": {
+        "en": "Two batons of 60% dark inside.",
+        "ar": "بقطعتين من الشوكولاتة الداكنة 60%."
+      },
       "price": 2.9,
       "emoji": "🥐",
       "image": null,
@@ -160,8 +238,14 @@
     {
       "id": "halloumi-toastie",
       "category": "snacks",
-      "name": "Halloumi Toastie",
-      "description": "Grilled halloumi, honey, chili flakes.",
+      "name": {
+        "en": "Halloumi Toastie",
+        "ar": "توست حلومي"
+      },
+      "description": {
+        "en": "Grilled halloumi, honey, chili flakes.",
+        "ar": "حلومي مشوي مع عسل ورقائق فلفل حار."
+      },
       "price": 4.5,
       "emoji": "🥪",
       "image": null,
@@ -174,8 +258,14 @@
     {
       "id": "turkey-baguette",
       "category": "snacks",
-      "name": "Turkey & Swiss Baguette",
-      "description": "On yesterday-proofed sourdough.",
+      "name": {
+        "en": "Turkey & Swiss Baguette",
+        "ar": "باغيت ديك رومي وجبن سويسري"
+      },
+      "description": {
+        "en": "On yesterday-proofed sourdough.",
+        "ar": "على عجينة مخمّرة من الأمس."
+      },
       "price": 5.2,
       "emoji": "🥖",
       "image": null,
@@ -188,8 +278,14 @@
     {
       "id": "kettle-chips",
       "category": "snacks",
-      "name": "Kettle Chips · Sea Salt",
-      "description": "Loud. Sorry, lecture halls.",
+      "name": {
+        "en": "Kettle Chips · Sea Salt",
+        "ar": "شيبس · ملح البحر"
+      },
+      "description": {
+        "en": "Loud. Sorry, lecture halls.",
+        "ar": "صوتها عالٍ، نعتذر لقاعات المحاضرات."
+      },
       "price": 1.8,
       "emoji": "🥔",
       "image": null,
@@ -202,8 +298,14 @@
     {
       "id": "choc-chip-cookie",
       "category": "snacks",
-      "name": "Choc-Chip Cookie",
-      "description": "Still warm if you time it right.",
+      "name": {
+        "en": "Choc-Chip Cookie",
+        "ar": "كوكيز برقائق الشوكولاتة"
+      },
+      "description": {
+        "en": "Still warm if you time it right.",
+        "ar": "لا تزال دافئة إن أحسنت التوقيت."
+      },
       "price": 2.2,
       "emoji": "🍪",
       "image": null,
@@ -216,8 +318,14 @@
     {
       "id": "blueberry-muffin",
       "category": "snacks",
-      "name": "Blueberry Muffin",
-      "description": "Bursting, slightly over-filled.",
+      "name": {
+        "en": "Blueberry Muffin",
+        "ar": "مافن التوت الأزرق"
+      },
+      "description": {
+        "en": "Bursting, slightly over-filled.",
+        "ar": "مليئة بالتوت، بسخاء."
+      },
       "price": 2.8,
       "emoji": "🧁",
       "image": null,
@@ -230,8 +338,14 @@
     {
       "id": "fruit-cup",
       "category": "snacks",
-      "name": "Fruit Cup",
-      "description": "Whatever the market had at 6am.",
+      "name": {
+        "en": "Fruit Cup",
+        "ar": "كوب فواكه"
+      },
+      "description": {
+        "en": "Whatever the market had at 6am.",
+        "ar": "حسب ما توفر في السوق الساعة 6 صباحاً."
+      },
       "price": 3,
       "emoji": "🍓",
       "image": null,
@@ -244,8 +358,14 @@
     {
       "id": "shawarma-wrap",
       "category": "food",
-      "name": "Chicken Shawarma Wrap",
-      "description": "Marinated overnight, grilled to order.",
+      "name": {
+        "en": "Chicken Shawarma Wrap",
+        "ar": "راب شاورما دجاج"
+      },
+      "description": {
+        "en": "Marinated overnight, grilled to order.",
+        "ar": "متبّل طوال الليل، يُشوى عند الطلب."
+      },
       "price": 6.5,
       "emoji": "🌯",
       "image": null,
@@ -258,8 +378,14 @@
     {
       "id": "falafel-bowl",
       "category": "food",
-      "name": "Falafel Bowl",
-      "description": "Herby, crisp-shelled, tahini drizzle.",
+      "name": {
+        "en": "Falafel Bowl",
+        "ar": "طبق فلافل"
+      },
+      "description": {
+        "en": "Herby, crisp-shelled, tahini drizzle.",
+        "ar": "بالأعشاب، مقرمش، مع صلصة الطحينة."
+      },
       "price": 6,
       "emoji": "🥙",
       "image": null,
@@ -272,8 +398,14 @@
     {
       "id": "chicken-panini",
       "category": "food",
-      "name": "Grilled Chicken Panini",
-      "description": "Pressed hot, melted provolone.",
+      "name": {
+        "en": "Grilled Chicken Panini",
+        "ar": "بانيني دجاج مشوي"
+      },
+      "description": {
+        "en": "Pressed hot, melted provolone.",
+        "ar": "يُحضّر ساخناً مع جبن بروفولون ذائب."
+      },
       "price": 6.8,
       "emoji": "🥪",
       "image": null,
@@ -286,8 +418,14 @@
     {
       "id": "margherita-flatbread",
       "category": "food",
-      "name": "Margherita Flatbread",
-      "description": "Stone-baked between lectures.",
+      "name": {
+        "en": "Margherita Flatbread",
+        "ar": "فطيرة مارغريتا"
+      },
+      "description": {
+        "en": "Stone-baked between lectures.",
+        "ar": "تُخبز على حجر بين المحاضرات."
+      },
       "price": 5.9,
       "emoji": "🍕",
       "image": null,
@@ -300,8 +438,14 @@
     {
       "id": "beef-burrito",
       "category": "food",
-      "name": "Beef Burrito",
-      "description": "Rice, black beans, salsa, no fuss.",
+      "name": {
+        "en": "Beef Burrito",
+        "ar": "بوريتو لحم بقري"
+      },
+      "description": {
+        "en": "Rice, black beans, salsa, no fuss.",
+        "ar": "أرز، فاصولياء سوداء، صلصة، ببساطة."
+      },
       "price": 6.9,
       "emoji": "🌯",
       "image": null,
@@ -314,8 +458,14 @@
     {
       "id": "veggie-rice-bowl",
       "category": "food",
-      "name": "Veggie Rice Bowl",
-      "description": "Roasted veg over turmeric rice.",
+      "name": {
+        "en": "Veggie Rice Bowl",
+        "ar": "طبق أرز نباتي"
+      },
+      "description": {
+        "en": "Roasted veg over turmeric rice.",
+        "ar": "خضار مشوية فوق أرز الكركم."
+      },
       "price": 5.8,
       "emoji": "🥗",
       "image": null,
@@ -328,8 +478,14 @@
     {
       "id": "mac-and-cheese",
       "category": "food",
-      "name": "Mac & Cheese Cup",
-      "description": "Comfort food, ready in a minute.",
+      "name": {
+        "en": "Mac & Cheese Cup",
+        "ar": "كوب مكرونة بالجبن"
+      },
+      "description": {
+        "en": "Comfort food, ready in a minute.",
+        "ar": "أكلة مريحة، جاهزة خلال دقيقة."
+      },
       "price": 4.9,
       "emoji": "🧀",
       "image": null,
@@ -342,8 +498,14 @@
     {
       "id": "soup-of-the-day",
       "category": "food",
-      "name": "Soup of the Day",
-      "description": "Ask at the counter — changes daily.",
+      "name": {
+        "en": "Soup of the Day",
+        "ar": "شوربة اليوم"
+      },
+      "description": {
+        "en": "Ask at the counter — changes daily.",
+        "ar": "اسأل عند الكاونتر — تتغير يومياً."
+      },
       "price": 4.2,
       "emoji": "🍲",
       "image": null,

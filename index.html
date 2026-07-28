@@ -16,10 +16,11 @@
     .eyebrow-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 10px;
       margin-bottom: 6px;
     }
     .eyebrow {
+      flex: 1;
       font-family: var(--font-body);
       font-weight: 600;
       font-size: 0.6875rem;
@@ -27,7 +28,26 @@
       text-transform: uppercase;
       color: var(--cream-faint);
     }
+    [dir="rtl"] .eyebrow,
+    [dir="rtl"] .badge {
+      letter-spacing: 0;
+      text-transform: none;
+    }
     .mark { flex-shrink: 0; }
+    .lang-btn {
+      flex-shrink: 0;
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--surface-hi);
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.7rem;
+      padding: 6px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .lang-btn:hover { background: var(--surface); }
     h1.wordmark {
       font-family: var(--font-display);
       font-weight: 700;
@@ -36,6 +56,7 @@
       margin: 0 0 4px;
       text-wrap: balance;
     }
+    [dir="rtl"] h1.wordmark { letter-spacing: 0; }
     .tagline {
       font-size: 0.8125rem;
       color: var(--cream-dim);
@@ -149,6 +170,7 @@
       font-weight: 700;
       font-size: 0.9375rem;
       font-variant-numeric: tabular-nums;
+      direction: ltr;
     }
     footer {
       margin-top: 30px;
@@ -179,25 +201,58 @@
 <body>
   <div class="page">
     <div class="eyebrow-row">
-      <span class="eyebrow">Triple M · Campus Kiosk</span>
+      <span class="eyebrow" id="eyebrow">Triple M · Campus Kiosk</span>
       <svg class="mark" width="30" height="13.3" viewBox="0 0 108 48" fill="none" aria-hidden="true">
         <path d="M6 38 L14 10 L22 30 L30 10 L38 38 L46 10 L54 30 L62 10 L70 38 L78 10 L86 30 L94 10 L102 38"
           stroke="#E8A33D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
+      <button class="lang-btn" id="lang-toggle" type="button">العربية</button>
     </div>
-    <h1 class="wordmark">Menu</h1>
-    <p class="tagline">Kiosk, Building C · pickup only, pay at the counter</p>
+    <h1 class="wordmark" id="wordmark">Menu</h1>
+    <p class="tagline" id="tagline">Kiosk, Building C · pickup only, pay at the counter</p>
 
     <div class="switcher" id="switcher" role="tablist" aria-label="Menu category"></div>
     <div id="panels">
-      <p class="loading">Loading menu…</p>
+      <p class="loading" id="loading-text">Loading menu…</p>
     </div>
 
-    <footer>Triple M · Building C, university campus<br />Menu updates weekly</footer>
+    <footer>
+      <span id="footer-line1">Triple M · Building C, university campus</span><br />
+      <span id="footer-line2">Menu updates weekly</span>
+    </footer>
   </div>
 
   <script>
-    var BADGE_LABELS = { new: 'New', bestseller: 'Bestseller', veggie: 'Veggie' };
+    var STRINGS = {
+      en: {
+        eyebrow: 'Triple M · Campus Kiosk',
+        wordmark: 'Menu',
+        tagline: 'Kiosk, Building C · pickup only, pay at the counter',
+        loading: 'Loading menu…',
+        unavailable: 'Menu unavailable right now — please ask at the counter.',
+        footer1: 'Triple M · Building C, university campus',
+        footer2: 'Menu updates weekly',
+        toggleLabel: 'العربية'
+      },
+      ar: {
+        eyebrow: 'تريبل إم · كشك الحرم الجامعي',
+        wordmark: 'القائمة',
+        tagline: 'الكشك، مبنى C · استلام فقط، الدفع عند الكاونتر',
+        loading: 'جارٍ تحميل القائمة…',
+        unavailable: 'القائمة غير متاحة حالياً — يرجى السؤال عند الكاونتر.',
+        footer1: 'تريبل إم · مبنى C، الحرم الجامعي',
+        footer2: 'تُحدَّث القائمة أسبوعياً',
+        toggleLabel: 'English'
+      }
+    };
+    var BADGE_LABELS = {
+      en: { new: 'New', bestseller: 'Bestseller', veggie: 'Veggie' },
+      ar: { new: 'جديد', bestseller: 'الأكثر مبيعاً', veggie: 'نباتي' }
+    };
+
+    var menuData = null;
+    var activeCategory = null;
+    var currentLang = localStorage.getItem('tm_lang') === 'ar' ? 'ar' : 'en';
 
     function renderItem(item, index) {
       var art = document.createElement('article');
@@ -223,18 +278,18 @@
       var top = document.createElement('div');
       top.className = 'info-top';
       var h3 = document.createElement('h3');
-      h3.textContent = item.name;
+      h3.textContent = item.name[currentLang] || item.name.en;
       top.appendChild(h3);
       if (item.badge) {
         var badge = document.createElement('span');
         badge.className = 'badge badge-' + item.badge;
-        badge.textContent = BADGE_LABELS[item.badge] || item.badge;
+        badge.textContent = BADGE_LABELS[currentLang][item.badge] || item.badge;
         top.appendChild(badge);
       }
       info.appendChild(top);
       var desc = document.createElement('p');
       desc.className = 'desc';
-      desc.textContent = item.description;
+      desc.textContent = item.description[currentLang] || item.description.en;
       info.appendChild(desc);
       art.appendChild(info);
 
@@ -246,68 +301,90 @@
       return art;
     }
 
-    function render(data) {
+    function render() {
+      if (!menuData) return;
+      if (!activeCategory) activeCategory = menuData.categories[0].id;
+
       var switcher = document.getElementById('switcher');
       var panelsWrap = document.getElementById('panels');
+      switcher.innerHTML = '';
       panelsWrap.innerHTML = '';
 
-      data.categories.forEach(function (cat, ci) {
+      menuData.categories.forEach(function (cat) {
+        var isActive = cat.id === activeCategory;
+
         var tab = document.createElement('button');
         tab.className = 'tab';
         tab.type = 'button';
         tab.setAttribute('role', 'tab');
         tab.id = 'tab-' + cat.id;
-        tab.setAttribute('aria-selected', ci === 0 ? 'true' : 'false');
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
         tab.setAttribute('aria-controls', 'panel-' + cat.id);
-        tab.tabIndex = ci === 0 ? 0 : -1;
+        tab.tabIndex = isActive ? 0 : -1;
         tab.dataset.tab = cat.id;
-        tab.textContent = cat.label;
+        tab.textContent = cat.label[currentLang] || cat.label.en;
+        tab.addEventListener('click', function () {
+          activeCategory = cat.id;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
         switcher.appendChild(tab);
 
         var panel = document.createElement('section');
         panel.id = 'panel-' + cat.id;
         panel.setAttribute('role', 'tabpanel');
         panel.setAttribute('aria-labelledby', 'tab-' + cat.id);
-        if (ci !== 0) panel.hidden = true;
+        if (!isActive) panel.hidden = true;
 
         var note = document.createElement('p');
         note.className = 'panel-note';
-        note.textContent = cat.note;
+        note.textContent = cat.note[currentLang] || cat.note.en;
         panel.appendChild(note);
 
         var list = document.createElement('div');
         list.className = 'list';
-        data.items
+        menuData.items
           .filter(function (it) { return it.category === cat.id; })
           .forEach(function (it, i) { list.appendChild(renderItem(it, i)); });
         panel.appendChild(list);
 
         panelsWrap.appendChild(panel);
       });
-
-      var tabs = switcher.querySelectorAll('.tab');
-      tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () {
-          tabs.forEach(function (t) {
-            t.setAttribute('aria-selected', 'false');
-            t.tabIndex = -1;
-          });
-          tab.setAttribute('aria-selected', 'true');
-          tab.tabIndex = 0;
-          panelsWrap.querySelectorAll('section').forEach(function (p) {
-            p.hidden = p.id !== 'panel-' + tab.dataset.tab;
-          });
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      });
     }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('tm_lang', lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      var s = STRINGS[lang];
+      document.getElementById('eyebrow').textContent = s.eyebrow;
+      document.getElementById('wordmark').textContent = s.wordmark;
+      document.getElementById('tagline').textContent = s.tagline;
+      document.getElementById('lang-toggle').textContent = s.toggleLabel;
+      document.getElementById('footer-line1').textContent = s.footer1;
+      document.getElementById('footer-line2').textContent = s.footer2;
+      document.getElementById('loading-text').textContent = s.loading;
+
+      render();
+    }
+
+    document.getElementById('lang-toggle').addEventListener('click', function () {
+      applyLanguage(currentLang === 'en' ? 'ar' : 'en');
+    });
+
+    applyLanguage(currentLang);
 
     fetch('./menu-data.json', { cache: 'no-store' })
       .then(function (res) { return res.json(); })
-      .then(render)
+      .then(function (data) {
+        menuData = data;
+        render();
+      })
       .catch(function () {
         document.getElementById('panels').innerHTML =
-          '<p class="loading">Menu unavailable right now — please ask at the counter.</p>';
+          '<p class="loading">' + STRINGS[currentLang].unavailable + '</p>';
       });
   </script>
 </body>
