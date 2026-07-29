@@ -416,6 +416,49 @@
       padding: 1px 5px;
       font-size: 0.85em;
     }
+
+    /* Web Orders: calendar */
+    .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; position: relative; }
+    .cal-head button { background: var(--surface-hi); border: 1px solid var(--line); color: var(--cream); border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 1rem; }
+    .cal-head .cal-month { background: transparent; border: none; font-family: var(--font-display); font-size: 1rem; color: var(--cream); cursor: pointer; padding: 4px 10px; width: auto; height: auto; border-radius: 0; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .cal-dow { text-align: center; font-size: 0.65rem; color: var(--cream-faint); padding-bottom: 4px; }
+    .cal-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      border-radius: 8px; font-size: 0.82rem; color: var(--cream-dim); position: relative; cursor: pointer; border: 1px solid transparent;
+    }
+    .cal-day.has-orders::after { content: ''; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--matcha); }
+    .cal-day.dim { color: var(--cream-faint); opacity: 0.35; cursor: default; }
+    .cal-day.today { border-color: var(--amber); }
+    .cal-day.selected { background: var(--amber); color: var(--on-amber); font-weight: 700; }
+    .cal-day.selected::after { background: var(--on-amber); }
+
+    .year-picker {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      background: var(--surface-hi); border: 1px solid var(--line); border-radius: 14px;
+      padding: 12px; z-index: 10; box-shadow: 0 10px 28px rgba(0,0,0,0.45); width: 240px;
+    }
+    .year-picker.hidden { display: none; }
+    .year-picker-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-weight: 700; }
+    .year-picker-head button { background: transparent; border: none; color: var(--cream); font-size: 1rem; cursor: pointer; width: 26px; height: 26px; }
+    .year-picker-months { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .year-picker-months button {
+      background: var(--bg-elevated); border: 1px solid var(--line); color: var(--cream-dim);
+      border-radius: 8px; padding: 6px 0; font-size: 0.75rem; cursor: pointer;
+    }
+    .year-picker-months button.active { background: var(--amber); color: var(--on-amber); border-color: var(--amber); }
+
+    .total-card { background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 14px 0; text-align: center; }
+    .total-label { font-size: 0.7rem; color: var(--cream-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+    .total-amount { font-family: var(--font-display); font-size: 2rem; color: var(--amber); margin-top: 4px; }
+    .total-sub { font-size: 0.75rem; color: var(--cream-dim); margin-top: 2px; }
+
+    .tally-row { display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.85rem; }
+    .tally-row:first-child { border-top: none; }
+    .tally-name { color: var(--cream); }
+    .tally-amt { color: var(--matcha); font-weight: 600; }
+    .tally-grand-total { border-top: 2px solid var(--line); margin-top: 6px; padding-top: 12px; font-weight: 700; }
+    .tally-grand-total .tally-amt { color: var(--amber); }
   </style>
 </head>
 <body>
@@ -429,6 +472,7 @@
         Orders
         <span class="admin-tab-badge" id="orders-badge" hidden>0</span>
       </button>
+      <button class="admin-tab" id="admin-tab-weborders" role="tab" aria-selected="false" type="button">Web Orders</button>
     </div>
 
     <div class="ordering-toggle" id="ordering-toggle-row">
@@ -505,8 +549,36 @@
       <p class="tagline" id="orders-empty-hint" hidden>No orders yet — they'll show up here as students submit them.</p>
       <div id="orders-list"></div>
     </div>
+
+    <div id="view-weborders" hidden>
+      <div class="panel">
+        <div class="cal" id="web-orders-calendar"></div>
+      </div>
+
+      <div class="switcher" id="web-orders-sum-toggle">
+        <button class="tab" type="button" data-window="day">Day</button>
+        <button class="tab" type="button" data-window="week">Week</button>
+        <button class="tab" type="button" data-window="month">Month</button>
+        <button class="tab" type="button" data-window="year">Year</button>
+        <button class="tab" type="button" data-window="custom">Custom</button>
+      </div>
+
+      <div class="row wrap hidden" id="web-orders-custom-range">
+        <input type="date" id="web-orders-from" />
+        <input type="date" id="web-orders-to" />
+      </div>
+
+      <div class="total-card" id="web-orders-total">
+        <div class="total-label"></div>
+        <div class="total-amount"></div>
+        <div class="total-sub"></div>
+      </div>
+
+      <div id="web-orders-list"></div>
+    </div>
   </div>
 
+  <script src="orders-reporting.js"></script>
   <script>
     var OWNER = 'saifzubaidi9-spec';
     var REPO = 'triple-m-menu';
@@ -1158,6 +1230,12 @@
       return h + 'h ago';
     }
 
+    function renderAllOrderViews() {
+      renderOrders();
+      renderCalendar();
+      renderWebOrdersReport();
+    }
+
     function fetchOrders() {
       return fetch(ORDERS_ENDPOINT, { cache: 'no-store', headers: ordersAuthHeaders() })
         .then(function (res) {
@@ -1167,20 +1245,399 @@
         })
         .then(function (data) {
           orders = (data.orders || []).slice().sort(function (a, b) { return a.createdAt - b.createdAt; });
-          renderOrders();
+          renderAllOrderViews();
         })
         .catch(function () { /* keep last-known orders on screen */ });
     }
 
     function updateOrderStatus(id, status) {
       var o = orders.find(function (x) { return x.id === id; });
-      if (o) { o.status = status; renderOrders(); } // optimistic update
-      fetch(ORDERS_ENDPOINT, {
+      if (o) { o.status = status; renderAllOrderViews(); } // optimistic update
+      return fetch(ORDERS_ENDPOINT, {
         method: 'PATCH',
         headers: Object.assign({ 'Content-Type': 'application/json' }, ordersAuthHeaders()),
         body: JSON.stringify({ id: id, status: status })
       }).then(function () { return fetchOrders(); });
     }
+
+    function deleteOrder(id) {
+      orders = orders.filter(function (o) { return o.id !== id; }); // optimistic
+      renderAllOrderViews();
+      return fetch(ORDERS_ENDPOINT + '?id=' + encodeURIComponent(id), {
+        method: 'DELETE',
+        headers: ordersAuthHeaders()
+      }).then(function () { return fetchOrders(); });
+    }
+
+    function liveOrders() {
+      return orders.filter(function (o) { return o.status === 'new' || o.status === 'preparing'; });
+    }
+
+    // ── Web Orders: calendar ─────────────────────────────────────────────
+    var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var DOW_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    var webOrdersState = {
+      viewYear: null,
+      viewMonth: null,
+      selectedDateKey: null,
+      sumWindow: 'day',
+      customFrom: null,
+      customTo: null
+    };
+
+    function initWebOrdersState() {
+      var today = OrdersReporting.localDateKey(Date.now());
+      webOrdersState.selectedDateKey = today;
+      var d = OrdersReporting.dateFromKey(today);
+      webOrdersState.viewYear = d.getFullYear();
+      webOrdersState.viewMonth = d.getMonth();
+    }
+
+    function historyOrders() {
+      return OrdersReporting.historyOnly(orders);
+    }
+
+    function ordersByDateKeySet() {
+      var set = {};
+      historyOrders().forEach(function (o) { set[OrdersReporting.localDateKey(o.createdAt)] = true; });
+      return set;
+    }
+
+    function renderCalendar() {
+      var root = document.getElementById('web-orders-calendar');
+      if (!root) return;
+      root.innerHTML = '';
+      var year = webOrdersState.viewYear, month = webOrdersState.viewMonth;
+      var hasOrders = ordersByDateKeySet();
+      var todayKey = OrdersReporting.localDateKey(Date.now());
+
+      var head = document.createElement('div');
+      head.className = 'cal-head';
+
+      var prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.textContent = '‹';
+      prevBtn.addEventListener('click', function () {
+        webOrdersState.viewMonth -= 1;
+        if (webOrdersState.viewMonth < 0) { webOrdersState.viewMonth = 11; webOrdersState.viewYear -= 1; }
+        renderCalendar();
+      });
+
+      var label = document.createElement('button');
+      label.type = 'button';
+      label.className = 'cal-month';
+      label.textContent = MONTH_NAMES[month] + ' ' + year;
+      label.addEventListener('click', function () { toggleYearPicker(); });
+
+      var nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.textContent = '›';
+      nextBtn.addEventListener('click', function () {
+        webOrdersState.viewMonth += 1;
+        if (webOrdersState.viewMonth > 11) { webOrdersState.viewMonth = 0; webOrdersState.viewYear += 1; }
+        renderCalendar();
+      });
+
+      head.appendChild(prevBtn);
+      head.appendChild(label);
+      head.appendChild(nextBtn);
+      root.appendChild(head);
+
+      var yearPicker = document.createElement('div');
+      yearPicker.id = 'web-orders-year-picker';
+      yearPicker.className = 'year-picker hidden';
+      root.appendChild(yearPicker);
+
+      var grid = document.createElement('div');
+      grid.className = 'cal-grid';
+      DOW_NAMES.forEach(function (d) {
+        var dow = document.createElement('div');
+        dow.className = 'cal-dow';
+        dow.textContent = d.charAt(0);
+        grid.appendChild(dow);
+      });
+
+      var startOffset = new Date(year, month, 1).getDay();
+      var daysInMonth = new Date(year, month + 1, 0).getDate();
+      var daysInPrevMonth = new Date(year, month, 0).getDate();
+
+      for (var i = startOffset - 1; i >= 0; i--) {
+        var lead = document.createElement('div');
+        lead.className = 'cal-day dim';
+        lead.textContent = daysInPrevMonth - i;
+        grid.appendChild(lead);
+      }
+
+      for (var day = 1; day <= daysInMonth; day++) {
+        var key = year + '-' + (month + 1 < 10 ? '0' + (month + 1) : month + 1) + '-' + (day < 10 ? '0' + day : day);
+        var cell = document.createElement('div');
+        var cls = 'cal-day';
+        if (hasOrders[key]) cls += ' has-orders';
+        if (key === todayKey) cls += ' today';
+        if (key === webOrdersState.selectedDateKey) cls += ' selected';
+        cell.className = cls;
+        cell.textContent = day;
+        (function (k) {
+          cell.addEventListener('click', function () {
+            webOrdersState.selectedDateKey = k;
+            renderCalendar();
+            renderWebOrdersReport();
+          });
+        })(key);
+        grid.appendChild(cell);
+      }
+
+      var totalCells = startOffset + daysInMonth;
+      var trailing = (7 - (totalCells % 7)) % 7;
+      for (var t = 1; t <= trailing; t++) {
+        var trail = document.createElement('div');
+        trail.className = 'cal-day dim';
+        trail.textContent = t;
+        grid.appendChild(trail);
+      }
+
+      root.appendChild(grid);
+    }
+
+    function toggleYearPicker() {
+      var picker = document.getElementById('web-orders-year-picker');
+      if (!picker) return;
+      if (picker.classList.contains('hidden')) {
+        renderYearPicker();
+        picker.classList.remove('hidden');
+      } else {
+        picker.classList.add('hidden');
+      }
+    }
+
+    function renderYearPicker() {
+      var picker = document.getElementById('web-orders-year-picker');
+      picker.innerHTML = '';
+      var year = webOrdersState.viewYear;
+
+      var head = document.createElement('div');
+      head.className = 'year-picker-head';
+      var prevYearBtn = document.createElement('button');
+      prevYearBtn.type = 'button';
+      prevYearBtn.textContent = '‹';
+      prevYearBtn.addEventListener('click', function () { webOrdersState.viewYear -= 1; renderYearPicker(); });
+      var yearLabel = document.createElement('span');
+      yearLabel.textContent = String(webOrdersState.viewYear);
+      var nextYearBtn = document.createElement('button');
+      nextYearBtn.type = 'button';
+      nextYearBtn.textContent = '›';
+      nextYearBtn.addEventListener('click', function () { webOrdersState.viewYear += 1; renderYearPicker(); });
+      head.appendChild(prevYearBtn);
+      head.appendChild(yearLabel);
+      head.appendChild(nextYearBtn);
+      picker.appendChild(head);
+
+      var monthGrid = document.createElement('div');
+      monthGrid.className = 'year-picker-months';
+      MONTH_NAMES.forEach(function (name, idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = name.slice(0, 3);
+        if (idx === webOrdersState.viewMonth && webOrdersState.viewYear === year) btn.className = 'active';
+        btn.addEventListener('click', function () {
+          webOrdersState.viewMonth = idx;
+          picker.classList.add('hidden');
+          renderCalendar();
+        });
+        monthGrid.appendChild(btn);
+      });
+      picker.appendChild(monthGrid);
+    }
+
+    // ── Web Orders: sum toggle + report body ───────────────────────────
+    function formatDayLabel(key) {
+      var d = OrdersReporting.dateFromKey(key);
+      return DOW_NAMES[d.getDay()] + ', ' + MONTH_NAMES[d.getMonth()].slice(0, 3) + ' ' + d.getDate();
+    }
+
+    function currentRange() {
+      var selKey = webOrdersState.selectedDateKey;
+      if (webOrdersState.sumWindow === 'day') {
+        return { start: selKey, end: selKey, label: formatDayLabel(selKey) };
+      }
+      if (webOrdersState.sumWindow === 'week') {
+        var w = OrdersReporting.weekRange(selKey);
+        return { start: w.start, end: w.end, label: formatDayLabel(w.start) + ' – ' + formatDayLabel(w.end) };
+      }
+      if (webOrdersState.sumWindow === 'month') {
+        var m = OrdersReporting.monthRange(selKey);
+        return { start: m.start, end: m.end, label: MONTH_NAMES[Number(selKey.split('-')[1]) - 1] + ' ' + selKey.split('-')[0] };
+      }
+      if (webOrdersState.sumWindow === 'year') {
+        var y = OrdersReporting.yearRange(selKey);
+        return { start: y.start, end: y.end, label: selKey.split('-')[0] };
+      }
+      // custom
+      var from = webOrdersState.customFrom || selKey;
+      var to = webOrdersState.customTo || selKey;
+      return { start: from, end: to, label: formatDayLabel(from) + ' – ' + formatDayLabel(to) };
+    }
+
+    function renderWebOrdersReport() {
+      var totalCard = document.getElementById('web-orders-total');
+      var listRoot = document.getElementById('web-orders-list');
+      if (!totalCard || !listRoot) return;
+
+      var toggleButtons = document.querySelectorAll('#web-orders-sum-toggle .tab');
+      toggleButtons.forEach(function (b) {
+        b.setAttribute('aria-selected', b.getAttribute('data-window') === webOrdersState.sumWindow ? 'true' : 'false');
+      });
+      document.getElementById('web-orders-custom-range').hidden = webOrdersState.sumWindow !== 'custom';
+
+      var range = currentRange();
+      var inRange = OrdersReporting.ordersInRange(historyOrders(), range.start, range.end);
+      var paid = OrdersReporting.paidOnly(inRange);
+      var total = OrdersReporting.sumTotal(paid);
+
+      totalCard.querySelector('.total-label').textContent = range.label;
+      totalCard.querySelector('.total-amount').textContent = 'JD ' + total.toFixed(2);
+      totalCard.querySelector('.total-sub').textContent = paid.length + ' paid order' + (paid.length === 1 ? '' : 's');
+
+      listRoot.innerHTML = '';
+      if (webOrdersState.sumWindow === 'day') {
+        renderDayOrderList(listRoot, inRange);
+      } else {
+        renderItemTally(listRoot, inRange);
+      }
+    }
+
+    function renderDayOrderList(root, dayOrders) {
+      if (dayOrders.length === 0) {
+        var empty = document.createElement('p');
+        empty.className = 'tagline';
+        empty.textContent = 'No orders this day.';
+        root.appendChild(empty);
+        return;
+      }
+      dayOrders.slice().sort(function (a, b) { return a.createdAt - b.createdAt; }).forEach(function (order) {
+        root.appendChild(buildWebOrderCard(order));
+      });
+    }
+
+    function renderItemTally(root, rangeOrders) {
+      var paid = OrdersReporting.paidOnly(rangeOrders);
+      var tally = OrdersReporting.tallyItems(paid);
+      if (tally.length === 0) {
+        var empty = document.createElement('p');
+        empty.className = 'tagline';
+        empty.textContent = 'No paid orders in this range.';
+        root.appendChild(empty);
+        return;
+      }
+      var grandTotal = 0;
+      tally.forEach(function (row) {
+        grandTotal += row.revenue;
+        var line = document.createElement('div');
+        line.className = 'tally-row';
+        var name = document.createElement('span');
+        name.className = 'tally-name';
+        name.textContent = row.qty + '× ' + row.name;
+        var amt = document.createElement('span');
+        amt.className = 'tally-amt';
+        amt.textContent = 'JD ' + row.revenue.toFixed(2);
+        line.appendChild(name);
+        line.appendChild(amt);
+        root.appendChild(line);
+      });
+      var totalLine = document.createElement('div');
+      totalLine.className = 'tally-row tally-grand-total';
+      var totalName = document.createElement('span');
+      totalName.textContent = 'Total';
+      var totalAmt = document.createElement('span');
+      totalAmt.textContent = 'JD ' + grandTotal.toFixed(2);
+      totalLine.appendChild(totalName);
+      totalLine.appendChild(totalAmt);
+      root.appendChild(totalLine);
+    }
+
+    function buildWebOrderCard(order) {
+      var card = document.createElement('div');
+      card.className = 'order-card';
+
+      var top = document.createElement('div');
+      top.className = 'order-card-top';
+      var info = document.createElement('div');
+      var student = document.createElement('div');
+      student.className = 'order-student';
+      student.textContent = order.studentName + ' · #' + order.studentNumber;
+      var meta = document.createElement('div');
+      meta.className = 'order-meta';
+      var t = new Date(order.createdAt);
+      var hh = t.getHours();
+      var ampm = hh >= 12 ? 'PM' : 'AM';
+      var h12 = hh % 12 || 12;
+      var mm = t.getMinutes() < 10 ? '0' + t.getMinutes() : t.getMinutes();
+      meta.textContent = h12 + ':' + mm + ' ' + ampm + ' · JD ' + Number(order.total).toFixed(2) + ' · ' + order.id;
+      info.appendChild(student);
+      info.appendChild(meta);
+      top.appendChild(info);
+
+      var pill = document.createElement('span');
+      pill.className = 'order-status-pill status-' + order.status;
+      pill.textContent = STATUS_LABELS[order.status] || order.status;
+      top.appendChild(pill);
+      card.appendChild(top);
+
+      var itemsWrap = document.createElement('div');
+      itemsWrap.className = 'order-items';
+      order.items.forEach(function (it) {
+        var line = document.createElement('div');
+        line.className = 'order-item-line';
+        line.textContent = it.name + ' — JD ' + Number(it.price).toFixed(2);
+        itemsWrap.appendChild(line);
+      });
+      card.appendChild(itemsWrap);
+
+      var actions = document.createElement('div');
+      actions.className = 'order-actions';
+
+      var undoBtn = document.createElement('button');
+      undoBtn.type = 'button';
+      undoBtn.className = 'order-action-btn';
+      undoBtn.title = 'Undo';
+      undoBtn.textContent = '↩ Undo';
+      undoBtn.addEventListener('click', function () {
+        var back = order.status === 'done' ? 'preparing' : 'new';
+        updateOrderStatus(order.id, back);
+      });
+
+      var delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'order-action-btn';
+      delBtn.title = 'Delete';
+      delBtn.textContent = '🗑 Delete';
+      delBtn.addEventListener('click', function () {
+        deleteOrder(order.id);
+      });
+
+      actions.appendChild(undoBtn);
+      actions.appendChild(delBtn);
+      card.appendChild(actions);
+
+      return card;
+    }
+
+    document.querySelectorAll('#web-orders-sum-toggle .tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        webOrdersState.sumWindow = btn.getAttribute('data-window');
+        renderWebOrdersReport();
+      });
+    });
+
+    document.getElementById('web-orders-from').addEventListener('change', function (e) {
+      webOrdersState.customFrom = e.target.value;
+      renderWebOrdersReport();
+    });
+    document.getElementById('web-orders-to').addEventListener('change', function (e) {
+      webOrdersState.customTo = e.target.value;
+      renderWebOrdersReport();
+    });
 
     function renderOrders() {
       var root = document.getElementById('orders-list');
@@ -1189,9 +1646,10 @@
       if (!root) return;
       root.innerHTML = '';
       authHint.hidden = !ordersUnauthorized;
-      emptyHint.hidden = ordersUnauthorized || orders.length !== 0;
+      var live = liveOrders();
+      emptyHint.hidden = ordersUnauthorized || live.length !== 0;
 
-      orders.forEach(function (order) {
+      live.forEach(function (order) {
         var card = document.createElement('div');
         card.className = 'order-card';
 
@@ -1262,7 +1720,7 @@
         root.appendChild(card);
       });
 
-      var newCount = orders.filter(function (o) { return o.status === 'new'; }).length;
+      var newCount = live.filter(function (o) { return o.status === 'new'; }).length;
       var badgeEl = document.getElementById('orders-badge');
       badgeEl.textContent = newCount;
       badgeEl.hidden = newCount === 0;
@@ -1271,13 +1729,17 @@
     function switchAdminTab(tab) {
       document.getElementById('admin-tab-menu').setAttribute('aria-selected', tab === 'menu' ? 'true' : 'false');
       document.getElementById('admin-tab-orders').setAttribute('aria-selected', tab === 'orders' ? 'true' : 'false');
+      document.getElementById('admin-tab-weborders').setAttribute('aria-selected', tab === 'weborders' ? 'true' : 'false');
       document.getElementById('view-menu').hidden = tab !== 'menu';
       document.getElementById('view-orders').hidden = tab !== 'orders';
+      document.getElementById('view-weborders').hidden = tab !== 'weborders';
     }
     document.getElementById('admin-tab-menu').addEventListener('click', function () { switchAdminTab('menu'); });
     document.getElementById('admin-tab-orders').addEventListener('click', function () { switchAdminTab('orders'); });
+    document.getElementById('admin-tab-weborders').addEventListener('click', function () { switchAdminTab('weborders'); });
 
     refreshOrdersKeyUi();
+    initWebOrdersState();
     fetchOrders();
     setInterval(fetchOrders, 10000);
 
