@@ -51,6 +51,78 @@ async function listAll(store) {
   return json(200, { owners, invoices });
 }
 
+function computeTotal(lineItems) {
+  return lineItems.reduce((sum, li) => sum + (Number(li.price) || 0), 0);
+}
+
+function sanitizeLineItems(rawItems) {
+  const items = Array.isArray(rawItems) ? rawItems.slice(0, MAX_LINE_ITEMS) : [];
+  return items.map((it) => ({
+    id: clip(it.id, MAX_TEXT) || makeId(),
+    product: clip(it.product, MAX_TEXT),
+    qty: clip(it.qty, MAX_TEXT),
+    price: Number(it.price) || 0,
+  }));
+}
+
+async function createRecord(store, payload) {
+  const recordType = payload.recordType === 'owner' ? 'owner' : payload.recordType === 'invoice' ? 'invoice' : null;
+  if (!recordType) return json(400, { error: 'recordType must be "owner" or "invoice".' });
+
+  const now = Date.now();
+  let record;
+
+  if (recordType === 'owner') {
+    const name = clip(payload.name, MAX_TEXT);
+    record = { id: makeId(), recordType: 'owner', name, hidden: false, createdAt: now, updatedAt: now };
+  } else {
+    const ownerId = clip(payload.ownerId, MAX_TEXT);
+    if (!ownerId) return json(400, { error: 'Invoice ownerId is required.' });
+    const name = clip(payload.name, MAX_TEXT);
+    const date = clip(payload.date, 20);
+    const lineItems = sanitizeLineItems(payload.lineItems);
+    record = {
+      id: makeId(), recordType: 'invoice', ownerId, name, date,
+      lineItems, total: computeTotal(lineItems),
+      createdAt: now, updatedAt: now,
+    };
+  }
+
+  await store.setJSON(record.id, record);
+  return json(201, record);
+}
+
+async function updateRecord(store, payload) {
+  const id = clip(payload.id, MAX_TEXT);
+  if (!id) return json(400, { error: 'Record id is required.' });
+
+  const existing = await store.get(id, { type: 'json' });
+  if (!existing) return json(404, { error: 'Record not found.' });
+
+  const updated = Object.assign({}, existing);
+  if (existing.recordType === 'owner') {
+    if (payload.name !== undefined) updated.name = clip(payload.name, MAX_TEXT);
+    if (payload.hidden !== undefined) updated.hidden = !!payload.hidden;
+  } else {
+    if (payload.name !== undefined) updated.name = clip(payload.name, MAX_TEXT);
+    if (payload.date !== undefined) updated.date = clip(payload.date, 20);
+    if (payload.lineItems !== undefined) {
+      updated.lineItems = sanitizeLineItems(payload.lineItems);
+      updated.total = computeTotal(updated.lineItems);
+    }
+  }
+  updated.updatedAt = Date.now();
+
+  await store.setJSON(id, updated);
+  return json(200, updated);
+}
+
+async function deleteRecord(store, id) {
+  if (!id) return json(400, { error: 'Record id is required.' });
+  await store.delete(id);
+  return json(200, { ok: true });
+}
+
 exports.handler = async (event) => {
   const store = expensesStore();
 
@@ -58,6 +130,12 @@ exports.handler = async (event) => {
     if (!isAuthorized(event)) return json(401, { error: 'Unauthorized.' });
 
     if (event.httpMethod === 'GET') return await listAll(store);
+    if (event.httpMethod === 'POST') return await createRecord(store, JSON.parse(event.body || '{}'));
+    if (event.httpMethod === 'PATCH') return await updateRecord(store, JSON.parse(event.body || '{}'));
+    if (event.httpMethod === 'DELETE') {
+      const id = clip((event.queryStringParameters || {}).id, MAX_TEXT);
+      return await deleteRecord(store, id);
+    }
 
     return json(405, { error: 'Method not allowed.' });
   } catch (err) {
