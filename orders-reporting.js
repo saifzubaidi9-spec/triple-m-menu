@@ -42,13 +42,64 @@
     return { start: y + '-01-01', end: y + '-12-31' };
   }
 
+  function ordersInRange(orders, startKey, endKey) {
+    return orders.filter(function (o) {
+      var k = localDateKey(o.createdAt);
+      return k >= startKey && k <= endKey;
+    });
+  }
+
+  function paidOnly(orders) {
+    return orders.filter(function (o) { return o.status === 'done'; });
+  }
+
+  function historyOnly(orders) {
+    return orders.filter(function (o) { return o.status === 'done' || o.status === 'cancelled'; });
+  }
+
+  function sumTotal(orders) {
+    return orders.reduce(function (sum, o) { return sum + Number(o.total); }, 0);
+  }
+
+  function groupByDay(orders) {
+    var map = {};
+    orders.forEach(function (o) {
+      var k = localDateKey(o.createdAt);
+      if (!map[k]) map[k] = [];
+      map[k].push(o);
+    });
+    return Object.keys(map).sort().map(function (k) {
+      return { dateKey: k, orders: map[k].slice().sort(function (a, b) { return a.createdAt - b.createdAt; }) };
+    });
+  }
+
+  function tallyItems(orders) {
+    var map = {};
+    orders.forEach(function (o) {
+      o.items.forEach(function (it) {
+        var row = map[it.itemId];
+        if (!row) { row = { itemId: it.itemId, name: it.name, qty: 0, revenue: 0, lastSeen: o.createdAt }; map[it.itemId] = row; }
+        row.qty += 1;
+        row.revenue += Number(it.price);
+        if (o.createdAt >= row.lastSeen) { row.name = it.name; row.lastSeen = o.createdAt; }
+      });
+    });
+    return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) { return b.qty - a.qty; });
+  }
+
   var api = {
     localDateKey: localDateKey,
     dateFromKey: dateFromKey,
     addDays: addDays,
     weekRange: weekRange,
     monthRange: monthRange,
-    yearRange: yearRange
+    yearRange: yearRange,
+    ordersInRange: ordersInRange,
+    paidOnly: paidOnly,
+    historyOnly: historyOnly,
+    sumTotal: sumTotal,
+    groupByDay: groupByDay,
+    tallyItems: tallyItems
   };
 
   if (typeof module !== 'undefined' && module.exports) {
