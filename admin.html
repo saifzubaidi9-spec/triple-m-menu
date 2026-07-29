@@ -1254,6 +1254,10 @@
       }).then(function () { return fetchOrders(); });
     }
 
+    function liveOrders() {
+      return orders.filter(function (o) { return o.status === 'new' || o.status === 'preparing'; });
+    }
+
     function renderOrders() {
       var root = document.getElementById('orders-list');
       var emptyHint = document.getElementById('orders-empty-hint');
@@ -1261,9 +1265,10 @@
       if (!root) return;
       root.innerHTML = '';
       authHint.hidden = !ordersUnauthorized;
-      emptyHint.hidden = ordersUnauthorized || orders.length !== 0;
+      var live = liveOrders();
+      emptyHint.hidden = ordersUnauthorized || live.length !== 0;
 
-      orders.forEach(function (order) {
+      live.forEach(function (order) {
         var card = document.createElement('div');
         card.className = 'order-card';
 
@@ -1334,7 +1339,7 @@
         root.appendChild(card);
       });
 
-      var newCount = orders.filter(function (o) { return o.status === 'new'; }).length;
+      var newCount = live.filter(function (o) { return o.status === 'new'; }).length;
       var badgeEl = document.getElementById('orders-badge');
       badgeEl.textContent = newCount;
       badgeEl.hidden = newCount === 0;
