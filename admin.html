@@ -2094,6 +2094,34 @@
       renderInvoiceList();
     }
 
+    function downloadExpensesExcel(data, label) {
+      var sheetRows = [['Owner', 'Invoice / Product', 'Date / Qty', 'Amount (JD)']];
+      data.rows.forEach(function (r) {
+        if (r.kind === 'invoice') {
+          sheetRows.push([r.owner, r.name, r.date, r.amount.toFixed(2)]);
+        } else {
+          sheetRows.push(['', '  ' + r.letter + ') ' + r.product, r.qty, r.amount.toFixed(2)]);
+        }
+      });
+      sheetRows.push(['', '', 'Grand Total', data.grandTotal.toFixed(2)]);
+
+      var ws = XLSX.utils.aoa_to_sheet(sheetRows);
+      ws['!cols'] = [{ wch: 14 }, { wch: 28 }, { wch: 14 }, { wch: 14 }];
+      var wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Expenses');
+      XLSX.writeFile(wb, 'Triple-M-Expenses-' + label.replace(/\s+/g, '-') + '.xlsx');
+    }
+
+    document.getElementById('expenses-export-owner-excel').addEventListener('click', function () {
+      var data = ExpensesExport.flattenForOwner(expensesState.owners, expensesState.invoices, expensesState.activeOwnerId);
+      var owner = expensesState.owners.find(function (o) { return o.id === expensesState.activeOwnerId; });
+      downloadExpensesExcel(data, owner ? owner.name : 'Owner');
+    });
+    document.getElementById('expenses-export-all-excel').addEventListener('click', function () {
+      var data = ExpensesExport.flattenForExport(expensesState.owners, expensesState.invoices);
+      downloadExpensesExcel(data, 'All-Owners');
+    });
+
     function switchAdminTab(tab) {
       document.getElementById('admin-tab-menu').setAttribute('aria-selected', tab === 'menu' ? 'true' : 'false');
       document.getElementById('admin-tab-orders').setAttribute('aria-selected', tab === 'orders' ? 'true' : 'false');
