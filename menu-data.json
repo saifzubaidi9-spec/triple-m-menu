@@ -106,7 +106,7 @@
       "hidden": true
     }
   ],
-  "orderingEnabled": true,
+  "orderingEnabled": false,
   "items": [
     {
       "id": "espresso",
