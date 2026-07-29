@@ -455,14 +455,14 @@
         "en": "Lettuce, sauces, turkey, cheese.",
         "ar": "خس، صوصات، تيركي، جبنه."
       },
-      "price": 0,
+      "price": 2,
       "emoji": "🍗",
       "image": null,
       "tint": [
         "#5A2E1E",
         "#2D1710"
       ],
-      "badge": "new",
+      "badge": null,
       "hidden": false
     },
     {
@@ -476,7 +476,7 @@
         "en": "Lettuce, sauces, turkey, cheese.",
         "ar": "خس، صوصات، تيركي، جبنه."
       },
-      "price": 0,
+      "price": 2,
       "emoji": "🍗",
       "image": null,
       "tint": [
@@ -497,7 +497,7 @@
         "en": "Cream, mushroom, mozzarella cheese.",
         "ar": "كريمه، ماشروم، جبنه ماتزوريلا."
       },
-      "price": 0,
+      "price": 2.5,
       "emoji": "🍗",
       "image": null,
       "tint": [
@@ -518,7 +518,7 @@
         "en": "Lettuce, sauces, cheese, fries.",
         "ar": "خس، صوصات، جبنه، بطاطا."
       },
-      "price": 0,
+      "price": 2.5,
       "emoji": "🍽️",
       "image": null,
       "tint": [
@@ -536,10 +536,10 @@
         "ar": "برجر كلاسك بيف"
       },
       "description": {
-        "en": "Lettuce, tomato, pickles, sauces, cheese.",
-        "ar": "خس، طماطم، مخلل، صوصات، جبنه."
+        "en": "Lettuce, onion, tomato, pickles, sauces, cheese.",
+        "ar": "خس، طماطم،بصل، مخلل، صوصات، جبنه."
       },
-      "price": 0,
+      "price": 2.5,
       "emoji": "🍔",
       "image": null,
       "tint": [
@@ -557,12 +557,33 @@
         "ar": "برجر باربكيو "
       },
       "description": {
-        "en": "Lettuce, tomato, pickles, sauces, cheese.",
-        "ar": "خس، طماطم، مخلل، صوصات، جبنه."
+        "en": "Lettuce, onion, tomato, pickles, sauces, cheese.",
+        "ar": "خس، طماطم، بصل، مخلل، صوصات، جبنه."
       },
-      "price": 0,
+      "price": 2.5,
       "emoji": "🍽️",
       "image": "./images/barbeque-burger.jpg",
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "mushroom-burger",
+      "category": "food-sandwiches",
+      "name": {
+        "en": "Mushroom Burger",
+        "ar": "برجر ماشروم "
+      },
+      "description": {
+        "en": "Mushrooms, caramelized onions, creamy mushroom sauce, mozzarella cheese, toasted bun.",
+        "ar": "مشروم، بصل مكرمل، صوص كريمي بالمشروم، جبنة موزاريلا، خبز محمص."
+      },
+      "price": 3,
+      "emoji": "🍽️",
+      "image": null,
       "tint": [
         "#4A2E1B",
         "#26160C"
@@ -578,10 +599,10 @@
         "ar": "تشكن برجر"
       },
       "description": {
-        "en": "Lettuce, ranch, tomato (optional).",
-        "ar": "خس، رانش، طماطم اختياري."
+        "en": "Lettuce, ranch, tomato, cheese.",
+        "ar": "خس، رانش، طماطم، جبنه ."
       },
-      "price": 0,
+      "price": 2,
       "emoji": "🍔",
       "image": null,
       "tint": [
@@ -599,10 +620,10 @@
         "ar": "شاورما صاج"
       },
       "description": {
-        "en": "Tortilla bread, ranch.",
-        "ar": "خبز تورتيلا، رانش."
+        "en": "Tortilla bread, ranch, cheese, shawerma.",
+        "ar": "خبز تورتيلا، رانش، شاورما."
       },
-      "price": 0,
+      "price": 2,
       "emoji": "🌯",
       "image": null,
       "tint": [
@@ -620,10 +641,10 @@
         "ar": "شاورما صاج بالكريما"
       },
       "description": {
-        "en": "Mozzarella cheese, cream, mushroom.",
-        "ar": "جبنه ماتزوريلا، كريمه، ماشروم."
+        "en": "Mozzarella cheese, cream, mushroom, shawerma.",
+        "ar": "جبنه موزاريلا، كريمه، ماشروم، شاورما."
       },
-      "price": 0,
+      "price": 2.5,
       "emoji": "🌯",
       "image": null,
       "tint": [
@@ -641,10 +662,10 @@
         "ar": "فاهيتا دجاج"
       },
       "description": {
-        "en": "Soy sauce, vegetables, ketchup.",
-        "ar": "صويا صوص، خضار، كاتشب."
+        "en": "Grilled chicken strips, bell peppers, onions, fajita seasoning, garlic, tortillas.",
+        "ar": "شرائح دجاج مشوية، فلفل ملون، بصل، بهارات فاهيتا، ثوم، خبز تورتيلا."
       },
-      "price": 0,
+      "price": 2,
       "emoji": "🫓",
       "image": null,
       "tint": [
@@ -665,7 +686,7 @@
         "en": "Thick-cut, crispy wedges.",
         "ar": "قطع بطاطا سميكة ومقرمشة."
       },
-      "price": 0,
+      "price": 1.5,
       "emoji": "🥔",
       "image": null,
       "tint": [
@@ -686,7 +707,7 @@
         "en": "Classic crispy fries.",
         "ar": "بطاطا مقرمشة كلاسيكية."
       },
-      "price": 0,
+      "price": 1,
       "emoji": "🍟",
       "image": null,
       "tint": [
