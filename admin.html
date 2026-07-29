@@ -2175,18 +2175,24 @@
       document.getElementById('admin-tab-menu').setAttribute('aria-selected', tab === 'menu' ? 'true' : 'false');
       document.getElementById('admin-tab-orders').setAttribute('aria-selected', tab === 'orders' ? 'true' : 'false');
       document.getElementById('admin-tab-weborders').setAttribute('aria-selected', tab === 'weborders' ? 'true' : 'false');
+      document.getElementById('admin-tab-expenses').setAttribute('aria-selected', tab === 'expenses' ? 'true' : 'false');
       document.getElementById('view-menu').hidden = tab !== 'menu';
       document.getElementById('view-orders').hidden = tab !== 'orders';
       document.getElementById('view-weborders').hidden = tab !== 'weborders';
+      document.getElementById('view-expenses').hidden = tab !== 'expenses';
     }
     document.getElementById('admin-tab-menu').addEventListener('click', function () { switchAdminTab('menu'); });
     document.getElementById('admin-tab-orders').addEventListener('click', function () { switchAdminTab('orders'); });
     document.getElementById('admin-tab-weborders').addEventListener('click', function () { switchAdminTab('weborders'); });
+    document.getElementById('admin-tab-expenses').addEventListener('click', function () { switchAdminTab('expenses'); });
 
     refreshOrdersKeyUi();
     initWebOrdersState();
     fetchOrders();
     setInterval(fetchOrders, 10000);
+
+    refreshExpensesKeyUi();
+    fetchExpenses();
 
     refreshTokenUi();
     setStatus('');
