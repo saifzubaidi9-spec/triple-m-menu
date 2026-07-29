@@ -130,4 +130,20 @@ function sampleOrders() {
   console.log('tallyItems: PASS');
 })();
 
+// tallyItems — must group by itemId (not name text), and use the most-recent order's name.
+(function () {
+  var renamedOrders = [
+    { id: 'X', status: 'done', total: 2.0, createdAt: new Date(2026, 6, 1, 9, 0).getTime(),
+      items: [{ itemId: 'latte-01', name: 'Latte', price: 2.0 }] },
+    { id: 'Y', status: 'done', total: 2.5, createdAt: new Date(2026, 6, 15, 9, 0).getTime(),
+      items: [{ itemId: 'latte-01', name: 'Oat Milk Latte', price: 2.5 }] } // renamed later, same itemId
+  ];
+  var tally = OR.tallyItems(renamedOrders);
+  assert.strictEqual(tally.length, 1); // grouped by itemId, not split by name text
+  assert.strictEqual(tally[0].qty, 2);
+  assert.strictEqual(tally[0].revenue, 4.5);
+  assert.strictEqual(tally[0].name, 'Oat Milk Latte'); // most recent order's name wins
+  console.log('tallyItems (rename/grouping): PASS');
+})();
+
 console.log('All tests passed.');

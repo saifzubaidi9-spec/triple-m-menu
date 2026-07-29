@@ -84,7 +84,10 @@
         if (o.createdAt >= row.lastSeen) { row.name = it.name; row.lastSeen = o.createdAt; }
       });
     });
-    return Object.keys(map).map(function (k) { return map[k]; }).sort(function (a, b) { return b.qty - a.qty; });
+    return Object.keys(map).map(function (k) {
+      var row = map[k];
+      return { itemId: row.itemId, name: row.name, qty: row.qty, revenue: row.revenue };
+    }).sort(function (a, b) { return b.qty - a.qty; });
   }
 
   var api = {
