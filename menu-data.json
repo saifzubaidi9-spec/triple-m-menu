@@ -54,8 +54,8 @@
         "ar": "مشروبات ساخنة"
       },
       "note": {
-        "en": "",
-        "ar": ""
+        "en": "From the POS — check prices/names as you go",
+        "ar": "من نظام الكاشير — راجع الأسماء والأسعار"
       }
     },
     {
@@ -66,8 +66,8 @@
         "ar": "مشروبات مثلجة"
       },
       "note": {
-        "en": "",
-        "ar": ""
+        "en": "From the POS — check prices/names as you go",
+        "ar": "من نظام الكاشير — راجع الأسماء والأسعار"
       }
     },
     {
@@ -89,8 +89,8 @@
         "ar": "سلطات"
       },
       "note": {
-        "en": "Fresh from the 7am · while they last",
-        "ar": "طازجة من الساعة 7 صباحاً · حتى نفاد الكمية"
+        "en": "Fresh from the 7am bake · while they last",
+        "ar": "طازجة من فرن الساعة 7 صباحاً · حتى نفاد الكمية"
       }
     },
     {
@@ -100,13 +100,13 @@
         "ar": "قهوة"
       },
       "note": {
-        "en": "Brewed 07:00–17:00",
-        "ar": "التحضير من 07:00 حتى 17:00"
+        "en": "Brewed 07:30–16:00",
+        "ar": "التحضير من 07:30 حتى 16:00"
       },
       "hidden": true
     }
   ],
-  "orderingEnabled": false,
+  "orderingEnabled": true,
   "items": [
     {
       "id": "espresso",
