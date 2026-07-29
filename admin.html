@@ -1798,6 +1798,126 @@
       badgeEl.hidden = newCount === 0;
     }
 
+    // ── Expenses ─────────────────────────────────────────────────────
+    var EXPENSES_ENDPOINT = '/api/expenses';
+    var expensesState = { owners: [], invoices: [], activeOwnerId: null };
+    var expensesUnauthorized = false;
+
+    function getExpensesKey() { return localStorage.getItem('tm_expenses_key') || ''; }
+    function setExpensesKey(k) { localStorage.setItem('tm_expenses_key', k); }
+    function clearExpensesKey() { localStorage.removeItem('tm_expenses_key'); }
+    function expensesAuthHeaders() {
+      var k = getExpensesKey();
+      return k ? { 'Authorization': 'Bearer ' + k } : {};
+    }
+
+    function refreshExpensesKeyUi() {
+      var has = !!getExpensesKey();
+      document.getElementById('expenses-key-clear').classList.toggle('hidden', !has);
+      document.getElementById('expenses-key-status').textContent = has
+        ? 'Key saved in this browser.'
+        : 'No key saved yet.';
+    }
+
+    document.getElementById('expenses-key-save').addEventListener('click', function () {
+      var v = document.getElementById('expenses-key-input').value.trim();
+      if (!v) return;
+      setExpensesKey(v);
+      document.getElementById('expenses-key-input').value = '';
+      refreshExpensesKeyUi();
+      fetchExpenses();
+    });
+    document.getElementById('expenses-key-clear').addEventListener('click', function () {
+      clearExpensesKey();
+      refreshExpensesKeyUi();
+      fetchExpenses();
+    });
+
+    function fetchExpenses() {
+      return fetch(EXPENSES_ENDPOINT, { cache: 'no-store', headers: expensesAuthHeaders() })
+        .then(function (res) {
+          expensesUnauthorized = res.status === 401;
+          if (expensesUnauthorized) return { owners: [], invoices: [] };
+          return res.json();
+        })
+        .then(function (data) {
+          expensesState.owners = data.owners || [];
+          expensesState.invoices = data.invoices || [];
+          renderExpenses();
+        })
+        .catch(function () { /* keep last-known data on screen */ });
+    }
+
+    function createExpenseRecord(record) {
+      return fetch(EXPENSES_ENDPOINT, {
+        method: 'POST',
+        headers: Object.assign({ 'Content-Type': 'application/json' }, expensesAuthHeaders()),
+        body: JSON.stringify(record)
+      }).then(function () { return fetchExpenses(); });
+    }
+
+    function updateExpenseRecord(id, fields) {
+      var body = Object.assign({ id: id }, fields);
+      return fetch(EXPENSES_ENDPOINT, {
+        method: 'PATCH',
+        headers: Object.assign({ 'Content-Type': 'application/json' }, expensesAuthHeaders()),
+        body: JSON.stringify(body)
+      }).then(function () { return fetchExpenses(); });
+    }
+
+    function deleteExpenseRecord(id) {
+      return fetch(EXPENSES_ENDPOINT + '?id=' + encodeURIComponent(id), {
+        method: 'DELETE',
+        headers: expensesAuthHeaders()
+      }).then(function () { return fetchExpenses(); });
+    }
+
+    function visibleOwners() {
+      return expensesState.owners.filter(function (o) { return !o.hidden; });
+    }
+
+    function renderOwnerManager() {
+      var root = document.getElementById('expenses-owner-list');
+      root.innerHTML = '';
+      expensesState.owners.forEach(function (owner) {
+        var row = document.createElement('div');
+        row.className = 'menu-manager-row' + (owner.hidden ? ' is-hidden' : '');
+
+        var nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.value = owner.name;
+        nameInput.placeholder = 'Owner name';
+        nameInput.addEventListener('change', function () {
+          updateExpenseRecord(owner.id, { name: nameInput.value });
+        });
+        row.appendChild(nameInput);
+
+        var visBtn = document.createElement('button');
+        visBtn.type = 'button';
+        visBtn.className = 'btn btn-ghost btn-sm';
+        visBtn.textContent = owner.hidden ? 'Hidden' : 'Visible';
+        visBtn.title = owner.hidden
+          ? 'Hidden from the owner tabs — click to show it (their invoices still count in exports)'
+          : 'Visible as a tab — click to hide it (their invoices still count in exports)';
+        visBtn.addEventListener('click', function () {
+          updateExpenseRecord(owner.id, { hidden: !owner.hidden });
+        });
+        row.appendChild(visBtn);
+
+        root.appendChild(row);
+      });
+    }
+
+    document.getElementById('expenses-add-owner-btn').addEventListener('click', function () {
+      createExpenseRecord({ recordType: 'owner', name: '' });
+    });
+
+    function renderExpenses() {
+      var authHint = document.getElementById('expenses-auth-hint');
+      authHint.hidden = !expensesUnauthorized;
+      renderOwnerManager();
+    }
+
     function switchAdminTab(tab) {
       document.getElementById('admin-tab-menu').setAttribute('aria-selected', tab === 'menu' ? 'true' : 'false');
       document.getElementById('admin-tab-orders').setAttribute('aria-selected', tab === 'orders' ? 'true' : 'false');
