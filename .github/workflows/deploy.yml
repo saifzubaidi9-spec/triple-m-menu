@@ -11,6 +11,7 @@ on:
     paths-ignore:
       - 'menu-data.json'
       - 'images/**'
+      - 'docs/**'
 
 jobs:
   deploy:
