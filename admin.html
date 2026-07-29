@@ -459,6 +459,21 @@
     .tally-amt { color: var(--matcha); font-weight: 600; }
     .tally-grand-total { border-top: 2px solid var(--line); margin-top: 6px; padding-top: 12px; font-weight: 700; }
     .tally-grand-total .tally-amt { color: var(--amber); }
+    /* Expenses */
+    .invoice-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+    .invoice-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .invoice-name-input { flex: 1; min-width: 100px; font-family: var(--font-display); font-size: 1rem; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; color: var(--cream); }
+    .invoice-top input[type="date"] { background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; color: var(--cream); font-size: 0.8rem; }
+    .invoice-amt { color: var(--matcha); font-weight: 700; font-size: 1rem; white-space: nowrap; }
+    .invoice-lineitems { margin-bottom: 8px; }
+    .lineitem { display: flex; align-items: center; gap: 6px; padding: 6px 0; border-top: 1px solid var(--line); }
+    .lineitem:first-child { border-top: none; }
+    .lineitem-letter { color: var(--cream-faint); font-weight: 700; width: 20px; flex-shrink: 0; font-size: 0.8rem; }
+    .lineitem-name-input { flex: 2; min-width: 80px; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; color: var(--cream); font-size: 0.8rem; }
+    .lineitem-qty-input { flex: 1; min-width: 50px; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; color: var(--cream); font-size: 0.8rem; }
+    .lineitem-price-input { width: 70px; flex-shrink: 0; background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; color: var(--cream); font-size: 0.8rem; }
+    .lineitem-del-btn { background: transparent; border: none; color: var(--cream-faint); font-size: 1.1rem; cursor: pointer; width: 22px; flex-shrink: 0; }
+    .add-line-btn { width: 100%; background: transparent; border: 1px dashed var(--line); color: var(--cream-faint); border-radius: 8px; padding: 6px; font-size: 0.72rem; margin-top: 4px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -473,6 +488,7 @@
         <span class="admin-tab-badge" id="orders-badge" hidden>0</span>
       </button>
       <button class="admin-tab" id="admin-tab-weborders" role="tab" aria-selected="false" type="button">Web Orders</button>
+      <button class="admin-tab" id="admin-tab-expenses" role="tab" aria-selected="false" type="button">Expenses</button>
     </div>
 
     <div class="ordering-toggle" id="ordering-toggle-row">
@@ -576,8 +592,53 @@
 
       <div id="web-orders-list"></div>
     </div>
+    <div id="view-expenses" hidden>
+      <div class="panel" id="expenses-key-panel">
+        <h2>Expenses access</h2>
+        <p style="font-size:0.8rem; color:var(--cream-dim); margin-top:0;">
+          Viewing and managing expenses needs its own admin key (separate from
+          the orders key and the GitHub token). Saved only in this browser.
+        </p>
+        <div class="row wrap">
+          <input type="password" id="expenses-key-input" class="grow" placeholder="Expenses admin key" autocomplete="off" />
+          <button class="btn btn-primary btn-sm" id="expenses-key-save">Save key</button>
+          <button class="btn btn-ghost btn-sm hidden" id="expenses-key-clear">Forget key</button>
+        </div>
+        <p id="expenses-key-status" style="font-size:0.75rem; margin-bottom:0;"></p>
+      </div>
+
+      <p class="tagline" id="expenses-auth-hint" hidden style="color:var(--danger)">Enter your expenses admin key above to view and manage expenses.</p>
+
+      <div class="panel" id="expenses-owner-manager">
+        <h2>Owners</h2>
+        <div id="expenses-owner-list"></div>
+        <button class="btn btn-ghost btn-sm" id="expenses-add-owner-btn" type="button" style="margin-top:6px;">+ Add owner</button>
+      </div>
+
+      <div class="row wrap" id="expenses-export-all-row" style="margin-bottom:16px;">
+        <button class="btn btn-ghost" id="expenses-export-all-excel" type="button">📊 Export All (Excel)</button>
+        <button class="btn btn-ghost" id="expenses-export-all-pdf" type="button">📄 Export All (PDF)</button>
+      </div>
+
+      <div class="switcher" id="expenses-owner-switcher"></div>
+
+      <div class="total-card" id="expenses-owner-total">
+        <div class="total-label"></div>
+        <div class="total-amount"></div>
+      </div>
+
+      <div class="row wrap" id="expenses-export-owner-row" style="margin-bottom:16px;">
+        <button class="btn btn-ghost" id="expenses-export-owner-excel" type="button">📊 Export Excel</button>
+        <button class="btn btn-ghost" id="expenses-export-owner-pdf" type="button">📄 Export PDF</button>
+      </div>
+
+      <div id="expenses-invoice-list"></div>
+      <button class="btn btn-ghost add-item-btn" id="expenses-add-invoice-btn" type="button">+ Add new invoice</button>
+    </div>
   </div>
 
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <script src="expenses-export.js"></script>
   <script src="orders-reporting.js"></script>
   <script>
     var OWNER = 'saifzubaidi9-spec';
