@@ -1267,6 +1267,183 @@
       return orders.filter(function (o) { return o.status === 'new' || o.status === 'preparing'; });
     }
 
+    // ── Web Orders: calendar ─────────────────────────────────────────────
+    var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var DOW_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    var webOrdersState = {
+      viewYear: null,
+      viewMonth: null,
+      selectedDateKey: null,
+      sumWindow: 'day',
+      customFrom: null,
+      customTo: null
+    };
+
+    function initWebOrdersState() {
+      var today = OrdersReporting.localDateKey(Date.now());
+      webOrdersState.selectedDateKey = today;
+      var d = OrdersReporting.dateFromKey(today);
+      webOrdersState.viewYear = d.getFullYear();
+      webOrdersState.viewMonth = d.getMonth();
+    }
+
+    function historyOrders() {
+      return OrdersReporting.historyOnly(orders);
+    }
+
+    function ordersByDateKeySet() {
+      var set = {};
+      historyOrders().forEach(function (o) { set[OrdersReporting.localDateKey(o.createdAt)] = true; });
+      return set;
+    }
+
+    function renderCalendar() {
+      var root = document.getElementById('web-orders-calendar');
+      if (!root) return;
+      root.innerHTML = '';
+      var year = webOrdersState.viewYear, month = webOrdersState.viewMonth;
+      var hasOrders = ordersByDateKeySet();
+      var todayKey = OrdersReporting.localDateKey(Date.now());
+
+      var head = document.createElement('div');
+      head.className = 'cal-head';
+
+      var prevBtn = document.createElement('button');
+      prevBtn.type = 'button';
+      prevBtn.textContent = '‹';
+      prevBtn.addEventListener('click', function () {
+        webOrdersState.viewMonth -= 1;
+        if (webOrdersState.viewMonth < 0) { webOrdersState.viewMonth = 11; webOrdersState.viewYear -= 1; }
+        renderCalendar();
+      });
+
+      var label = document.createElement('button');
+      label.type = 'button';
+      label.className = 'cal-month';
+      label.textContent = MONTH_NAMES[month] + ' ' + year;
+      label.addEventListener('click', function () { toggleYearPicker(); });
+
+      var nextBtn = document.createElement('button');
+      nextBtn.type = 'button';
+      nextBtn.textContent = '›';
+      nextBtn.addEventListener('click', function () {
+        webOrdersState.viewMonth += 1;
+        if (webOrdersState.viewMonth > 11) { webOrdersState.viewMonth = 0; webOrdersState.viewYear += 1; }
+        renderCalendar();
+      });
+
+      head.appendChild(prevBtn);
+      head.appendChild(label);
+      head.appendChild(nextBtn);
+      root.appendChild(head);
+
+      var yearPicker = document.createElement('div');
+      yearPicker.id = 'web-orders-year-picker';
+      yearPicker.className = 'year-picker hidden';
+      root.appendChild(yearPicker);
+
+      var grid = document.createElement('div');
+      grid.className = 'cal-grid';
+      DOW_NAMES.forEach(function (d) {
+        var dow = document.createElement('div');
+        dow.className = 'cal-dow';
+        dow.textContent = d.charAt(0);
+        grid.appendChild(dow);
+      });
+
+      var startOffset = new Date(year, month, 1).getDay();
+      var daysInMonth = new Date(year, month + 1, 0).getDate();
+      var daysInPrevMonth = new Date(year, month, 0).getDate();
+
+      for (var i = startOffset - 1; i >= 0; i--) {
+        var lead = document.createElement('div');
+        lead.className = 'cal-day dim';
+        lead.textContent = daysInPrevMonth - i;
+        grid.appendChild(lead);
+      }
+
+      for (var day = 1; day <= daysInMonth; day++) {
+        var key = year + '-' + (month + 1 < 10 ? '0' + (month + 1) : month + 1) + '-' + (day < 10 ? '0' + day : day);
+        var cell = document.createElement('div');
+        var cls = 'cal-day';
+        if (hasOrders[key]) cls += ' has-orders';
+        if (key === todayKey) cls += ' today';
+        if (key === webOrdersState.selectedDateKey) cls += ' selected';
+        cell.className = cls;
+        cell.textContent = day;
+        (function (k) {
+          cell.addEventListener('click', function () {
+            webOrdersState.selectedDateKey = k;
+            renderCalendar();
+            renderWebOrdersReport();
+          });
+        })(key);
+        grid.appendChild(cell);
+      }
+
+      var totalCells = startOffset + daysInMonth;
+      var trailing = (7 - (totalCells % 7)) % 7;
+      for (var t = 1; t <= trailing; t++) {
+        var trail = document.createElement('div');
+        trail.className = 'cal-day dim';
+        trail.textContent = t;
+        grid.appendChild(trail);
+      }
+
+      root.appendChild(grid);
+    }
+
+    function toggleYearPicker() {
+      var picker = document.getElementById('web-orders-year-picker');
+      if (!picker) return;
+      if (picker.classList.contains('hidden')) {
+        renderYearPicker();
+        picker.classList.remove('hidden');
+      } else {
+        picker.classList.add('hidden');
+      }
+    }
+
+    function renderYearPicker() {
+      var picker = document.getElementById('web-orders-year-picker');
+      picker.innerHTML = '';
+      var year = webOrdersState.viewYear;
+
+      var head = document.createElement('div');
+      head.className = 'year-picker-head';
+      var prevYearBtn = document.createElement('button');
+      prevYearBtn.type = 'button';
+      prevYearBtn.textContent = '‹';
+      prevYearBtn.addEventListener('click', function () { webOrdersState.viewYear -= 1; renderYearPicker(); });
+      var yearLabel = document.createElement('span');
+      yearLabel.textContent = String(webOrdersState.viewYear);
+      var nextYearBtn = document.createElement('button');
+      nextYearBtn.type = 'button';
+      nextYearBtn.textContent = '›';
+      nextYearBtn.addEventListener('click', function () { webOrdersState.viewYear += 1; renderYearPicker(); });
+      head.appendChild(prevYearBtn);
+      head.appendChild(yearLabel);
+      head.appendChild(nextYearBtn);
+      picker.appendChild(head);
+
+      var monthGrid = document.createElement('div');
+      monthGrid.className = 'year-picker-months';
+      MONTH_NAMES.forEach(function (name, idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = name.slice(0, 3);
+        if (idx === webOrdersState.viewMonth && webOrdersState.viewYear === year) btn.className = 'active';
+        btn.addEventListener('click', function () {
+          webOrdersState.viewMonth = idx;
+          picker.classList.add('hidden');
+          renderCalendar();
+        });
+        monthGrid.appendChild(btn);
+      });
+      picker.appendChild(monthGrid);
+    }
+
     function renderOrders() {
       var root = document.getElementById('orders-list');
       var emptyHint = document.getElementById('orders-empty-hint');
