@@ -686,7 +686,7 @@
         "en": "Hot dog sausage, ketchup, mustard, mayonnaise, fresh onions.",
         "ar": "نقانق هوت دوغ، كاتشب، خردل، مايونيز، بصل طازج."
       },
-      "price": 1.5,
+      "price": 0,
       "emoji": "🍽️",
       "image": null,
       "tint": [
@@ -967,6 +967,27 @@
         "#26160C"
       ],
       "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "espresso-macchiato",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Espresso Macchiato ",
+        "ar": "اسبريسو مكياتو "
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 1.5,
+      "emoji": "☕",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": "bestseller",
       "hidden": false
     },
     {
