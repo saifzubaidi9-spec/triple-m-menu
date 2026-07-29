@@ -1283,7 +1283,8 @@
       selectedDateKey: null,
       sumWindow: 'day',
       customFrom: null,
-      customTo: null
+      customTo: null,
+      yearPickerOpen: false
     };
 
     function initWebOrdersState() {
@@ -1346,8 +1347,9 @@
 
       var yearPicker = document.createElement('div');
       yearPicker.id = 'web-orders-year-picker';
-      yearPicker.className = 'year-picker hidden';
+      yearPicker.className = 'year-picker' + (webOrdersState.yearPickerOpen ? '' : ' hidden');
       root.appendChild(yearPicker);
+      if (webOrdersState.yearPickerOpen) renderYearPicker();
 
       var grid = document.createElement('div');
       grid.className = 'cal-grid';
@@ -1404,9 +1406,11 @@
       var picker = document.getElementById('web-orders-year-picker');
       if (!picker) return;
       if (picker.classList.contains('hidden')) {
+        webOrdersState.yearPickerOpen = true;
         renderYearPicker();
         picker.classList.remove('hidden');
       } else {
+        webOrdersState.yearPickerOpen = false;
         picker.classList.add('hidden');
       }
     }
@@ -1442,6 +1446,7 @@
         if (idx === webOrdersState.viewMonth && webOrdersState.viewYear === year) btn.className = 'active';
         btn.addEventListener('click', function () {
           webOrdersState.viewMonth = idx;
+          webOrdersState.yearPickerOpen = false;
           picker.classList.add('hidden');
           renderCalendar();
         });
@@ -1590,6 +1595,12 @@
         var line = document.createElement('div');
         line.className = 'order-item-line';
         line.textContent = it.name + ' — JD ' + Number(it.price).toFixed(2);
+        if (it.notes) {
+          var note = document.createElement('span');
+          note.className = 'order-item-note';
+          note.textContent = '  (' + it.notes + ')';
+          line.appendChild(note);
+        }
         itemsWrap.appendChild(line);
       });
       card.appendChild(itemsWrap);
