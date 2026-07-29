@@ -1230,6 +1230,12 @@
       return h + 'h ago';
     }
 
+    function renderAllOrderViews() {
+      renderOrders();
+      renderCalendar();
+      renderWebOrdersReport();
+    }
+
     function fetchOrders() {
       return fetch(ORDERS_ENDPOINT, { cache: 'no-store', headers: ordersAuthHeaders() })
         .then(function (res) {
@@ -1239,7 +1245,7 @@
         })
         .then(function (data) {
           orders = (data.orders || []).slice().sort(function (a, b) { return a.createdAt - b.createdAt; });
-          renderOrders();
+          renderAllOrderViews();
         })
         .catch(function () { /* keep last-known orders on screen */ });
     }
@@ -1723,13 +1729,17 @@
     function switchAdminTab(tab) {
       document.getElementById('admin-tab-menu').setAttribute('aria-selected', tab === 'menu' ? 'true' : 'false');
       document.getElementById('admin-tab-orders').setAttribute('aria-selected', tab === 'orders' ? 'true' : 'false');
+      document.getElementById('admin-tab-weborders').setAttribute('aria-selected', tab === 'weborders' ? 'true' : 'false');
       document.getElementById('view-menu').hidden = tab !== 'menu';
       document.getElementById('view-orders').hidden = tab !== 'orders';
+      document.getElementById('view-weborders').hidden = tab !== 'weborders';
     }
     document.getElementById('admin-tab-menu').addEventListener('click', function () { switchAdminTab('menu'); });
     document.getElementById('admin-tab-orders').addEventListener('click', function () { switchAdminTab('orders'); });
+    document.getElementById('admin-tab-weborders').addEventListener('click', function () { switchAdminTab('weborders'); });
 
     refreshOrdersKeyUi();
+    initWebOrdersState();
     fetchOrders();
     setInterval(fetchOrders, 10000);
 
