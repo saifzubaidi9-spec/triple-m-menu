@@ -686,7 +686,7 @@
         "en": "Hot dog sausage, ketchup, mustard, mayonnaise, fresh onions.",
         "ar": "نقانق هوت دوغ، كاتشب، خردل، مايونيز، بصل طازج."
       },
-      "price": 0,
+      "price": 1.5,
       "emoji": "🍽️",
       "image": null,
       "tint": [
