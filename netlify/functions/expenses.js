@@ -55,6 +55,11 @@ function computeTotal(lineItems) {
   return lineItems.reduce((sum, li) => sum + (Number(li.price) || 0), 0);
 }
 
+// Callers must preserve each line item's existing id when sending an
+// updated lineItems array back — omit id (or pass an empty string) only
+// for a genuinely new line item; anything else gets a fresh makeId()
+// here, which would silently orphan the old id if a caller forgot to
+// round-trip it.
 function sanitizeLineItems(rawItems) {
   const items = Array.isArray(rawItems) ? rawItems.slice(0, MAX_LINE_ITEMS) : [];
   return items.map((it) => ({
