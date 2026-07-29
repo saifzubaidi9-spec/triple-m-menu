@@ -686,7 +686,7 @@
         "en": "Hot dog sausage, ketchup, mustard, mayonnaise, fresh onions.",
         "ar": "نقانق هوت دوغ، كاتشب، خردل، مايونيز، بصل طازج."
       },
-      "price": 0,
+      "price": 1.5,
       "emoji": "🍽️",
       "image": null,
       "tint": [
@@ -970,27 +970,6 @@
       "hidden": false
     },
     {
-      "id": "espresso-macchiato",
-      "category": "hot-drinks",
-      "name": {
-        "en": "Espresso Macchiato ",
-        "ar": "اسبريسو مكياتو "
-      },
-      "description": {
-        "en": "",
-        "ar": ""
-      },
-      "price": 1.5,
-      "emoji": "☕",
-      "image": null,
-      "tint": [
-        "#4A2E1B",
-        "#26160C"
-      ],
-      "badge": "bestseller",
-      "hidden": false
-    },
-    {
       "id": "hot-cappuccino",
       "category": "hot-drinks",
       "name": {
@@ -1238,6 +1217,48 @@
       "tint": [
         "#43261A",
         "#22120C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "dark-mocha",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Dark Mocha ",
+        "ar": "دارك موكا"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2,
+      "emoji": "🍫",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
+      "id": "spanish-latte",
+      "category": "hot-drinks",
+      "name": {
+        "en": "Spanish Latte",
+        "ar": "سبانيش لاتيه"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2,
+      "emoji": "🥛",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
       ],
       "badge": null,
       "hidden": false
