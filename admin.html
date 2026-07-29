@@ -1912,10 +1912,186 @@
       createExpenseRecord({ recordType: 'owner', name: '' });
     });
 
+    function renderOwnerSwitcher() {
+      var switcher = document.getElementById('expenses-owner-switcher');
+      switcher.innerHTML = '';
+      var owners = visibleOwners();
+      if (!expensesState.activeOwnerId || !owners.some(function (o) { return o.id === expensesState.activeOwnerId; })) {
+        expensesState.activeOwnerId = owners.length ? owners[0].id : null;
+      }
+      owners.forEach(function (owner) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tab';
+        btn.setAttribute('aria-selected', owner.id === expensesState.activeOwnerId ? 'true' : 'false');
+        btn.textContent = owner.name || '(unnamed)';
+        btn.addEventListener('click', function () {
+          expensesState.activeOwnerId = owner.id;
+          renderExpenses();
+        });
+        switcher.appendChild(btn);
+      });
+    }
+
+    function renderOwnerTotal() {
+      var totalCard = document.getElementById('expenses-owner-total');
+      var owner = expensesState.owners.find(function (o) { return o.id === expensesState.activeOwnerId; });
+      var ownerInvoices = expensesState.invoices.filter(function (inv) { return inv.ownerId === expensesState.activeOwnerId; });
+      var total = ownerInvoices.reduce(function (sum, inv) { return sum + Number(inv.total); }, 0);
+      totalCard.querySelector('.total-label').textContent = (owner ? owner.name : '') + ' — total';
+      totalCard.querySelector('.total-amount').textContent = 'JD ' + total.toFixed(2);
+    }
+
+    function saveLineItemField(invoice, idx, field, value) {
+      var newItems = invoice.lineItems.slice();
+      newItems[idx] = Object.assign({}, newItems[idx]);
+      newItems[idx][field] = value;
+      updateExpenseRecord(invoice.id, { lineItems: newItems });
+    }
+
+    function buildLineItemRow(invoice, lineItem, idx) {
+      var row = document.createElement('div');
+      row.className = 'lineitem';
+
+      var letter = document.createElement('span');
+      letter.className = 'lineitem-letter';
+      letter.textContent = String.fromCharCode(65 + idx) + ')';
+      row.appendChild(letter);
+
+      var productInput = document.createElement('input');
+      productInput.type = 'text';
+      productInput.className = 'lineitem-name-input';
+      productInput.value = lineItem.product;
+      productInput.placeholder = 'Product';
+      productInput.addEventListener('change', function () {
+        saveLineItemField(invoice, idx, 'product', productInput.value);
+      });
+      row.appendChild(productInput);
+
+      var qtyInput = document.createElement('input');
+      qtyInput.type = 'text';
+      qtyInput.className = 'lineitem-qty-input';
+      qtyInput.value = lineItem.qty;
+      qtyInput.placeholder = 'Qty';
+      qtyInput.addEventListener('change', function () {
+        saveLineItemField(invoice, idx, 'qty', qtyInput.value);
+      });
+      row.appendChild(qtyInput);
+
+      var priceInput = document.createElement('input');
+      priceInput.type = 'number';
+      priceInput.step = '0.10';
+      priceInput.className = 'lineitem-price-input';
+      priceInput.value = lineItem.price;
+      priceInput.addEventListener('change', function () {
+        saveLineItemField(invoice, idx, 'price', parseFloat(priceInput.value) || 0);
+      });
+      row.appendChild(priceInput);
+
+      var delLineBtn = document.createElement('button');
+      delLineBtn.type = 'button';
+      delLineBtn.className = 'lineitem-del-btn';
+      delLineBtn.textContent = '×';
+      delLineBtn.title = 'Remove this line';
+      delLineBtn.addEventListener('click', function () {
+        var newItems = invoice.lineItems.slice();
+        newItems.splice(idx, 1);
+        updateExpenseRecord(invoice.id, { lineItems: newItems });
+      });
+      row.appendChild(delLineBtn);
+
+      return row;
+    }
+
+    function buildInvoiceCard(invoice) {
+      var card = document.createElement('div');
+      card.className = 'invoice-card';
+
+      var top = document.createElement('div');
+      top.className = 'invoice-top';
+
+      var nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.className = 'invoice-name-input';
+      nameInput.value = invoice.name;
+      nameInput.placeholder = 'Invoice name';
+      nameInput.addEventListener('change', function () {
+        updateExpenseRecord(invoice.id, { name: nameInput.value });
+      });
+      top.appendChild(nameInput);
+
+      var dateInput = document.createElement('input');
+      dateInput.type = 'date';
+      dateInput.value = invoice.date;
+      dateInput.addEventListener('change', function () {
+        updateExpenseRecord(invoice.id, { date: dateInput.value });
+      });
+      top.appendChild(dateInput);
+
+      var amt = document.createElement('span');
+      amt.className = 'invoice-amt';
+      amt.textContent = 'JD ' + Number(invoice.total).toFixed(2);
+      top.appendChild(amt);
+
+      card.appendChild(top);
+
+      var lineWrap = document.createElement('div');
+      lineWrap.className = 'invoice-lineitems';
+      invoice.lineItems.forEach(function (li, idx) {
+        lineWrap.appendChild(buildLineItemRow(invoice, li, idx));
+      });
+      card.appendChild(lineWrap);
+
+      var addLineBtn = document.createElement('button');
+      addLineBtn.type = 'button';
+      addLineBtn.className = 'add-line-btn';
+      addLineBtn.textContent = '+ Add product line';
+      addLineBtn.addEventListener('click', function () {
+        var newItems = invoice.lineItems.concat([{ id: '', product: '', qty: '', price: 0 }]);
+        updateExpenseRecord(invoice.id, { lineItems: newItems });
+      });
+      card.appendChild(addLineBtn);
+
+      var delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'btn btn-danger btn-sm';
+      delBtn.style.marginTop = '10px';
+      delBtn.textContent = 'Delete invoice';
+      delBtn.addEventListener('click', function () {
+        deleteExpenseRecord(invoice.id);
+      });
+      card.appendChild(delBtn);
+
+      return card;
+    }
+
+    function renderInvoiceList() {
+      var root = document.getElementById('expenses-invoice-list');
+      root.innerHTML = '';
+      var ownerInvoices = expensesState.invoices.filter(function (inv) { return inv.ownerId === expensesState.activeOwnerId; });
+      ownerInvoices.slice().sort(function (a, b) { return b.createdAt - a.createdAt; }).forEach(function (inv) {
+        root.appendChild(buildInvoiceCard(inv));
+      });
+    }
+
+    document.getElementById('expenses-add-invoice-btn').addEventListener('click', function () {
+      if (!expensesState.activeOwnerId) return;
+      createExpenseRecord({
+        recordType: 'invoice',
+        ownerId: expensesState.activeOwnerId,
+        name: '',
+        date: OrdersReporting.localDateKey(Date.now()),
+        lineItems: []
+      });
+    });
+
     function renderExpenses() {
       var authHint = document.getElementById('expenses-auth-hint');
       authHint.hidden = !expensesUnauthorized;
       renderOwnerManager();
+      renderOwnerSwitcher();
+      renderOwnerTotal();
+      renderInvoiceList();
     }
 
     function switchAdminTab(tab) {
