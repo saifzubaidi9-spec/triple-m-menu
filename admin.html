@@ -1497,7 +1497,7 @@
       if (webOrdersState.sumWindow === 'day') {
         renderDayOrderList(listRoot, inRange);
       } else {
-        renderGroupedOrderList(listRoot, inRange);
+        renderItemTally(listRoot, inRange);
       }
     }
 
@@ -1514,7 +1514,7 @@
       });
     }
 
-    function renderGroupedOrderList(root, rangeOrders) {
+    function renderItemTally(root, rangeOrders) {
       var paid = OrdersReporting.paidOnly(rangeOrders);
       var tally = OrdersReporting.tallyItems(paid);
       if (tally.length === 0) {
