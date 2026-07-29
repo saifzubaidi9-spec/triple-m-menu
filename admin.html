@@ -416,6 +416,49 @@
       padding: 1px 5px;
       font-size: 0.85em;
     }
+
+    /* Web Orders: calendar */
+    .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; position: relative; }
+    .cal-head button { background: var(--surface-hi); border: 1px solid var(--line); color: var(--cream); border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 1rem; }
+    .cal-month { background: transparent; border: none; font-family: var(--font-display); font-size: 1rem; color: var(--cream); cursor: pointer; padding: 4px 10px; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+    .cal-dow { text-align: center; font-size: 0.65rem; color: var(--cream-faint); padding-bottom: 4px; }
+    .cal-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      border-radius: 8px; font-size: 0.82rem; color: var(--cream-dim); position: relative; cursor: pointer; border: 1px solid transparent;
+    }
+    .cal-day.has-orders::after { content: ''; position: absolute; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--matcha); }
+    .cal-day.dim { color: var(--cream-faint); opacity: 0.35; cursor: default; }
+    .cal-day.today { border-color: var(--amber); }
+    .cal-day.selected { background: var(--amber); color: var(--on-amber); font-weight: 700; }
+    .cal-day.selected::after { background: var(--on-amber); }
+
+    .year-picker {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      background: var(--surface-hi); border: 1px solid var(--line); border-radius: 14px;
+      padding: 12px; z-index: 10; box-shadow: 0 10px 28px rgba(0,0,0,0.45); width: 240px;
+    }
+    .year-picker.hidden { display: none; }
+    .year-picker-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-weight: 700; }
+    .year-picker-head button { background: transparent; border: none; color: var(--cream); font-size: 1rem; cursor: pointer; width: 26px; height: 26px; }
+    .year-picker-months { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .year-picker-months button {
+      background: var(--bg-elevated); border: 1px solid var(--line); color: var(--cream-dim);
+      border-radius: 8px; padding: 6px 0; font-size: 0.75rem; cursor: pointer;
+    }
+    .year-picker-months button.active { background: var(--amber); color: var(--on-amber); border-color: var(--amber); }
+
+    .total-card { background: var(--bg-elevated); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 14px 0; text-align: center; }
+    .total-label { font-size: 0.7rem; color: var(--cream-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+    .total-amount { font-family: var(--font-display); font-size: 2rem; color: var(--amber); margin-top: 4px; }
+    .total-sub { font-size: 0.75rem; color: var(--cream-dim); margin-top: 2px; }
+
+    .tally-row { display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.85rem; }
+    .tally-row:first-child { border-top: none; }
+    .tally-name { color: var(--cream); }
+    .tally-amt { color: var(--matcha); font-weight: 600; }
+    .tally-grand-total { border-top: 2px solid var(--line); margin-top: 6px; padding-top: 12px; font-weight: 700; }
+    .tally-grand-total .tally-amt { color: var(--amber); }
   </style>
 </head>
 <body>
