@@ -1246,11 +1246,20 @@
 
     function updateOrderStatus(id, status) {
       var o = orders.find(function (x) { return x.id === id; });
-      if (o) { o.status = status; renderOrders(); } // optimistic update
-      fetch(ORDERS_ENDPOINT, {
+      if (o) { o.status = status; renderAllOrderViews(); } // optimistic update
+      return fetch(ORDERS_ENDPOINT, {
         method: 'PATCH',
         headers: Object.assign({ 'Content-Type': 'application/json' }, ordersAuthHeaders()),
         body: JSON.stringify({ id: id, status: status })
+      }).then(function () { return fetchOrders(); });
+    }
+
+    function deleteOrder(id) {
+      orders = orders.filter(function (o) { return o.id !== id; }); // optimistic
+      renderAllOrderViews();
+      return fetch(ORDERS_ENDPOINT + '?id=' + encodeURIComponent(id), {
+        method: 'DELETE',
+        headers: ordersAuthHeaders()
       }).then(function () { return fetchOrders(); });
     }
 
