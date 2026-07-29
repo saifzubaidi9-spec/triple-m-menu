@@ -1708,7 +1708,7 @@
       "id": "iced-strawberry",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Strawberry",
+        "en": "Iced Smoothie Strawberry",
         "ar": "ايس سموذي فرولة"
       },
       "description": {
@@ -1729,7 +1729,7 @@
       "id": "iced-berry",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Berry",
+        "en": "Iced Smoothie Berry",
         "ar": "ايس سموذي توت"
       },
       "description": {
@@ -1750,7 +1750,7 @@
       "id": "iced-peach",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Peach",
+        "en": "Iced Smoothie Peach",
         "ar": "ايس سموذي خوخ"
       },
       "description": {
@@ -1771,7 +1771,7 @@
       "id": "iced-passion",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Passion Fruit",
+        "en": "Iced Smoothie Passion Fruit",
         "ar": "ايس سموذي باشن"
       },
       "description": {
@@ -1792,7 +1792,7 @@
       "id": "iced-mango",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Mango",
+        "en": "Iced Smoothie Mango",
         "ar": "ايس سموذي مانجو"
       },
       "description": {
@@ -1810,10 +1810,31 @@
       "hidden": false
     },
     {
+      "id": "iced-smoothie-apple",
+      "category": "iced-drinks",
+      "name": {
+        "en": "Iced Smoothie Apple",
+        "ar": "سموذي تفاح"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 2.5,
+      "emoji": "🍎",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
       "id": "iced-mint",
       "category": "iced-drinks",
       "name": {
-        "en": "Iced Lemon & Mint",
+        "en": "Iced Smoothie Lemon & Mint",
         "ar": "سموذي ليمون نعناع"
       },
       "description": {
@@ -1883,7 +1904,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 3,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -1904,7 +1925,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 1,
+      "price": 2.5,
       "emoji": "🥤",
       "image": null,
       "tint": [
@@ -1925,7 +1946,7 @@
         "en": "",
         "ar": ""
       },
-      "price": 2.5,
+      "price": 1,
       "emoji": "🥤",
       "image": null,
       "tint": [
