@@ -2312,6 +2312,27 @@
       ],
       "badge": null,
       "hidden": false
+    },
+    {
+      "id": "cheese-sauce",
+      "category": "food-sauces",
+      "name": {
+        "en": "Cheese Sauce",
+        "ar": "جبنه"
+      },
+      "description": {
+        "en": "",
+        "ar": ""
+      },
+      "price": 0.5,
+      "emoji": "🍽️",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
     }
   ]
 }
