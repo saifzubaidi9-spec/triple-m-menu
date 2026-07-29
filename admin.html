@@ -429,6 +429,7 @@
         Orders
         <span class="admin-tab-badge" id="orders-badge" hidden>0</span>
       </button>
+      <button class="admin-tab" id="admin-tab-weborders" role="tab" aria-selected="false" type="button">Web Orders</button>
     </div>
 
     <div class="ordering-toggle" id="ordering-toggle-row">
@@ -505,8 +506,36 @@
       <p class="tagline" id="orders-empty-hint" hidden>No orders yet — they'll show up here as students submit them.</p>
       <div id="orders-list"></div>
     </div>
+
+    <div id="view-weborders" hidden>
+      <div class="panel">
+        <div class="cal" id="web-orders-calendar"></div>
+      </div>
+
+      <div class="switcher" id="web-orders-sum-toggle">
+        <button class="tab" type="button" data-window="day">Day</button>
+        <button class="tab" type="button" data-window="week">Week</button>
+        <button class="tab" type="button" data-window="month">Month</button>
+        <button class="tab" type="button" data-window="year">Year</button>
+        <button class="tab" type="button" data-window="custom">Custom</button>
+      </div>
+
+      <div class="row wrap hidden" id="web-orders-custom-range">
+        <input type="date" id="web-orders-from" />
+        <input type="date" id="web-orders-to" />
+      </div>
+
+      <div class="total-card" id="web-orders-total">
+        <div class="total-label"></div>
+        <div class="total-amount"></div>
+        <div class="total-sub"></div>
+      </div>
+
+      <div id="web-orders-list"></div>
+    </div>
   </div>
 
+  <script src="orders-reporting.js"></script>
   <script>
     var OWNER = 'saifzubaidi9-spec';
     var REPO = 'triple-m-menu';
