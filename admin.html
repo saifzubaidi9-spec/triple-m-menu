@@ -2122,6 +2122,55 @@
       downloadExpensesExcel(data, 'All-Owners');
     });
 
+    var EXPENSES_PRINT_CSS = [
+      'body { font-family: Georgia, serif; color: #1E140C; background: #F3E9DC; padding: 40px; }',
+      'h1 { font-size: 1.6rem; margin-bottom: 4px; }',
+      '.pv-sub { color: #6b5c4c; margin-bottom: 24px; font-size: 0.85rem; }',
+      'table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }',
+      'th { text-align: left; border-bottom: 2px solid #1E140C; padding: 6px 8px; }',
+      'td { padding: 5px 8px; border-bottom: 1px solid #ccc; }',
+      '.pv-invoice-row td { font-weight: 700; background: #ece2d2; }',
+      '.pv-lineitem-row td:first-child { color: #6b5c4c; }',
+      'tfoot td { font-weight: 700; border-top: 2px solid #1E140C; border-bottom: none; }',
+      '@media print { body { padding: 0; } }'
+    ].join('\n');
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function openExpensesPrintView(data, label) {
+      var rowsHtml = data.rows.map(function (r) {
+        if (r.kind === 'invoice') {
+          return '<tr class="pv-invoice-row"><td colspan="2">' + escapeHtml(r.name) + '</td><td>' + escapeHtml(r.date) + '</td><td>JD ' + r.amount.toFixed(2) + '</td></tr>';
+        }
+        return '<tr class="pv-lineitem-row"><td>' + r.letter + ')</td><td>' + escapeHtml(r.product) + '</td><td>' + escapeHtml(String(r.qty)) + '</td><td>JD ' + r.amount.toFixed(2) + '</td></tr>';
+      }).join('');
+
+      var html = '<!doctype html><html><head><meta charset="utf-8"><title>Triple M Expenses — ' + escapeHtml(label) + '</title><style>' + EXPENSES_PRINT_CSS + '</style></head><body>' +
+        '<h1>Triple M — Expenses</h1>' +
+        '<p class="pv-sub">' + escapeHtml(label) + ' · exported ' + new Date().toLocaleDateString() + '</p>' +
+        '<table><thead><tr><th>Invoice</th><th>Detail</th><th>Date/Qty</th><th>Amount</th></tr></thead><tbody>' + rowsHtml + '</tbody>' +
+        '<tfoot><tr><td colspan="3">Grand Total</td><td>JD ' + data.grandTotal.toFixed(2) + '</td></tr></tfoot></table>' +
+        '</body></html>';
+
+      var win = window.open('', '_blank');
+      win.document.write(html);
+      win.document.close();
+      win.focus();
+      win.print();
+    }
+
+    document.getElementById('expenses-export-owner-pdf').addEventListener('click', function () {
+      var data = ExpensesExport.flattenForOwner(expensesState.owners, expensesState.invoices, expensesState.activeOwnerId);
+      var owner = expensesState.owners.find(function (o) { return o.id === expensesState.activeOwnerId; });
+      openExpensesPrintView(data, owner ? owner.name : 'Owner');
+    });
+    document.getElementById('expenses-export-all-pdf').addEventListener('click', function () {
+      var data = ExpensesExport.flattenForExport(expensesState.owners, expensesState.invoices);
+      openExpensesPrintView(data, 'All Owners');
+    });
+
     function switchAdminTab(tab) {
       document.getElementById('admin-tab-menu').setAttribute('aria-selected', tab === 'menu' ? 'true' : 'false');
       document.getElementById('admin-tab-orders').setAttribute('aria-selected', tab === 'orders' ? 'true' : 'false');
