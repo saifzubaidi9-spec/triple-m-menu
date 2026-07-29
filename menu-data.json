@@ -676,6 +676,27 @@
       "hidden": false
     },
     {
+      "id": "hot-dog",
+      "category": "food-sandwiches",
+      "name": {
+        "en": "Hot dog",
+        "ar": "هوت دوج"
+      },
+      "description": {
+        "en": "Hot dog sausage, ketchup, mustard, mayonnaise, fresh onions.",
+        "ar": "نقانق هوت دوغ، كاتشب، خردل، مايونيز، بصل طازج."
+      },
+      "price": 0,
+      "emoji": "🍽️",
+      "image": null,
+      "tint": [
+        "#4A2E1B",
+        "#26160C"
+      ],
+      "badge": null,
+      "hidden": false
+    },
+    {
       "id": "potato-wedges",
       "category": "food-sandwiches",
       "name": {
@@ -728,7 +749,7 @@
         "en": "Peri-peri heat, on the side.",
         "ar": "صوص إضافي على الجانب."
       },
-      "price": 0,
+      "price": 0.5,
       "emoji": "🌶️",
       "image": null,
       "tint": [
@@ -749,7 +770,7 @@
         "en": "Creamy ranch, on the side.",
         "ar": "صوص رانش كريمي، على الجانب."
       },
-      "price": 0,
+      "price": 0.5,
       "emoji": "🥣",
       "image": null,
       "tint": [
@@ -770,7 +791,7 @@
         "en": "Classic mayo, on the side.",
         "ar": "مايونيز كلاسيكي، على الجانب."
       },
-      "price": 0,
+      "price": 0.5,
       "emoji": "🥣",
       "image": null,
       "tint": [
@@ -791,7 +812,7 @@
         "en": "Smoky BBQ, on the side.",
         "ar": "صوص باربكيو مدخّن، على الجانب."
       },
-      "price": 0,
+      "price": 0.5,
       "emoji": "🥫",
       "image": null,
       "tint": [
@@ -812,7 +833,7 @@
         "en": "Mexican-style, hot.",
         "ar": "نكهة مكسيكية حارة."
       },
-      "price": 0,
+      "price": 0.5,
       "emoji": "🌶️",
       "image": null,
       "tint": [
@@ -833,7 +854,7 @@
         "en": "Mexican-style, sweet.",
         "ar": "نكهة مكسيكية حلوة."
       },
-      "price": 0,
+      "price": 0.5,
       "emoji": "🍯",
       "image": null,
       "tint": [
@@ -852,9 +873,9 @@
       },
       "description": {
         "en": "Tangy mustard, on the side.",
-        "ar": "خردل لاذع، على الجانب."
+        "ar": "خردل، على الجانب."
       },
-      "price": 0,
+      "price": 0.5,
       "emoji": "🥣",
       "image": null,
       "tint": [
