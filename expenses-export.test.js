@@ -3,8 +3,8 @@ var EE = require('./expenses-export.js');
 
 function sampleData() {
   var owners = [
-    { id: 'O1', name: 'Montaser' },
-    { id: 'O2', name: 'Mahmoud' }
+    { id: 'O1', name: 'Owner A' },
+    { id: 'O2', name: 'Owner B' }
   ];
   var invoices = [
     { id: 'I1', ownerId: 'O1', name: 'Drinks', date: '2026-07-29', total: 55,
@@ -24,24 +24,24 @@ function sampleData() {
   var d = sampleData();
   var result = EE.flattenForExport(d.owners, d.invoices);
   assert.strictEqual(result.grandTotal, 65); // 55 + 10
-  // Montaser's invoice row, then its 2 line items, then Mahmoud's invoice row, then its 1 line item = 5 rows
+  // Owner A's invoice row, then its 2 line items, then Owner B's invoice row, then its 1 line item = 5 rows
   assert.strictEqual(result.rows.length, 5);
   assert.strictEqual(result.rows[0].kind, 'invoice');
-  assert.strictEqual(result.rows[0].owner, 'Montaser');
+  assert.strictEqual(result.rows[0].owner, 'Owner A');
   assert.strictEqual(result.rows[0].amount, 55);
   assert.strictEqual(result.rows[1].kind, 'lineitem');
   assert.strictEqual(result.rows[1].letter, 'A');
   assert.strictEqual(result.rows[1].product, 'Redbull');
   assert.strictEqual(result.rows[2].letter, 'B');
   assert.strictEqual(result.rows[3].kind, 'invoice');
-  assert.strictEqual(result.rows[3].owner, 'Mahmoud');
+  assert.strictEqual(result.rows[3].owner, 'Owner B');
   console.log('flattenForExport: PASS');
 })();
 
 // An owner with zero invoices produces no rows and doesn't break anything.
 (function () {
   var d = sampleData();
-  d.owners.push({ id: 'O3', name: 'Mohammad' }); // no invoices for O3
+  d.owners.push({ id: 'O3', name: 'Owner C' }); // no invoices for O3
   var result = EE.flattenForExport(d.owners, d.invoices);
   assert.strictEqual(result.rows.length, 5); // unchanged
   assert.strictEqual(result.grandTotal, 65);
@@ -54,7 +54,7 @@ function sampleData() {
   var result = EE.flattenForOwner(d.owners, d.invoices, 'O1');
   assert.strictEqual(result.grandTotal, 55);
   assert.strictEqual(result.rows.length, 3); // 1 invoice row + 2 line items
-  assert.strictEqual(result.rows[0].owner, 'Montaser');
+  assert.strictEqual(result.rows[0].owner, 'Owner A');
   console.log('flattenForOwner: PASS');
 })();
 

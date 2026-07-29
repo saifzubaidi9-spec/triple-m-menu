@@ -5,7 +5,7 @@ Date: 2026-07-29
 
 ## Goal
 
-Add a private "Expenses" admin tab where the café's three owners (Montaser, Mahmoud, Mohammad) can log invoices — a name, a date, and a total made up of individual product line items (e.g. "Drinks, 29.07.2026, JD 55.00" containing "A) Redbull, 5 pieces, JD 20.00" and "B) Cola, 20 pieces, JD 35.00"). This is real financial data with real names, so it must never touch the public `triple-m-menu` GitHub repo — it needs the same private, admin-key-gated architecture already proven for order data, not the public `menu-data.json` pattern.
+Add a private "Expenses" admin tab where the café's three owners (referred to here as Owner A, Owner B, Owner C — real names deliberately kept out of this doc, since it lives in the public repo) can log invoices — a name, a date, and a total made up of individual product line items (e.g. "Drinks, 29.07.2026, JD 55.00" containing "A) Redbull, 5 pieces, JD 20.00" and "B) Cola, 20 pieces, JD 35.00"). This is real financial data with real names, so it must never touch the public `triple-m-menu` GitHub repo — it needs the same private, admin-key-gated architecture already proven for order data, not the public `menu-data.json` pattern.
 
 ## Architecture: mirrors the Orders system, does not extend it
 
@@ -40,7 +40,7 @@ Fourth admin tab: **Menu | Orders | Web Orders | Expenses**. Inside:
 
 - **Owner manager panel** (top of the tab): one row per owner with an editable name field and a Hidden/Visible toggle, plus a "+ Add owner" button — identical interaction pattern to the existing menu-category manager, just a simpler one-language name field (no EN/AR pair needed for a person's name).
 - **Export All row**, next to the owner manager (not tied to any single owner tab): "📊 Export Excel" / "📄 Export PDF" buttons covering **every owner's invoices, including hidden owners** — hiding an owner only declutters the tab switcher (same as hiding a menu category declutters the customer-facing tabs), it is a display choice, not a "leave this out of the books" choice, so a financial export must stay complete regardless of which owners are currently shown as tabs.
-- **Owner tab switcher** (Montaser / Mahmoud / Mohammad, or however many are currently visible) — same `.switcher`/`.tab` component already used for Drinks' sub-tabs.
+- **Owner tab switcher** (one tab per owner, however many are currently visible) — same `.switcher`/`.tab` component already used for Drinks' sub-tabs.
 - Per owner: a running total card (sum of that owner's invoice totals), that owner's own "📊 Export Excel" / "📄 Export PDF" buttons, then the list of invoice cards.
 - **Invoice card**: name, date, total, and its line items lettered A/B/C... (product, qty, price), each independently editable; "+ Add product line" appends a new lettered row with the total recalculating live; "🗑 Delete invoice" removes the whole invoice. "+ Add new invoice" (below the list) creates a blank invoice card under the currently active owner, ready to fill in — same instant-blank-row pattern already used for adding a new menu item.
 

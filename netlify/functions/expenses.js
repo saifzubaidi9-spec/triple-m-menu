@@ -122,6 +122,13 @@ async function updateRecord(store, payload) {
   return json(200, updated);
 }
 
+// Deletes any record by id, regardless of recordType — it will remove an
+// owner just as happily as an invoice if ever called with an owner's id.
+// Safe today only because the admin UI never wires a delete button to an
+// owner (owners only ever get the Hidden/Visible toggle). If an "owner
+// delete" action is ever added client-side, it must archive or reassign
+// that owner's invoices first — this function won't stop you from
+// orphaning them.
 async function deleteRecord(store, id) {
   if (!id) return json(400, { error: 'Record id is required.' });
   await store.delete(id);
