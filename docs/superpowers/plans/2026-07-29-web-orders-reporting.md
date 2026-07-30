@@ -1299,7 +1299,7 @@ This creates one real, clearly-marked test order through the live API, drives it
 This script needs the same `ORDERS_ADMIN_KEY` already used earlier this session for API verification. Confirm it's still valid first:
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ZLZJTYQc4St_mMyaeaoW_mUiaJZwtF3i" "https://triple-m-menu.netlify.app/api/orders"
+curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer <ORDERS_ADMIN_KEY value>" "https://triple-m-menu.netlify.app/api/orders"
 ```
 Expected: `200`
 
@@ -1311,7 +1311,7 @@ Create `triple-m-web/verify_web_orders.js`:
 const { chromium } = require('playwright-core');
 
 const BASE = 'https://triple-m-menu.netlify.app';
-const KEY = 'ZLZJTYQc4St_mMyaeaoW_mUiaJZwtF3i';
+const KEY = '<ORDERS_ADMIN_KEY value>'; // paste the real key here when running this — never commit a real key value
 
 async function apiPost(path, body) {
   const res = await fetch(BASE + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
